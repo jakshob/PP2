@@ -66,7 +66,28 @@ namespace WebServer
                 return db.Posts.Find(inputCatId);
             }
         }
-
+        public List<Comment> GetComments(int inputId, int page, int pagesize)
+        {
+            using (var db = new SovaContext())
+            {
+                var commentList = new List<Comment>;
+                foreach (Comment c in db.Comments)
+                {
+                    if (c.PostId == inputId)
+                    {
+                        commentList.Add(c);
+                    }
+                }
+                return commentList;
+            }
+        }
+        public Comment GetComment(int id)
+        {
+            using (var db = new SovaContext())
+            {
+                return db.Comments.Find(id);
+            }
+        }
         public List<Post> GetSearchQuestionsSortedByScore(string searchText) {
 
             using (var db = new SovaContext())
