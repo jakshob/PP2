@@ -14,7 +14,7 @@ namespace DomainModel
         Question GetQuestion(int id);
         List<Question> GetFavorites(string username, int page, int pageSize);
         List<string> GetHistory(string username, int page, int pageSize);
-        List<string> GetRelatedKeywords(string searchText);
+        //List<string> GetPostsWithSameTags(string tags);
         List<string> GetMostUsedSearchTexts(int page, int pageSize);
         Favorite CreateFavoriteQuestion(int questionId, string username);
         Favorite CreateFavoriteQuestion(int questionId, string username, string note);
