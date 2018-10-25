@@ -1,18 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 
 namespace WebServer
 {
-    public class DataService
-    {
+	public class DataService {
 
 
-        public List<Post> GetPosts()
-        {
-            using (var db = new SovaContext())
-            {
-                /* var postList = new List<Post>();
+		public List<Post> GetPosts() {
+			using (var db = new SovaContext()) {
+				/* var postList = new List<Post>();
                  foreach (Post p in db.Posts) {
                      if (string.IsNullOrEmpty(p.Name)){
                          p.Name = " empty ";
@@ -20,51 +18,63 @@ namespace WebServer
                      postList.Add(p);
                  }
                  */
-                return db.Posts.ToList();
-            }
-        }
+				return db.Posts.ToList();
+			}
+		}
 
-        public List<Post> GetQuestions() {
-            using (var db = new SovaContext()) {
+		public List<Post> GetQuestions() {
+			using (var db = new SovaContext()) {
 
-                var postList = new List<Post>();
-                foreach (Post p in db.Posts) {
-                    if (p.Posttype == 1) {
-                        postList.Add(p);
-                    }
-                }
-                return postList;
+				var postList = new List<Post>();
+				foreach (Post p in db.Posts) {
+					if (p.Posttype == 1) {
+						postList.Add(p);
+					}
+				}
+				return postList;
 
-            }
-        }
+			}
+		}
 
-        public List<Post> GetAnswersToQuestions(int inputId)
-        {
-            using (var db = new SovaContext())
-            {
+		public List<Post> GetAnswersToQuestions(int inputId) {
+			using (var db = new SovaContext()) {
 
-                var postList = new List<Post>();
-                foreach (Post p in db.Posts)
-                {
-                    if (p.ParentId == inputId)
-                    {
-                        postList.Add(p);
-                    }
-                }
-                return postList;
+				var postList = new List<Post>();
+				foreach (Post p in db.Posts) {
+					if (p.ParentId == inputId) {
+						postList.Add(p);
+					}
+				}
+				return postList;
 
-            }
-        }
+			}
+		}
 
 
-        public Post GetPost(int inputCatId)
-        {
 
-            using (var db = new SovaContext())
-            {
-                return db.Posts.Find(inputCatId);
-            }
-        }
+		public Post GetPost(int inputCatId) {
+
+			using (var db = new SovaContext()) {
+				return db.Posts.Find(inputCatId);
+			}
+		}
+
+		public List<Comment> GetComments(int inputId, int page, int pagesize) {
+			using (var db = new SovaContext()) {
+				var commentList = new List<Comment>;
+				foreach (Comment c in db.Comments) {
+					if(c.PostId == inputId) {
+						commentList.Add(c);
+					}
+				}
+				return commentList;
+			}
+		}
+		public Comment GetComment(int id) {
+			using (var db = new SovaContext()) {
+				return db.Comments.Find(id);
+			}
+		}
         /*
         public Category CreateCategory(string categoryName, string catDescription)
         {
