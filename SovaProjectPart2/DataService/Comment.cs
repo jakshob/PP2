@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DomainModel
+namespace WebServer
 {
     class Comment
     {
