@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WebServer
 {
-    class Comment
+    public class Comment
     {
         public int Id { get; set; }
         public int QA_UserId { get; set; }
