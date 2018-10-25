@@ -6,5 +6,12 @@ namespace DomainModel
 {
     class Comment
     {
+        public int Id { get; set; }
+        public int QA_UserId { get; set; }
+        public int PostId { get; set; }
+        public Post Post { get; set;  }
+        public string Text { get; set; }
+        public DateTime CreationDate { get; set; }
+        public int Score { get; set; }
     }
 }
