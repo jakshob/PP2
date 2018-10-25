@@ -70,7 +70,7 @@ namespace DomainModel
         {
             using (var db = new SovaContext())
             {
-                var commentList = new List<Comment>;
+                var commentList = new List<Comment>();
                 foreach (Comment c in db.Comments)
                 {
                     if (c.PostId == inputId)

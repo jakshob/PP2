@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DomainModel
 {
-    class Answer
+    public class Answer
     {
         public int Id { get; set; }
         public int QA_UserId { get; set; }
