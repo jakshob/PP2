@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
-namespace WebServer.Tests
+namespace DomainModel.Tests
 {
     public class WebServiceTests
     {

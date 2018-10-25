@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 
-namespace WebServer
+namespace DomainModel
 {
     public class SovaContext : DbContext
     {

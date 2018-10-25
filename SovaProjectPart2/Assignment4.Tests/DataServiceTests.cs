@@ -2,7 +2,7 @@
 using System.Linq;
 using Xunit;
 
-namespace WebServer.Tests
+namespace DomainModel.Tests
 {
     public class DataServiceTests
     {

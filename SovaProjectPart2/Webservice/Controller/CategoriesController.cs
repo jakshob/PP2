@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DomainModel;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using WebServer;
 using Webserver.Models;
 
 namespace WebService.Controllers

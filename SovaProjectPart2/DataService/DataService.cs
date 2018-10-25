@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-namespace WebServer
+namespace DomainModel
 {
     public class DataService
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WebServer
+namespace DomainModel
 {
     public class Post
     {
