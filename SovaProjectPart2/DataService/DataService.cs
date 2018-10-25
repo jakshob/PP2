@@ -66,7 +66,7 @@ namespace DomainModel
                 return db.Posts.Find(inputCatId);
             }
         }
-        public List<Comment> GetComments(int inputId, int page, int pagesize)
+        public List<Comment> GetCommentsByPostId(int inputId, int page, int pagesize)
         {
             using (var db = new SovaContext())
             {
