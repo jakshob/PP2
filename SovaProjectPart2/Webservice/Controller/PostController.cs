@@ -58,7 +58,19 @@ namespace WebService.Controllers
             return Ok(answerPosts);
         }
 
+        [HttpGet("commentById/{id}")]
+        public IActionResult GetComment(int id)
+        {
+            var commentById = _dataService.GetComment(id);
+            return Ok(commentById);
+        }
 
+        [HttpGet("commentsOfOnePost/{id}")]
+        public IActionResult GetComments(int id)
+        {
+            var commentById = _dataService.GetComments(id,0,0);
+            return Ok(commentById);
+        }
 
         /*
                 [HttpPost]
