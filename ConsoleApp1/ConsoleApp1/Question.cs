@@ -14,6 +14,6 @@ namespace DomainModel
         public DateTime CloseDate { get; set; }
         public string Title { get; set; }
         public List<int> LinkPostId { get; set; }
-        public List<string> tags { get; set; } 
+        public List<string> Tags { get; set; } 
     }
 }
