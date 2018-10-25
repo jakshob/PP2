@@ -11,6 +11,6 @@ namespace DomainModel
         public string Body { get; set; }
         public DateTime CreationDate { get; set; }
         public int Score { get; set; }
-        public int ParrentId { get; set; }
+        public int ParentId { get; set; }
     }
 }

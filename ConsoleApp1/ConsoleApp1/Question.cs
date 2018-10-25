@@ -13,7 +13,7 @@ namespace DomainModel
         public int Score { get; set; }
         public DateTime CloseDate { get; set; }
         public string Title { get; set; }
-        public int LinkPostId { get; set; }
-        public List<string> tag { get; set; } 
+        public List<int> LinkPostId { get; set; }
+        public List<string> tags { get; set; } 
     }
 }
