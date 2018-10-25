@@ -50,7 +50,16 @@ namespace WebService.Controllers
             var answerPosts = _dataService.GetAnswersToQuestions(id);
             return Ok(answerPosts);
         }
-        
+
+        [HttpGet("searchSortByScore/{searchInput}")]
+        public IActionResult GetAnswersToQuestion(string searchInput)
+        {
+            var answerPosts = _dataService.GetSearchQuestionsSortedByScore(searchInput);
+            return Ok(answerPosts);
+        }
+
+
+
         /*
                 [HttpPost]
                 public IActionResult AddCategory(CategoryPostAndPutModel category)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 
@@ -65,6 +66,28 @@ namespace WebServer
                 return db.Posts.Find(inputCatId);
             }
         }
+
+        public List<Post> GetSearchQuestionsSortedByScore(string searchText) {
+
+            using (var db = new SovaContext())
+            {
+            
+                //Starter med søgning i navn, senere kan tilføjes body!
+
+                //Liste kun med questions
+                var onlyQuestions = db.Posts.Where(p => p.Posttype == 1);
+                //Liste kun hvor indeholder "searchText" i navnet + gør mindre til comparison
+                var questionsFromSearch = onlyQuestions.Where(p => p.Name.ToLower().Contains(searchText.ToLower()));
+                //output to List<Post>
+                var queSortByScore = questionsFromSearch.OrderBy(x => x.Score).ToList();
+
+                return queSortByScore;
+            }
+            
+        }
+
+        
+
         /*
         public Category CreateCategory(string categoryName, string catDescription)
         {
@@ -77,183 +100,183 @@ namespace WebServer
                              select cat.Id);
                 
                 */
-                /*
+        /*
 
-                Category newCat;
-                db.Categories.Add(newCat = new Category()
-                {
-
-                    //ÆNDRE! Det må ikke være hardcoded
-                    Id = db.Categories.Max(x => x.Id) + 1,
-                    Name = categoryName,
-                    Description = catDescription
-
-                });
-                db.SaveChanges();
-                return newCat;
-            }
-
-        }
-
-        public bool DeleteCategory(int inputCatId)
+        Category newCat;
+        db.Categories.Add(newCat = new Category()
         {
 
-            using (var db = new NorthwindContext())
-            {
+            //ÆNDRE! Det må ikke være hardcoded
+            Id = db.Categories.Max(x => x.Id) + 1,
+            Name = categoryName,
+            Description = catDescription
 
-                var record = db.Categories.FirstOrDefault(r => r.Id == inputCatId);
-                if (record != null)
-                {
+        });
+        db.SaveChanges();
+        return newCat;
+    }
 
-                    var cat = db.Categories.First(c => c.Id == inputCatId);
-                    db.Categories.Remove(cat);
-                    db.SaveChanges();
+}
 
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
+public bool DeleteCategory(int inputCatId)
+{
 
-        }
+    using (var db = new NorthwindContext())
+    {
 
-        public bool UpdateCategory(int inputCatId, string updateName, string updateDesc)
+        var record = db.Categories.FirstOrDefault(r => r.Id == inputCatId);
+        if (record != null)
         {
 
-            using (var db = new NorthwindContext())
+            var cat = db.Categories.First(c => c.Id == inputCatId);
+            db.Categories.Remove(cat);
+            db.SaveChanges();
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+}
+
+public bool UpdateCategory(int inputCatId, string updateName, string updateDesc)
+{
+
+    using (var db = new NorthwindContext())
+    {
+
+        var record = db.Categories.FirstOrDefault(r => r.Id == inputCatId);
+        if (record != null)
+        {
+            var chosenCategory = from cat in db.Categories
+                                 where cat.Id == inputCatId
+                                 select cat;
+
+            foreach (Category cat in chosenCategory)
             {
+                cat.Name = updateName;
+                cat.Description = updateDesc;
+            }
+            db.SaveChanges();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+}
 
-                var record = db.Categories.FirstOrDefault(r => r.Id == inputCatId);
-                if (record != null)
-                {
-                    var chosenCategory = from cat in db.Categories
-                                         where cat.Id == inputCatId
-                                         select cat;
+public Product GetProduct(int inputProductId)
+{
 
-                    foreach (Category cat in chosenCategory)
-                    {
-                        cat.Name = updateName;
-                        cat.Description = updateDesc;
-                    }
-                    db.SaveChanges();
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+    using (var db = new NorthwindContext())
+    {
+        Product tempProduct = db.Products.Find(inputProductId);
+        tempProduct.Category = db.Categories.Find(tempProduct.CategoryId);
+        return tempProduct;
+    }
+
+}
+
+public List<Product> GetProductByName(string searchQueryString)
+{
+    using (var db = new NorthwindContext())
+    {
+        var productList = new List<Product>();
+        foreach (Product p in db.Products)
+        {
+            if (p.Name.ToLower().Contains(searchQueryString))
+            {
+                productList.Add(p);
             }
         }
+        return productList;
+    }
+}
 
-        public Product GetProduct(int inputProductId)
+public List<Product> GetProductByCategory(int inputCategoryId)
+{
+
+    using (var db = new NorthwindContext())
+    {
+
+        //OrderBy fordi databasen var lidt fucked med underlige tegn og rækkefølger..
+        var listByCategory = db.Products.OrderBy(x => x.Id)
+            .Where(p => p.CategoryId == inputCategoryId);
+
+
+        foreach (Product prod in listByCategory)
         {
 
-            using (var db = new NorthwindContext())
-            {
-                Product tempProduct = db.Products.Find(inputProductId);
-                tempProduct.Category = db.Categories.Find(tempProduct.CategoryId);
-                return tempProduct;
-            }
-
+            prod.Category = db.Categories.Find(prod.CategoryId);
         }
 
-        public List<Product> GetProductByName(string searchQueryString)
+        var outputListByCategory = listByCategory.ToList();
+
+
+        return outputListByCategory;
+    }
+
+}
+
+public Order GetOrder(int inputOrderId)
+{
+
+    using (var db = new NorthwindContext())
+    {
+        Order tempOrder = db.Orders.Find(inputOrderId);
+        tempOrder.OrderDetails = GetOrderDetailsByOrderId(inputOrderId);
+        return tempOrder;
+    }
+}
+
+public List<OrderDetails> GetOrderDetailsByOrderId(int inputOrderId)
+{
+    using (var db = new NorthwindContext())
+    {
+        var tempList = db.OrderDetailsTable.Where(x => x.OrderId == inputOrderId).ToList();
+        foreach (OrderDetails ordet in tempList)
         {
-            using (var db = new NorthwindContext())
-            {
-                var productList = new List<Product>();
-                foreach (Product p in db.Products)
-                {
-                    if (p.Name.ToLower().Contains(searchQueryString))
-                    {
-                        productList.Add(p);
-                    }
-                }
-                return productList;
-            }
+            ordet.Product = db.Products.Find(ordet.ProductId);
+            ordet.Order = db.Orders.Find(ordet.OrderId);
+            ordet.Product.Category = db.Categories.Find(ordet.Product.CategoryId);
         }
+        return tempList;
+    }
+}
 
-        public List<Product> GetProductByCategory(int inputCategoryId)
+public List<OrderDetails> GetOrderDetailsByProductId(int inputProductId)
+{
+    using (var db = new NorthwindContext())
+    {
+        var tempList = db.OrderDetailsTable.Where(x => x.ProductId == inputProductId).OrderBy(x => x.OrderId).ToList();
+        foreach (OrderDetails ordet in tempList)
         {
-
-            using (var db = new NorthwindContext())
-            {
-
-                //OrderBy fordi databasen var lidt fucked med underlige tegn og rækkefølger..
-                var listByCategory = db.Products.OrderBy(x => x.Id)
-                    .Where(p => p.CategoryId == inputCategoryId);
-
-
-                foreach (Product prod in listByCategory)
-                {
-
-                    prod.Category = db.Categories.Find(prod.CategoryId);
-                }
-
-                var outputListByCategory = listByCategory.ToList();
-
-
-                return outputListByCategory;
-            }
-
+            ordet.Product = db.Products.Find(ordet.ProductId);
+            ordet.Order = db.Orders.Find(ordet.OrderId);
+            ordet.Product.Category = db.Categories.Find(ordet.Product.CategoryId);
         }
+        return tempList;
+    }
+}
 
-        public Order GetOrder(int inputOrderId)
+public List<Order> GetOrders()
+{
+    using (var db = new NorthwindContext())
+    {
+        var tempList = new List<Order>();
+        foreach (Order ord in db.Orders)
         {
-
-            using (var db = new NorthwindContext())
-            {
-                Order tempOrder = db.Orders.Find(inputOrderId);
-                tempOrder.OrderDetails = GetOrderDetailsByOrderId(inputOrderId);
-                return tempOrder;
-            }
+            var tempOrd = GetOrder(ord.Id);
+            tempList.Add(tempOrd);
         }
-
-        public List<OrderDetails> GetOrderDetailsByOrderId(int inputOrderId)
-        {
-            using (var db = new NorthwindContext())
-            {
-                var tempList = db.OrderDetailsTable.Where(x => x.OrderId == inputOrderId).ToList();
-                foreach (OrderDetails ordet in tempList)
-                {
-                    ordet.Product = db.Products.Find(ordet.ProductId);
-                    ordet.Order = db.Orders.Find(ordet.OrderId);
-                    ordet.Product.Category = db.Categories.Find(ordet.Product.CategoryId);
-                }
-                return tempList;
-            }
-        }
-
-        public List<OrderDetails> GetOrderDetailsByProductId(int inputProductId)
-        {
-            using (var db = new NorthwindContext())
-            {
-                var tempList = db.OrderDetailsTable.Where(x => x.ProductId == inputProductId).OrderBy(x => x.OrderId).ToList();
-                foreach (OrderDetails ordet in tempList)
-                {
-                    ordet.Product = db.Products.Find(ordet.ProductId);
-                    ordet.Order = db.Orders.Find(ordet.OrderId);
-                    ordet.Product.Category = db.Categories.Find(ordet.Product.CategoryId);
-                }
-                return tempList;
-            }
-        }
-
-        public List<Order> GetOrders()
-        {
-            using (var db = new NorthwindContext())
-            {
-                var tempList = new List<Order>();
-                foreach (Order ord in db.Orders)
-                {
-                    var tempOrd = GetOrder(ord.Id);
-                    tempList.Add(tempOrd);
-                }
-                return tempList;
-            }
-        }
-        */
+        return tempList;
+    }
+}
+*/
     }
 }
