@@ -12,11 +12,11 @@ namespace WebService.Controllers
 {
     [Route("api/posts")]
     [ApiController]
-    public class CategoriesController : Controller
+    public class PostController : Controller
     {
         DataService _dataService;
 
-        public CategoriesController(DataService dataService)
+        public PostController(DataService dataService)
         {
             _dataService = dataService;
         }
