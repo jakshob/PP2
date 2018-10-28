@@ -100,7 +100,7 @@ namespace DomainModel
                 //Liste kun hvor indeholder "searchText" i navnet + gør mindre til comparison
                 var questionsFromSearch = onlyQuestions.Where(p => p.Name.ToLower().Contains(searchText.ToLower()));
                 //output to List<Post>
-                var queSortByScore = questionsFromSearch.OrderBy(x => x.Score).ToList();
+                var queSortByScore = questionsFromSearch.OrderByDescending(x => x.Score).ToList();
 
                 return queSortByScore;
             }
