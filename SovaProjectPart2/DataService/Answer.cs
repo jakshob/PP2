@@ -4,13 +4,10 @@ using System.Text;
 
 namespace DomainModel
 {
-    public class Answer
+    public class Answer : Post
     {
-        public int Id { get; set; }
         public int QA_UserId { get; set; }
-        public string Body { get; set; }
         public DateTime CreationDate { get; set; }
-        public int Score { get; set; }
         public int ParentId { get; set; }
 
 		//public Question Question { get; set; }

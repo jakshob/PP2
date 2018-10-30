@@ -24,8 +24,6 @@ namespace DomainModel
         {
             base.OnModelCreating(modelBuilder);
 
-            //Fra Allan - Modellering:
-
             //Comment
             modelBuilder.Entity<Comment>().ToTable("comment");
             modelBuilder.Entity<Comment>().Property(x => x.Id).HasColumnName("id");
@@ -56,7 +54,7 @@ namespace DomainModel
             modelBuilder.Entity<QA_User>().Property(x => x.CreationDate).HasColumnName("creationdate");
             modelBuilder.Entity<QA_User>().Property(x => x.Location).HasColumnName("location");
             modelBuilder.Entity<QA_User>().Property(x => x.Age).HasColumnName("age");
-
+        /*
             //Questions
             modelBuilder.Entity<Question>().ToTable("questions");
             modelBuilder.Entity<Question>().Property(x => x.Id).HasColumnName("id");
@@ -74,12 +72,33 @@ namespace DomainModel
             modelBuilder.Entity<Answer>().Property(x => x.CreationDate).HasColumnName("creationdate");
             modelBuilder.Entity<Answer>().Property(x => x.Score).HasColumnName("score");
             modelBuilder.Entity<Answer>().Property(x => x.ParentId).HasColumnName("parentid");
-
+        */
             //Sova_User
             modelBuilder.Entity<SOVA_User>().ToTable("users");
             modelBuilder.Entity<SOVA_User>().Property(x => x.Username).HasColumnName("username");
             modelBuilder.Entity<SOVA_User>().Property(x => x.Password).HasColumnName("password");
             modelBuilder.Entity<SOVA_User>().HasKey(x => x.Username);
+
+            //Posts
+            modelBuilder.Entity<Post>().ToTable("post");
+            modelBuilder.Entity<Post>().Property(x => x.Id).HasColumnName("id");
+            modelBuilder.Entity<Post>().Property(x => x.Posttype).HasColumnName("posttype");
+            modelBuilder.Entity<Post>().Property(x => x.Body).HasColumnName("body");
+            modelBuilder.Entity<Post>().Property(x => x.Score).HasColumnName("score");
+            modelBuilder.Entity<Post>().HasDiscriminator(x => x.Posttype)
+                .HasValue<Question>(1)
+                .HasValue<Answer>(2);
+
+            modelBuilder.Entity<Question>().Property(x => x.Name).HasColumnName("title");
+            modelBuilder.Entity<Question>().Property(x => x.QA_UserId).HasColumnName("ownerid");
+            modelBuilder.Entity<Question>().Property(x => x.CreationDate).HasColumnName("creationdate");
+
+            modelBuilder.Entity<Answer>().Property(x => x.QA_UserId).HasColumnName("ownerid");
+            modelBuilder.Entity<Answer>().Property(x => x.CreationDate).HasColumnName("creationdate");
+            modelBuilder.Entity<Answer>().Property(x => x.ParentId).HasColumnName("parentid");
+
+
+
         }
     }
 }
