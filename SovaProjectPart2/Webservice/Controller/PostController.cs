@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using DomainModel;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Webserver.Models;
+using Webservice.Models;
 
 namespace WebService.Controllers
 {
