@@ -111,9 +111,17 @@ namespace DomainModel
             
         }
 
-        public List<string> GetHistory(string username, int page, int pageSize)
+        public List<History> GetHistory(string username, int page, int pageSize)
         {
-            throw new NotImplementedException();
+            using (var db = new SovaContext())
+            {
+                var historyByUser = from h in db.Histories
+                                    where h.SOVA_UserUsername == username
+                                    select h;
+
+                return historyByUser.ToList();
+            }
+            //throw new NotImplementedException();
         }
 
         public List<string> GetMostUsedSearchTexts(int page, int pageSize)
@@ -123,6 +131,28 @@ namespace DomainModel
 
         public List<Question> GetFavorites(string username, int page, int pageSize)
         {
+            /*
+            using (var db = new SovaContext())
+            {
+                //DENNE FUNKTION HAR EN FEJL!!
+                //Select from favorites et postid, som referer til linq posts
+                //output post som questions
+                
+                var favoritesByUser = from h in db.Favorites
+                                    where h.SOVA_UserUsername == username
+                                    select h;
+                List<Question> outputList;
+                foreach (Favorite f in favoritesByUser) {
+
+                var que = db.Questions.Where(x => x.Id == f.PostId).ToList;
+
+                    outputList.Add(que.ToList);
+                    
+                }
+
+                return outputList;
+            }
+            */
             throw new NotImplementedException();
         }
 

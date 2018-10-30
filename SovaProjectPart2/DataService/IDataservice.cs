@@ -16,7 +16,7 @@ namespace DomainModel
         //Answers
         List<Answer> GetAnswersToQuestion(int postId, int page, int pageSize);
         //History
-        List<string> GetHistory(string username, int page, int pageSize);
+        List<History> GetHistory(string username, int page, int pageSize);
         //Search
         List<string> GetMostUsedSearchTexts(int page, int pageSize);
         //Favorites
