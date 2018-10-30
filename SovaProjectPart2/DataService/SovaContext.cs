@@ -15,6 +15,7 @@ namespace DomainModel
         public DbSet<SOVA_User> SOVA_Users { get; set; }
 
 
+        
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -35,9 +36,8 @@ namespace DomainModel
             modelBuilder.Entity<Post>().Property(x => x.Score).HasColumnName("score");
             modelBuilder.Entity<Post>().Property(x => x.ParentId).HasColumnName("parentid");
 
-            //Fra Allan - Modellering:
 
-            //Comment
+        //Comment
             modelBuilder.Entity<Comment>().ToTable("comment");
             modelBuilder.Entity<Comment>().Property(x => x.Id).HasColumnName("id");
             modelBuilder.Entity<Comment>().Property(x => x.PostId).HasColumnName("postid");
@@ -71,4 +71,5 @@ namespace DomainModel
             
         }
     }
+
 }
