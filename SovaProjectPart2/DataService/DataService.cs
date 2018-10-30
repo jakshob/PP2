@@ -39,13 +39,13 @@ namespace DomainModel
             }
         }
 
-        public List<Post> GetAnswersToQuestions(int inputId)
+        public List<Answer> GetAnswersToQuestions(int inputId)
         {
             using (var db = new SovaContext())
             {
 
-                var postList = new List<Post>();
-                foreach (Post p in db.Posts)
+                var postList = new List<Answer>();
+                foreach (Answer p in db.Answers)
                 {
                     if (p.ParentId == inputId)
                     {
@@ -66,7 +66,7 @@ namespace DomainModel
                 return db.Posts.Find(inputCatId);
             }
         }
-        public List<Comment> GetComments(int inputId, int page, int pagesize)
+        public List<Comment> GetCommentsByPostId(int inputId, int page, int pagesize)
         {
             using (var db = new SovaContext())
             {

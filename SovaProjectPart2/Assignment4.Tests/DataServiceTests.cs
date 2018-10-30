@@ -42,10 +42,26 @@ namespace DomainModel.Tests
             var posts = service.GetPost(19);
             Assert.Equal(19, posts.Id);
             Assert.Equal("What is the fastest way to get the value of π?", posts.Name);
-        }
+		}
+
+		[Fact]
+		public void GetOneComment_CheckReturn_OnlyOneComment() {
+			var service = new DataService();
+			var comments = service.GetComment(120);
+			Assert.Equal(120, comments.Id);
+			Assert.Equal(1820, comments.QA_UserId);
+		}
+		
+		[Fact]
+		public void GetAllComments_CheckCount_andFirstAuthorid() {
+			var service = new DataService();
+			var comments = service.GetCommentsByPostId(22106846,0,0);
+			Assert.Equal(10, comments.Count);
+			Assert.Equal(33534974, comments.First().Id);
+		}
 
 
-        /*
+		/*
         [Fact]
         public void GetCategory_ValidId_ReturnsCategoryObject()
         {
@@ -223,5 +239,5 @@ namespace DomainModel.Tests
             Assert.Equal(12, orderDetails.First().Quantity);
         }
 */
-    }
+	}
 }

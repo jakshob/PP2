@@ -15,5 +15,7 @@ namespace DomainModel
         public string Title { get; set; }
         public List<int> LinkPostId { get; set; }
         public List<string> Tags { get; set; }
-    }
+
+		public Post Post { get; set; }
+	}
 }
