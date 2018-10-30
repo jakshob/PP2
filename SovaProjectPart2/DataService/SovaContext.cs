@@ -8,6 +8,8 @@ namespace DomainModel
        
         public DbSet<Post> Posts { get; set; }
 		public DbSet<Comment> Comments { get; set; }
+		public DbSet<Question> Questions { get; set; }
+		public DbSet<Answer> Answers { get; set; }
 
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -27,7 +29,6 @@ namespace DomainModel
             modelBuilder.Entity<Post>().Property(x => x.Posttype).HasColumnName("posttype");
             //modelBuilder.Entity<Post>().Property(x => x.Body).HasColumnName("body");
             modelBuilder.Entity<Post>().Property(x => x.Score).HasColumnName("score");
-            modelBuilder.Entity<Post>().Property(x => x.ParentId).HasColumnName("parentid");
 
 			//Comment
 			modelBuilder.Entity<Comment>().ToTable("comment");
@@ -37,7 +38,6 @@ namespace DomainModel
 			modelBuilder.Entity<Comment>().Property(x => x.QA_UserId).HasColumnName("authorid");
 			modelBuilder.Entity<Comment>().Property(x => x.CreationDate).HasColumnName("creationdate");
 			modelBuilder.Entity<Comment>().Property(x => x.Text).HasColumnName("body");
-			/*
 			//Answer
 			modelBuilder.Entity<Answer>().ToTable("post");
 			modelBuilder.Entity<Answer>().Property(x => x.Id).HasColumnName("id");
@@ -50,7 +50,14 @@ namespace DomainModel
 			modelBuilder.Entity<Question>().Property(x => x.Id).HasColumnName("id");
 			modelBuilder.Entity<Question>().Property(x => x.Title).HasColumnName("title");
 			//modelBuilder.Entity<Post>().Property(x => x.Body).HasColumnName("body");
-			modelBuilder.Entity<Question>().Property(x => x.Score).HasColumnName("score");*/
+			modelBuilder.Entity<Question>().Property(x => x.Score).HasColumnName("score");
+
+			modelBuilder.Entity<Post>().HasOne(p => p.Answer)
+				.WithOne(p => p.Post).HasForeignKey<Answer>(p => p.Id);
+			modelBuilder.Entity<Answer>().HasOne(p => p.Post)
+				.WithOne(p => p.Answer).HasForeignKey<Answer>(p => p.Id);
+			modelBuilder.Entity<Question>().HasOne(p => p.Post)
+				.WithOne(p => p.Question).HasForeignKey<Question>(p => p.Id);
 		}
     }
 }

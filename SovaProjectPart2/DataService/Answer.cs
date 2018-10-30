@@ -12,5 +12,7 @@ namespace DomainModel
         public DateTime CreationDate { get; set; }
         public int Score { get; set; }
         public int ParentId { get; set; }
+
+		public Post Post { get; set; }
     }
 }

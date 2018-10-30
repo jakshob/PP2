@@ -39,13 +39,13 @@ namespace DomainModel
             }
         }
 
-        public List<Post> GetAnswersToQuestions(int inputId)
+        public List<Answer> GetAnswersToQuestions(int inputId)
         {
             using (var db = new SovaContext())
             {
 
-                var postList = new List<Post>();
-                foreach (Post p in db.Posts)
+                var postList = new List<Answer>();
+                foreach (Answer p in db.Answers)
                 {
                     if (p.ParentId == inputId)
                     {
