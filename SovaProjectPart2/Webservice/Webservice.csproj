@@ -20,9 +20,6 @@
   <ItemGroup>
     <Compile Remove="Models\EmptyClass.cs" />
     <Compile Remove="Models\CategoryPostandPutModel.cs" />
-    <Compile Remove="Models\CommentListModel.cs" />
-    <Compile Remove="Models\FavoriteListModel.cs" />
-    <Compile Remove="Models\FavoriteModel.cs" />
     <Compile Remove="Models\EmptyClass.cs" />
   </ItemGroup>
   <ItemGroup>
