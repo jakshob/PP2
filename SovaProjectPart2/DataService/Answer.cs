@@ -13,6 +13,6 @@ namespace DomainModel
         public int Score { get; set; }
         public int ParentId { get; set; }
 
-		public Post Post { get; set; }
+		public Question Question { get; set; }
     }
 }

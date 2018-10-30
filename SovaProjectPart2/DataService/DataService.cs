@@ -9,7 +9,7 @@ namespace DomainModel
     {
 
 
-        public List<Post> GetPosts()
+        public List<Answer> GetAnswers()
         {
             using (var db = new SovaContext())
             {
@@ -21,20 +21,18 @@ namespace DomainModel
                      postList.Add(p);
                  }
                  */
-                return db.Posts.ToList();
+                return db.Answers.ToList();
             }
         }
 
-        public List<Post> GetQuestions() {
+        public List<Question> GetQuestions() {
             using (var db = new SovaContext()) {
 
-                var postList = new List<Post>();
-                foreach (Post p in db.Posts) {
-                    if (p.Posttype == 1) {
-                        postList.Add(p);
-                    }
+                var questionList = new List<Question>();
+                foreach (Question p in db.Questions) {
+					questionList.Add(p);
                 }
-                return postList;
+                return questionList;
 
             }
         }
@@ -44,29 +42,35 @@ namespace DomainModel
             using (var db = new SovaContext())
             {
 
-                var postList = new List<Answer>();
+                var answerList = new List<Answer>();
                 foreach (Answer p in db.Answers)
                 {
                     if (p.ParentId == inputId)
                     {
-                        postList.Add(p);
+                        answerList.Add(p);
                     }
                 }
-                return postList;
+                return answerList;
 
             }
         }
 
 
-        public Post GetPost(int inputCatId)
+        public Answer GetAnswer(int inputCatId)
         {
 
             using (var db = new SovaContext())
             {
-                return db.Posts.Find(inputCatId);
+                return db.Answers.Find(inputCatId);
             }
-        }
-        public List<Comment> GetCommentsByPostId(int inputId, int page, int pagesize)
+		}
+		public Question GetQuestion(int inputCatId) {
+
+			using (var db = new SovaContext()) {
+				return db.Questions.Find(inputCatId);
+			}
+		}
+		public List<Comment> GetCommentsByPostId(int inputId, int page, int pagesize)
         {
             using (var db = new SovaContext())
             {
@@ -88,7 +92,7 @@ namespace DomainModel
                 return db.Comments.Find(id);
             }
         }
-        public List<Post> GetSearchQuestionsSortedByScore(string searchText) {
+        public List<Question> GetSearchQuestionsSortedByScore(string searchText) {
 
             using (var db = new SovaContext())
             {
@@ -96,7 +100,7 @@ namespace DomainModel
                 //Starter med søgning i navn, senere kan tilføjes body!
 
                 //Liste kun med questions
-                var onlyQuestions = db.Posts.Where(p => p.Posttype == 1);
+                var onlyQuestions = db.Questions;
                 //Liste kun hvor indeholder "searchText" i navnet + gør mindre til comparison
                 var questionsFromSearch = onlyQuestions.Where(p => p.Name.ToLower().Contains(searchText.ToLower()));
                 //output to List<Post>
