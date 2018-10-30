@@ -30,18 +30,18 @@ namespace DomainModel.Tests
         public void GetAllPosts_CheckCount_andFirstName()
         {
             var service = new DataService();
-            var posts = service.GetPosts();
-            Assert.Equal(13629, posts.Count);
-            Assert.Equal("What is the fastest way to get the value of π?", posts.First().Name);
+            var questions = service.GetQuestions();
+            Assert.Equal(2237, questions.Count);
+            Assert.Equal("What is the fastest way to get the value of π?", questions.First().Name);
         }
 
         [Fact]
         public void GetOnePost_CheckReturn_OnlyOnePost()
         {
             var service = new DataService();
-            var posts = service.GetPost(19);
-            Assert.Equal(19, posts.Id);
-            Assert.Equal("What is the fastest way to get the value of π?", posts.Name);
+            var questions = service.GetQuestion(19);
+            Assert.Equal(19, questions.Id);
+            Assert.Equal("What is the fastest way to get the value of π?", questions.Name);
 		}
 
 		[Fact]
