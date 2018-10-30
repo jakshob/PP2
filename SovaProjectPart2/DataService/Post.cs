@@ -9,10 +9,10 @@ namespace DomainModel
         public int Id { get; set; }
         public string Name { get; set; }     
         public int Posttype { get; set; }
-        //public string Body { get; set; }
+        public string Body { get; set; }
         public int Score { get; set; }
 
-		public Answer Answer { get; set; }
-		public Question Question { get; set; }
+		//public Answer Answer { get; set; }
+		//public Question Question { get; set; }
 	}
 }
