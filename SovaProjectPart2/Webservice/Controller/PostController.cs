@@ -35,7 +35,7 @@ namespace WebService.Controllers
         {
             var p = _dataService.GetQuestion(id);
             if (p == null) return NotFound();
-            return Ok(p);
+            return Ok(p); 
         }
 
         [HttpGet("answersToQuestion/{id}")]
