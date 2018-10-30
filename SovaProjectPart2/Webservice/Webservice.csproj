@@ -16,4 +16,8 @@
     <ProjectReference Include="..\DataService\DataService.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Models\EmptyClass.cs" />
+    <Compile Remove="Models\CategoryPostandPutModel.cs" />
+  </ItemGroup>
 </Project>
