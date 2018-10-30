@@ -11,7 +11,7 @@ namespace DomainModel.Tests
         [Fact]
         public void Post_Object_HasIdNameAndDescription()
         {
-            var p = new Post();
+            var p = new Question();
             Assert.Equal(0, p.Id);
             Assert.Equal(0, p.Posttype);
             //Assert.Null(p.Body);
