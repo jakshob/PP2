@@ -24,7 +24,7 @@ namespace WebService.Controllers
         [HttpGet]
         public IActionResult GetQuestions()
         {
-            var data = _dataService.GetQuestions();
+            var data = _dataService.GetQuestions(0,0);
 
             return Ok(data);
         }
@@ -41,14 +41,14 @@ namespace WebService.Controllers
         [HttpGet("answersToQuestion/{id}")]
         public IActionResult GetAnswersToQuestion(int id)
         {
-            var answerPosts = _dataService.GetAnswersToQuestions(id);
+            var answerPosts = _dataService.GetAnswersToQuestion(id,0,0);
             return Ok(answerPosts);
         }
 
         [HttpGet("searchQuestionsSortByScore/{searchInput}")]
         public IActionResult GetAnswersToQuestion(string searchInput)
         {
-            var answerPosts = _dataService.GetSearchQuestionsSortedByScore(searchInput);
+            var answerPosts = _dataService.GetSearchQuestionsSortedByScore(searchInput,0,0);
             return Ok(answerPosts);
         }
 
