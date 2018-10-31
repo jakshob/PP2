@@ -91,20 +91,16 @@ namespace DomainModel
             modelBuilder.Entity<Post>().Property(x => x.Posttype).HasColumnName("posttype");
             modelBuilder.Entity<Post>().Property(x => x.Body).HasColumnName("body");
             modelBuilder.Entity<Post>().Property(x => x.Score).HasColumnName("score");
-            modelBuilder.Entity<Post>().HasDiscriminator(x => x.Posttype)
+			modelBuilder.Entity<Post>().Property(x => x.CreationDate).HasColumnName("creationdate");
+			modelBuilder.Entity<Post>().Property(x => x.QA_UserId).HasColumnName("ownerid");
+			modelBuilder.Entity<Post>().HasDiscriminator(x => x.Posttype)
                 .HasValue<Question>(1)
                 .HasValue<Answer>(2);
 
             modelBuilder.Entity<Question>().Property(x => x.Name).HasColumnName("title");
-            modelBuilder.Entity<Question>().Property(x => x.QA_UserId).HasColumnName("ownerid");
-            modelBuilder.Entity<Question>().Property(x => x.CreationDate).HasColumnName("creationdate");
-
-            modelBuilder.Entity<Answer>().Property(x => x.QA_UserId).HasColumnName("ownerid");
-            modelBuilder.Entity<Answer>().Property(x => x.CreationDate).HasColumnName("creationdate");
+			
             modelBuilder.Entity<Answer>().Property(x => x.ParentId).HasColumnName("parentid");
-
-
-
+			
         }
     }
 }
