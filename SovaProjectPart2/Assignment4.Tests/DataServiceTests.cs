@@ -30,7 +30,7 @@ namespace DomainModel.Tests
         public void GetAllPosts_CheckCount_andFirstName()
         {
             var service = new DataService();
-            var questions = service.GetQuestions(0,0);
+            var questions = service.GetQuestions(0,5000);
             Assert.Equal(2237, questions.Count);
             Assert.Equal("What is the fastest way to get the value of π?", questions.First().Name);
         }

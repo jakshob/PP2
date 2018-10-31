@@ -25,10 +25,7 @@ namespace DomainModel
             base.OnModelCreating(modelBuilder);
 
 
-<<<<<<< Updated upstream
-          
-=======
->>>>>>> Stashed changes
+
 
 
             //Fra Allan - Modellering:

@@ -26,13 +26,18 @@ namespace DomainModel
         }
 
         public List<Question> GetQuestions(int page, int pageSize) {
-            using (var db = new SovaContext()) {
+            using (var db = new SovaContext())
+            {
 
-                var questionList = new List<Question>();
+                return db.Questions
+                    .Skip(page * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+
+                /*var questionList = new List<Question>();
                 foreach (Question p in db.Questions) {
 					questionList.Add(p);
-                }
-                return questionList;
+                return questionList;*/
 
             }
         }
@@ -109,6 +114,14 @@ namespace DomainModel
                 return queSortByScore;
             }
             
+        }
+
+        public int GetNumberOfQuestions()
+        {
+            using (var db = new SovaContext())
+            {
+                return db.Questions.Count();
+            }
         }
 
         public List<string> GetHistory(string username, int page, int pageSize)
