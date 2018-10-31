@@ -24,10 +24,6 @@ namespace DomainModel
         {
             base.OnModelCreating(modelBuilder);
 
-
-
-
-
             //Fra Allan - Modellering:
 
             //Comment
