@@ -147,42 +147,65 @@ namespace DomainModel
 
         public List<Question> GetFavorites(string username, int page, int pageSize)
         {
-            /*
+
             using (var db = new SovaContext())
             {
-                //DENNE FUNKTION HAR EN FEJL!!
-                //Select from favorites et postid, som referer til linq posts
-                //output post som questions
-                
-                var favoritesByUser = from h in db.Favorites
-                                    where h.SOVA_UserUsername == username
-                                    select h;
-                List<Question> outputList;
-                foreach (Favorite f in favoritesByUser) {
 
-                var que = db.Questions.Where(x => x.Id == f.PostId).ToList;
+                var ListOfUserFavorites = db.Favorites.Where(x => x.SOVA_UserUsername == username);
+                var listOfQuestions = new List<Question>();
 
-                    outputList.Add(que.ToList);
-                    
+                //Ikke total optimal løsning, men user har få favorites, så kører ikke så mange gange. 
+                foreach (Favorite f in ListOfUserFavorites) {
+                    Question que = db.Questions.Where(x => x.Id == f.PostId).FirstOrDefault();
+                    listOfQuestions.Add(que);
                 }
 
-                return outputList
+                return listOfQuestions
                     .Skip(page * pageSize)
                     .Take(pageSize)
                     .ToList();
             }
-            */
-            throw new NotImplementedException();
+        }
+        public bool CheckIfUsernameExist(string username) {
+
+            using (var db = new SovaContext()) {
+
+                bool doesUsernameExist = db.SOVA_Users.Any(x => x.Username == username);
+
+                return doesUsernameExist;
+            }
+            
         }
 
         public Favorite CreateFavoriteQuestion(int questionId, string username)
         {
-            throw new NotImplementedException();
+            using (var db = new SovaContext())
+            {
+                Favorite record = new Favorite();
+                record.PostId = questionId;
+                record.SOVA_UserUsername = username;
+                db.Favorites.Add(record);
+                db.SaveChanges();
+
+                return record;
+            }
+
         }
 
         public Favorite CreateFavoriteQuestion(int questionId, string username, string note)
         {
-            throw new NotImplementedException();
+            using (var db = new SovaContext())
+            {
+                Favorite record = new Favorite();
+                record.PostId = questionId;
+                record.SOVA_UserUsername = username;
+                record.Note = note;
+                db.Favorites.Add(record);
+                db.SaveChanges();
+
+                return record;
+            }
+
         }
 
         public int GetNumberOfQuestions()
