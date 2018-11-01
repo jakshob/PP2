@@ -59,14 +59,14 @@ namespace WebService.Controllers
         }
 
         [HttpGet("answersToQuestion/{id}")]
-        public IActionResult GetAnswersToQuestion(int id)
+        public IActionResult GetAnswersToQuestion(int id, int page, int pageSize)
         {
-            var answerPosts = _dataService.GetAnswersToQuestion(id,0,0);
+            var answerPosts = _dataService.GetAnswersToQuestion(id,page,pageSize);
             return Ok(answerPosts);
         }
 
         [HttpGet("searchQuestionsSortByScore/{searchInput}")]
-        public IActionResult GetAnswersToQuestion(string searchInput)
+        public IActionResult GetSearchQuestionsSortByScore(string searchInput)
         {
             var answerPosts = _dataService.GetSearchQuestionsSortedByScore(searchInput,0,0);
             return Ok(answerPosts);
@@ -104,6 +104,5 @@ namespace WebService.Controllers
                 ? null
                 : CreateLink(page - 1, pageSize);
         }
-
     }
 }
