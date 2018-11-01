@@ -20,6 +20,7 @@ namespace WebService.Controllers
         {
             _dataService = dataService;
         }
+
         [HttpGet("{username}")]
         public IActionResult GetFavorites(string username)
         {
@@ -27,7 +28,34 @@ namespace WebService.Controllers
             return Ok(favoritesByUsername);
         }
 
-
+        [HttpPut("makeFavorite/{username}/{id}")]
+        public IActionResult CreateFavoriteQuestion(int id, string username)
+        {
+            bool usernameExist = _dataService.CheckIfUsernameExist(username);
+            if (usernameExist)
+            {
+                var newFavorite = _dataService.CreateFavoriteQuestion(id, username);
+                return Ok(newFavorite);
+            }
+            else
+            {
+                return NotFound("Sorry, Username does not exist");
+            }
+        }
+        [HttpPut("makeFavorite/{username}/{id}/{note}")]
+        public IActionResult CreateFavoriteQuestion(int id, string username, string note)
+        {
+            bool usernameExist = _dataService.CheckIfUsernameExist(username);
+            if (usernameExist)
+            {
+                var newFavorite = _dataService.CreateFavoriteQuestion(id, username, note);
+                return Ok(newFavorite);
+            }
+            else
+            {
+                return NotFound("Sorry, Username does not exist");
+            }
+        }
     }
 
 }
