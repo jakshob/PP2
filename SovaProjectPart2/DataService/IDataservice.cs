@@ -24,6 +24,7 @@ namespace DomainModel
         Favorite CreateFavoriteQuestion(int questionId, string username);
         Favorite CreateFavoriteQuestion(int questionId, string username, string note);
         int GetNumberOfQuestions();
+        int GetNumberOfComments();
 
         //List<string> GetPostsWithSameTags(string tags);
 

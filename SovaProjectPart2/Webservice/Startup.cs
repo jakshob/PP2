@@ -46,8 +46,9 @@ namespace Webservice
             {
                 cfg.CreateMap<Question, QuestionModel>();
                 cfg.CreateMap<Question, QuestionListModel>();
-                    //Måske skal nedenstående bruges på QA_User?
-                    //.ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category.Name));
+                cfg.CreateMap<Comment, CommentListModel>();
+                //Måske skal nedenstående bruges på QA_User?
+                //.ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category.Name));
             });
         }
 

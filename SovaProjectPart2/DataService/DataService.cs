@@ -9,6 +9,7 @@ namespace DomainModel
     {
 
 
+        //Denne metode skal vi vel ikke bruge?
         public List<Answer> GetAnswers()
         {
             using (var db = new SovaContext())
@@ -46,7 +47,16 @@ namespace DomainModel
         {
             using (var db = new SovaContext())
             {
+                var query =
+                    from Answer in db.Answers
+                    where Answer.ParentId == inputId
+                    select Answer;
 
+                return query
+                    .Skip(page * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+                /*
                 var answerList = new List<Answer>();
                 foreach (Answer p in db.Answers)
                 {
@@ -56,17 +66,17 @@ namespace DomainModel
                     }
                 }
                 return answerList;
-
+                */
             }
         }
 
 
-        public Answer GetAnswer(int inputCatId)
+        public Answer GetAnswer(int inputId)
         {
 
             using (var db = new SovaContext())
             {
-                return db.Answers.Find(inputCatId);
+                return db.Answers.Find(inputId);
             }
 		}
 		public Question GetQuestion(int inputCatId) {
@@ -75,10 +85,21 @@ namespace DomainModel
 				return db.Questions.Find(inputCatId);
 			}
 		}
-		public List<Comment> GetCommentsByPostId(int inputId, int page, int pagesize)
+		public List<Comment> GetCommentsByPostId(int inputId, int page, int pageSize)
         {
             using (var db = new SovaContext())
             {
+
+                var query =
+                    from Comment in db.Comments
+                    where Comment.PostId == inputId
+                    select Comment;
+
+                return query
+                    .Skip(page * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+                /*
                 var commentList = new List<Comment>();
                 foreach (Comment c in db.Comments)
                 {
@@ -87,7 +108,7 @@ namespace DomainModel
                         commentList.Add(c);
                     }
                 }
-                return commentList;
+                return commentList;*/
             }
         }
         public Comment GetComment(int id)
@@ -147,6 +168,14 @@ namespace DomainModel
         public Favorite CreateFavoriteQuestion(int questionId, string username, string note)
         {
             throw new NotImplementedException();
+        }
+
+        public int GetNumberOfComments()
+        {
+            using (var db = new SovaContext())
+            {
+                return db.Comments.Count();
+            }
         }
     }
 }
