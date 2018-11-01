@@ -89,26 +89,19 @@ namespace DomainModel
         {
             using (var db = new SovaContext())
             {
-
+                /*
                 var query =
                     from Comment in db.Comments
                     where Comment.PostId == inputId
-                    select Comment;
+                    select Comment;*/
+
+                var query = db.Comments.Where(x => x.PostId == inputId);
 
                 return query
                     .Skip(page * pageSize)
                     .Take(pageSize)
                     .ToList();
-                /*
-                var commentList = new List<Comment>();
-                foreach (Comment c in db.Comments)
-                {
-                    if (c.PostId == inputId)
-                    {
-                        commentList.Add(c);
-                    }
-                }
-                return commentList;*/
+               
             }
         }
         public Comment GetComment(int id)
