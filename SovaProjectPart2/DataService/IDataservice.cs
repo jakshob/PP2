@@ -20,12 +20,17 @@ namespace DomainModel
         List<History> GetHistory(string username, int page, int pageSize);
         //Search
         List<string> GetMostUsedSearchTexts(int page, int pageSize);
-        //Favorites
+       //Favorites
         List<Question> GetFavorites(string username, int page, int pageSize);
         Favorite CreateFavoriteQuestion(int questionId, string username);
         Favorite CreateFavoriteQuestion(int questionId, string username, string note);
+
+        //Numbers
         int GetNumberOfQuestions();
         int GetNumberOfComments();
+
+        //Checks
+        bool CheckIfUsernameExist(string username);
 
         SOVA_User GetUser(string username);
         SOVA_User CreateUser(string name, string username, string password, string salt);

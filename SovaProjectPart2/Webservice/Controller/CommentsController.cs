@@ -29,7 +29,7 @@ namespace WebService.Controllers
         }
 
         [HttpGet("fromPost/{id}", Name = nameof(GetCommentsByPostId))]
-        public IActionResult GetCommentsByPostId(int id, int page=0, int pageSize = 5 )
+        public IActionResult GetCommentsByPostId(int id, int page=0, int pageSize=5 )
         {
             var comments = _dataService.GetCommentsByPostId(id, page, pageSize)
                 .Select(CreateCommentListModel);
