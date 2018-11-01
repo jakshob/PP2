@@ -66,7 +66,7 @@ namespace WebService.Controllers
         }
 
         [HttpGet("searchQuestionsSortByScore/{searchInput}")]
-        public IActionResult GetAnswersToQuestion(string searchInput)
+        public IActionResult GetSearchQuestionsSortByScore(string searchInput)
         {
             var answerPosts = _dataService.GetSearchQuestionsSortedByScore(searchInput,0,0);
             return Ok(answerPosts);
@@ -104,6 +104,5 @@ namespace WebService.Controllers
                 ? null
                 : CreateLink(page - 1, pageSize);
         }
-
     }
 }
