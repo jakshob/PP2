@@ -23,7 +23,9 @@ namespace DomainModel
             return _users.FirstOrDefault(x => x.Username == username);
         }
 
-        public SOVA_User CreateUser(string name, string username, string password, string salt)
+
+
+        public SOVA_User CreateUser(string username, string password, string salt)
         {
             var user = new SOVA_User()
             {
@@ -35,8 +37,29 @@ namespace DomainModel
             return user;
         }
 
-    
         ///____________________________________________Her starter den fede kode___________________
+
+
+        public bool doesPasswordMatch(string username, string password)
+        {
+            using (var db = new SovaContext())
+            {
+                bool userMatch = db.SOVA_Users.Any(x => x.Username == username && x.Password == password);
+                return userMatch; 
+            }
+        }
+
+        public void deleteUser(string username, string password)
+        {
+            using (var db = new SovaContext())
+            {
+
+                var user = db.SOVA_Users.Where(x => x.Username == username && x.Password == password).FirstOrDefault();
+                db.SOVA_Users.Remove(user);
+                db.SaveChanges();  
+                
+            }
+        }
 
 
         public List<Answer> GetAnswers()
