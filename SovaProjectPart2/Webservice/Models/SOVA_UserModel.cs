@@ -3,9 +3,9 @@ namespace Webservice.Models
 {
     public class SOVA_UserModel
     {
-        public String Username { get; set; }
-        public String Password { get; set; }
-        public String HistoryUrl { get; set; }
-        public String FavoritesUrl { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string HistoryUrl { get; set; }
+        public string FavoritesUrl { get; set; }
     }
 }
