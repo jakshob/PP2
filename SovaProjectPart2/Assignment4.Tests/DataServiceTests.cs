@@ -60,6 +60,16 @@ namespace DomainModel.Tests
 			Assert.Equal(33534974, comments.First().Id);
 		}
 
+        [Fact]
+        public void GetAllQuestionsByFavorite()
+        {
+            var service = new DataService();
+            var questionsList = service.GetFavorites("Mogens",0,0);
+            Assert.Equal(2, questionsList.Count);
+        //    Assert.Equal(19, questionsList.First().Id);
+        }
+
+
 
 		/*
         [Fact]

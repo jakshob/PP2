@@ -14,17 +14,33 @@ namespace WebService.Controllers
     [ApiController]
     public class FavoritesController : Controller
     {
-        DataService _dataService;
+        IDataService _dataService;
 
-        public FavoritesController(DataService dataService)
+        public FavoritesController(IDataService dataService)
         {
             _dataService = dataService;
         }
+
         [HttpGet("{username}")]
         public IActionResult GetFavorites(string username)
         {
             var favoritesByUsername = _dataService.GetFavorites(username,0,0);
             return Ok(favoritesByUsername);
         }
+        [HttpPost]
+        public IActionResult CreateFavoriteQuestion(int id, string username, string note)
+        {
+            bool usernameExist = _dataService.CheckIfUsernameExist(username);
+            if (usernameExist)
+            {
+                var newFavorite = _dataService.CreateFavoriteQuestion(id, username, note);
+                return Ok(newFavorite);
+            }
+            else
+            {
+                return NotFound("Sorry, Username does not exist");
+            }
+        }
     }
+
 }

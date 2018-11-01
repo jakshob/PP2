@@ -7,7 +7,7 @@ using AutoMapper;
 using DomainModel;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-
+using Webservice.Controller;
 using Webservice.Models;
 
 namespace WebService.Controllers
@@ -16,12 +16,11 @@ namespace WebService.Controllers
     [ApiController]
     public class PostController : Controller
     {
-        private readonly DataService _dataService;
+        private readonly IDataService _dataService;        
 
-        public PostController(DataService dataService)
+        public PostController(IDataService dataService)
         {
-            _dataService = dataService;
-            
+            _dataService = dataService;           
         }
         
         [HttpGet(Name = nameof(GetQuestions))]
@@ -31,17 +30,16 @@ namespace WebService.Controllers
                 .Select(CreateQuestionListModel);
 
             var numberOfItems = _dataService.GetNumberOfQuestions();
-            var numberOfPages = ComputeNumberOfPages(pageSize, numberOfItems);
+            var numberOfPages = HelperController.ComputeNumberOfPages(pageSize, numberOfItems);
             
             var result = new
             {
                 Page = page,
-                First = CreateLink(0, pageSize),
-                Next = CreateLinkToNextPage(page, pageSize, numberOfPages),
-                Prev = CreateLinkToPrevPage(page, pageSize),
+                First = HelperController.CreateLink(0, pageSize, nameof(GetQuestions), Url),
+                Next = HelperController.CreateLinkToNextPage(page, pageSize, numberOfPages, nameof(GetQuestions), Url),
+                Prev = HelperController.CreateLinkToPrevPage(page, pageSize, nameof(GetQuestions), Url),
                 Items = questions
             };
-
             return Ok(result);
         }
         
@@ -59,9 +57,9 @@ namespace WebService.Controllers
         }
 
         [HttpGet("answersToQuestion/{id}")]
-        public IActionResult GetAnswersToQuestion(int id)
+        public IActionResult GetAnswersToQuestion(int id, int page, int pageSize)
         {
-            var answerPosts = _dataService.GetAnswersToQuestion(id,0,0);
+            var answerPosts = _dataService.GetAnswersToQuestion(id,page,pageSize);
             return Ok(answerPosts);
         }
 
@@ -79,30 +77,6 @@ namespace WebService.Controllers
             var model = Mapper.Map<QuestionListModel>(question);
             model.Url = Url.Link(nameof(GetQuestionById), new { id = question.Id });
             return model;
-        }
-
-        private static int ComputeNumberOfPages(int pageSize, int numberOfItems)
-        {
-            return (int)Math.Ceiling((double)numberOfItems / pageSize);
-        }
-
-        private string CreateLink(int page, int pageSize)
-        {
-            return Url.Link(nameof(GetQuestions), new { page, pageSize });
-        }
-
-        private string CreateLinkToNextPage(int page, int pageSize, int numberOfPages)
-        {
-            return page >= numberOfPages - 1
-                ? null
-                : CreateLink(page = page + 1, pageSize);
-        }
-
-        private string CreateLinkToPrevPage(int page, int pageSize)
-        {
-            return page == 0
-                ? null
-                : CreateLink(page - 1, pageSize);
         }
     }
 }

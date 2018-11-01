@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,6 +7,36 @@ namespace DomainModel
 {
     public class DataService : IDataService
     {
+        //_____________________Hardcoded USER________MEGA NEDEREN KODE_____________
+        readonly List<SOVA_User> _users = new List<SOVA_User>();
+
+        public DataService()
+        {
+            _users.Add(new SOVA_User()
+            {
+               Username = "ObiWan.Kenobi"
+            });
+        }
+
+        public SOVA_User GetUser(string username)
+        {
+            return _users.FirstOrDefault(x => x.Username == username);
+        }
+
+        public SOVA_User CreateUser(string name, string username, string password, string salt)
+        {
+            var user = new SOVA_User()
+            {
+                Username = username,
+                Password = password,
+                Salt = salt
+            };
+            _users.Add(user);
+            return user;
+        }
+
+    
+        ///____________________________________________Her starter den fede kode___________________
 
 
         public List<Answer> GetAnswers()
@@ -17,6 +46,7 @@ namespace DomainModel
                 return db.Answers.ToList();
             }
         }
+
 
         public List<Question> GetQuestions(int page, int pageSize) {
 
@@ -102,53 +132,82 @@ namespace DomainModel
             {
 
                 var historyByUser = db.Histories.Where(h => h.SOVA_UserUsername == username); 
-                return historyByUser.ToList();
+                return historyByUser
+                    .Skip(page * pageSize)
+
+                    .Take(page)
+                    .ToList();
             }
         }
 
         public List<string> GetMostUsedSearchTexts(int page, int pageSize)
         {
-            throw new NotImplementedException();
+            using (var db = new SovaContext()){
+
+                var listOfSearchWords = db.Histories.Select(x => x.SearchText).ToList();
+
+                return listOfSearchWords;
+                /*.Skip(page * pageSize)
+                    .Take(pageSize)
+                    .ToList();*/
+            }
         }
 
         public List<Question> GetFavorites(string username, int page, int pageSize)
         {
-            /*
             using (var db = new SovaContext())
             {
-                //DENNE FUNKTION HAR EN FEJL!!
-                //Select from favorites et postid, som referer til linq posts
-                //output post som questions
-                
-                var favoritesByUser = from h in db.Favorites
-                                    where h.SOVA_UserUsername == username
-                                    select h;
-                List<Question> outputList;
-                foreach (Favorite f in favoritesByUser) {
 
-                var que = db.Questions.Where(x => x.Id == f.PostId).ToList;
+                var listOfQuestions = db.Favorites
+                    .Where(x => x.SOVA_UserUsername == username)
+                    .Join(db.Questions, x => x.PostId, y => y.Id, (x, y) => y);
 
-                    outputList.Add(que.ToList);
-                    
-                }
-
-                return outputList
-                    .Skip(page * pageSize)
+                return listOfQuestions.ToList();
+                /*.Skip(page * pageSize)
                     .Take(pageSize)
-                    .ToList();
+                    .ToList();*/
             }
-            */
-            throw new NotImplementedException();
+        }
+        public bool CheckIfUsernameExist(string username) {
+
+            using (var db = new SovaContext()) {
+
+                bool doesUsernameExist = db.SOVA_Users.Any(x => x.Username == username);
+
+                return doesUsernameExist;
+            }
+            
         }
 
         public Favorite CreateFavoriteQuestion(int questionId, string username)
         {
-            throw new NotImplementedException();
+            using (var db = new SovaContext())
+            {
+                Favorite record = new Favorite();
+                record.PostId = questionId;
+                record.SOVA_UserUsername = username;
+                db.Favorites.Add(record);
+                db.SaveChanges();
+
+                return record;
+            }
+
         }
 
         public Favorite CreateFavoriteQuestion(int questionId, string username, string note)
         {
-            throw new NotImplementedException();
+            using (var db = new SovaContext())
+            {
+                Favorite record = new Favorite();
+                record.PostId = questionId;
+                record.SOVA_UserUsername = username;
+                record.Note = note;
+                db.Favorites.Add(record);
+                db.SaveChanges();
+
+                return record;
+            }
+
         }
 
         public int GetNumberOfQuestions()
@@ -167,32 +226,7 @@ namespace DomainModel
                 return db.Comments.Count();
             }
         }
-		
-		public List<Question> SearchSova(string sinput, string userName, int pageSize) {
-			using (var db = new SovaContext()) {
-				var resultList = db.Questions.Where(x => x.Body.Contains(sinput) | x.Name.Contains(sinput));
-				History history = new History {
-					SOVA_UserUsername = userName,
-					CreationDate = DateTime.Now,
-					SearchText = sinput
-				};
-				db.Histories.Add(history);
-				db.SaveChanges();
 
-				return resultList
-					.Take(pageSize)
-					.ToList();
-			}
-		}
-		public List<Question> TraverseSearchResults(string sinput, string userName, int page, int pageSize) {
-			using (var db = new SovaContext()) {
-				var resultList = db.Questions.Where(x => x.Body.Contains(sinput) | x.Name.Contains(sinput));
-
-				return resultList
-					.Skip(page * pageSize)
-					.Take(pageSize)
-					.ToList();
-			}
-		}
-	}
+       
+    }
 }
