@@ -15,9 +15,9 @@ namespace WebService.Controllers
     [ApiController]
     public class CommentsController : Controller
     {
-        DataService _dataService;
+        IDataService _dataService;
 
-        public CommentsController(DataService dataService)
+        public CommentsController(IDataService dataService)
         {
             _dataService = dataService;
         }

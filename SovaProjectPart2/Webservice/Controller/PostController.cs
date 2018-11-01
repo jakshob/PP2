@@ -16,9 +16,9 @@ namespace WebService.Controllers
     [ApiController]
     public class PostController : Controller
     {
-        private readonly DataService _dataService;
+        private readonly IDataService _dataService;
 
-        public PostController(DataService dataService)
+        public PostController(IDataService dataService)
         {
             _dataService = dataService;
             

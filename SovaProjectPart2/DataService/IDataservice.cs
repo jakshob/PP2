@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
+
 namespace DomainModel
 {
     public interface IDataService
@@ -25,6 +26,10 @@ namespace DomainModel
         Favorite CreateFavoriteQuestion(int questionId, string username, string note);
         int GetNumberOfQuestions();
         int GetNumberOfComments();
+
+        SOVA_User GetUser(string username);
+        SOVA_User CreateUser(string name, string username, string password, string salt);
+        
 
         //List<string> GetPostsWithSameTags(string tags);
 
