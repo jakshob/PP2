@@ -59,9 +59,9 @@ namespace WebService.Controllers
         }
 
         [HttpGet("answersToQuestion/{id}")]
-        public IActionResult GetAnswersToQuestion(int id)
+        public IActionResult GetAnswersToQuestion(int id, int page, int pageSize)
         {
-            var answerPosts = _dataService.GetAnswersToQuestion(id,0,0);
+            var answerPosts = _dataService.GetAnswersToQuestion(id,page,pageSize);
             return Ok(answerPosts);
         }
 
