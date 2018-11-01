@@ -13,27 +13,15 @@ namespace DomainModel
         {
             using (var db = new SovaContext())
             {
-                /* var postList = new List<Post>();
-                 foreach (Post p in db.Posts) {
-                     if (string.IsNullOrEmpty(p.Name)){
-                         p.Name = " empty ";
-                     }
-                     postList.Add(p);
-                 }
-                 */
                 return db.Answers.ToList();
             }
         }
 
         public List<Question> GetQuestions(int page, int pageSize) {
-            using (var db = new SovaContext()) {
 
-                var questionList = new List<Question>();
-                foreach (Question p in db.Questions) {
-					questionList.Add(p);
-                }
-                return questionList;
-
+            using (var db = new SovaContext())
+            {
+                return db.Questions.ToList();
             }
         }
 
@@ -41,17 +29,10 @@ namespace DomainModel
         {
             using (var db = new SovaContext())
             {
+                var answerList = db.Answers.Where(x => x.ParentId == inputId);
+                // Skal vi lave sort by score???
 
-                var answerList = new List<Answer>();
-                foreach (Answer p in db.Answers)
-                {
-                    if (p.ParentId == inputId)
-                    {
-                        answerList.Add(p);
-                    }
-                }
-                return answerList;
-
+                return answerList.ToList();
             }
         }
 
@@ -74,15 +55,9 @@ namespace DomainModel
         {
             using (var db = new SovaContext())
             {
-                var commentList = new List<Comment>();
-                foreach (Comment c in db.Comments)
-                {
-                    if (c.PostId == inputId)
-                    {
-                        commentList.Add(c);
-                    }
-                }
-                return commentList;
+                var commentList = db.Comments.Where(x => x.PostId == inputId);
+
+                return commentList.ToList();
             }
         }
         public Comment GetComment(int id)
@@ -96,32 +71,26 @@ namespace DomainModel
 
             using (var db = new SovaContext())
             {
-            
+                // OBS!!! SØGER IKKE I BODY!!
                 //Starter med søgning i navn, senere kan tilføjes body!
 
-                //Liste kun med questions
-                var onlyQuestions = db.Questions;
                 //Liste kun hvor indeholder "searchText" i navnet + gør mindre til comparison
-                var questionsFromSearch = onlyQuestions.Where(p => p.Name.ToLower().Contains(searchText.ToLower()));
+                var questionsFromSearch = db.Questions.Where(p => p.Name.ToLower().Contains(searchText.ToLower()));
                 //output to List<Post>
                 var queSortByScore = questionsFromSearch.OrderByDescending(x => x.Score).ToList();
 
                 return queSortByScore;
-            }
-            
+            }    
         }
 
         public List<History> GetHistory(string username, int page, int pageSize)
         {
             using (var db = new SovaContext())
             {
-                var historyByUser = from h in db.Histories
-                                    where h.SOVA_UserUsername == username
-                                    select h;
 
+                var historyByUser = db.Histories.Where(h => h.SOVA_UserUsername == username); 
                 return historyByUser.ToList();
             }
-            //throw new NotImplementedException();
         }
 
         public List<string> GetMostUsedSearchTexts(int page, int pageSize)
