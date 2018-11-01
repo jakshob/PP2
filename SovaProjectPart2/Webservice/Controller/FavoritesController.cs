@@ -14,9 +14,9 @@ namespace WebService.Controllers
     [ApiController]
     public class FavoritesController : Controller
     {
-        DataService _dataService;
+        IDataService _dataService;
 
-        public FavoritesController(DataService dataService)
+        public FavoritesController(IDataService dataService)
         {
             _dataService = dataService;
         }

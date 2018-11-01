@@ -7,6 +7,36 @@ namespace DomainModel
 {
     public class DataService : IDataService
     {
+        //_____________________Hardcoded USER________MEGA NEDEREN KODE_____________
+        readonly List<SOVA_User> _users = new List<SOVA_User>();
+
+        public DataService()
+        {
+            _users.Add(new SOVA_User()
+            {
+               Username = "ObiWan.Kenobi"
+            });
+        }
+
+        public SOVA_User GetUser(string username)
+        {
+            return _users.FirstOrDefault(x => x.Username == username);
+        }
+
+        public SOVA_User CreateUser(string name, string username, string password, string salt)
+        {
+            var user = new SOVA_User()
+            {
+                Username = username,
+                Password = password,
+                Salt = salt
+            };
+            _users.Add(user);
+            return user;
+        }
+
+    
+        ///____________________________________________Her starter den fede kode___________________
 
 
         public List<Answer> GetAnswers()
@@ -16,6 +46,7 @@ namespace DomainModel
                 return db.Answers.ToList();
             }
         }
+
 
         public List<Question> GetQuestions(int page, int pageSize) {
 
@@ -101,7 +132,11 @@ namespace DomainModel
             {
 
                 var historyByUser = db.Histories.Where(h => h.SOVA_UserUsername == username); 
-                return historyByUser.ToList();
+                return historyByUser
+                    .Skip(page * pageSize)
+
+                    .Take(page)
+                    .ToList();
             }
         }
 
@@ -192,5 +227,6 @@ namespace DomainModel
             }
         }
 
+       
     }
 }
