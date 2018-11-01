@@ -21,7 +21,10 @@ namespace DomainModel
 
             using (var db = new SovaContext())
             {
-                return db.Questions.ToList();
+                return db.Questions
+                    .Skip(page * pageSize)
+                    .Take(pageSize)
+                    .ToList();
             }
         }
 
@@ -32,32 +35,38 @@ namespace DomainModel
                 var answerList = db.Answers.Where(x => x.ParentId == inputId);
                 // Skal vi lave sort by score???
 
-                return answerList.ToList();
+                return answerList
+                    .Skip(page * pageSize)
+                    .Take(pageSize)
+                    .ToList();
             }
         }
 
 
-        public Answer GetAnswer(int inputCatId)
+        public Answer GetAnswer(int inputId)
         {
 
             using (var db = new SovaContext())
             {
-                return db.Answers.Find(inputCatId);
+                return db.Answers.Find(inputId);
             }
 		}
-		public Question GetQuestion(int inputCatId) {
+		public Question GetQuestion(int inputId) {
 
 			using (var db = new SovaContext()) {
-				return db.Questions.Find(inputCatId);
+				return db.Questions.Find(inputId);
 			}
 		}
-		public List<Comment> GetCommentsByPostId(int inputId, int page, int pagesize)
+		public List<Comment> GetCommentsByPostId(int inputId, int page, int pageSize)
         {
             using (var db = new SovaContext())
             {
                 var commentList = db.Comments.Where(x => x.PostId == inputId);
 
-                return commentList.ToList();
+                return commentList
+                    .Skip(page * pageSize)
+                    .Take(pageSize)
+                    .ToList();
             }
         }
         public Comment GetComment(int id)
@@ -79,7 +88,10 @@ namespace DomainModel
                 //output to List<Post>
                 var queSortByScore = questionsFromSearch.OrderByDescending(x => x.Score).ToList();
 
-                return queSortByScore;
+                return queSortByScore
+                    .Skip(page * pageSize)
+                    .Take(pageSize)
+                    .ToList();
             }    
         }
 
@@ -119,7 +131,10 @@ namespace DomainModel
                     
                 }
 
-                return outputList;
+                return outputList
+                    .Skip(page * pageSize)
+                    .Take(pageSize)
+                    .ToList();
             }
             */
             throw new NotImplementedException();
@@ -134,5 +149,23 @@ namespace DomainModel
         {
             throw new NotImplementedException();
         }
+
+        public int GetNumberOfQuestions()
+        {
+            using (var db = new SovaContext())
+            {
+                return db.Questions.Count();
+            }
+        }
+
+
+        public int GetNumberOfComments()
+        {
+            using (var db = new SovaContext())
+            {
+                return db.Comments.Count();
+            }
+        }
+
     }
 }
