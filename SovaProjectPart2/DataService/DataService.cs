@@ -107,28 +107,30 @@ namespace DomainModel
 
         public List<string> GetMostUsedSearchTexts(int page, int pageSize)
         {
-            throw new NotImplementedException();
+            using (var db = new SovaContext()){
+
+                var listOfSearchWords = db.Histories.Select(x => x.SearchText).ToList();
+
+                return listOfSearchWords;
+                /*.Skip(page * pageSize)
+                    .Take(pageSize)
+                    .ToList();*/
+            }
         }
 
         public List<Question> GetFavorites(string username, int page, int pageSize)
         {
-
             using (var db = new SovaContext())
             {
 
-                var ListOfUserFavorites = db.Favorites.Where(x => x.SOVA_UserUsername == username);
-                var listOfQuestions = new List<Question>();
+                var listOfQuestions = db.Favorites
+                    .Where(x => x.SOVA_UserUsername == username)
+                    .Join(db.Questions, x => x.PostId, y => y.Id, (x, y) => y);
 
-                //Ikke total optimal løsning, men user har få favorites, så kører ikke så mange gange. 
-                foreach (Favorite f in ListOfUserFavorites) {
-                    Question que = db.Questions.Where(x => x.Id == f.PostId).FirstOrDefault();
-                    listOfQuestions.Add(que);
-                }
-
-                return listOfQuestions
-                    .Skip(page * pageSize)
+                return listOfQuestions.ToList();
+                /*.Skip(page * pageSize)
                     .Take(pageSize)
-                    .ToList();
+                    .ToList();*/
             }
         }
         public bool CheckIfUsernameExist(string username) {
