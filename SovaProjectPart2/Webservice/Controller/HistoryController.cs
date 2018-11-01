@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DomainModel;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Webservice;
 using Webservice.Models;
 
 namespace WebService.Controllers
@@ -14,16 +15,16 @@ namespace WebService.Controllers
     [ApiController]
     public class HistoryController : Controller
     {
-        DataService _dataService;
+        IDataService _dataService;
 
-        public HistoryController(DataService dataService)
+        public HistoryController(IDataService dataService)
         {
             _dataService = dataService;
         }
-        [HttpGet("{username}")]
-        public IActionResult GetHistory(string username)
+        [HttpGet]
+        public IActionResult GetHistory()
         {
-            var historyByUsername = _dataService.GetHistory(username,0,0);
+            var historyByUsername = _dataService.GetHistory(Program.CurrentUsername,0,5);
             return Ok(historyByUsername);
         }
 

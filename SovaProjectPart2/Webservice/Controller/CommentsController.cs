@@ -15,9 +15,9 @@ namespace WebService.Controllers
     [ApiController]
     public class CommentsController : Controller
     {
-        DataService _dataService;
+        IDataService _dataService;
 
-        public CommentsController(DataService dataService)
+        public CommentsController(IDataService dataService)
         {
             _dataService = dataService;
         }
@@ -29,7 +29,7 @@ namespace WebService.Controllers
         }
 
         [HttpGet("fromPost/{id}", Name = nameof(GetCommentsByPostId))]
-        public IActionResult GetCommentsByPostId(int id, int page=0, int pageSize = 5 )
+        public IActionResult GetCommentsByPostId(int id, int page=0, int pageSize=5 )
         {
             var comments = _dataService.GetCommentsByPostId(id, page, pageSize)
                 .Select(CreateCommentListModel);
