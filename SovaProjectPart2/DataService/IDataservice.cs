@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DomainModel
 {
-    interface IDataService
+    public interface IDataService
     {
         // Comments
         List<Comment> GetCommentsByPostId(int id, int page, int pageSize);
@@ -23,6 +23,8 @@ namespace DomainModel
         List<Question> GetFavorites(string username, int page, int pageSize);
         Favorite CreateFavoriteQuestion(int questionId, string username);
         Favorite CreateFavoriteQuestion(int questionId, string username, string note);
+        int GetNumberOfQuestions();
+        int GetNumberOfComments();
 
         //List<string> GetPostsWithSameTags(string tags);
 

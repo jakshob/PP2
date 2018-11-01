@@ -7,8 +7,6 @@ namespace DomainModel
     public class Question : Post
     {
 		public string Name { get; set; }
-		public int QA_UserId { get; set; }
-        public DateTime CreationDate { get; set; }
         //public Nullable<DateTime> CloseDate { get; set; }
         //public List<int> LinkPostId { get; set; }
         //public List<string> Tags { get; set; }

@@ -21,7 +21,7 @@ namespace DomainModel.Tests
         public void AnswerToPost19_Has21Results()
         {
             var service = new DataService();
-            var answers = service.GetAnswersToQuestion(19,0,0); 
+            var answers = service.GetAnswersToQuestion(19,0,5000000); 
             Assert.Equal(21, answers.Count);
             
         }
@@ -30,7 +30,7 @@ namespace DomainModel.Tests
         public void GetAllPosts_CheckCount_andFirstName()
         {
             var service = new DataService();
-            var questions = service.GetQuestions(0,0);
+            var questions = service.GetQuestions(0,5000);
             Assert.Equal(2237, questions.Count);
             Assert.Equal("What is the fastest way to get the value of π?", questions.First().Name);
         }
@@ -55,7 +55,7 @@ namespace DomainModel.Tests
 		[Fact]
 		public void GetAllComments_CheckCount_andFirstAuthorid() {
 			var service = new DataService();
-			var comments = service.GetCommentsByPostId(22106846,0,0);
+			var comments = service.GetCommentsByPostId(22106846,0,50000);
 			Assert.Equal(10, comments.Count);
 			Assert.Equal(33534974, comments.First().Id);
 		}
