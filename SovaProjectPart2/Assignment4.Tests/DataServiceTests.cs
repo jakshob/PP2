@@ -69,6 +69,12 @@ namespace DomainModel.Tests
         //    Assert.Equal(19, questionsList.First().Id);
         }
 
+		[Fact]
+		public void GetSearchResults() {
+			var service = new DataService();
+			var resultList = service.TraverseSearchResults("What is the fastest way", "Mogens", 0, 5);
+			Assert.Equal(19, resultList.First().Id);
+		}
 
 
 		/*

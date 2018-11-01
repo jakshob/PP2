@@ -1,3 +1,4 @@
+using System;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -98,5 +99,5 @@ namespace DomainModel
             modelBuilder.Entity<Answer>().Property(x => x.ParentId).HasColumnName("parentid");
 			
         }
-    }
+	}
 }

@@ -227,6 +227,32 @@ namespace DomainModel
             }
         }
 
-       
-    }
+		public List<Question> SearchSova(string sinput, string userName, int pageSize) {
+			using (var db = new SovaContext()) {
+				var resultList = db.Questions.Where(x => x.Body.Contains(sinput) | x.Name.Contains(sinput));
+				History history = new History {
+					SOVA_UserUsername = userName,
+					CreationDate = DateTime.Now,
+					SearchText = sinput
+				};
+				db.Histories.Add(history);
+				db.SaveChanges();
+
+				return resultList
+					.Take(pageSize)
+					.ToList();
+			}
+		}
+		public List<Question> TraverseSearchResults(string sinput, string userName, int page, int pageSize) {
+			using (var db = new SovaContext()) {
+				var resultList = db.Questions.Where(x => x.Body.Contains(sinput) | x.Name.Contains(sinput));
+
+				return resultList
+					.Skip(page * pageSize)
+					.Take(pageSize)
+					.ToList();
+			}
+		}
+
+	}
 }
