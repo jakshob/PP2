@@ -134,9 +134,9 @@ namespace DomainModel
                 var historyByUser = db.Histories.Where(h => h.SOVA_UserUsername == username); 
                 return historyByUser
                     .Skip(page * pageSize)
-
                     .Take(page)
                     .ToList();
+ 
             }
         }
 
