@@ -26,8 +26,5 @@ namespace WebService.Controllers
             var favoritesByUsername = _dataService.GetFavorites(username,0,0);
             return Ok(favoritesByUsername);
         }
-
-
     }
-
 }

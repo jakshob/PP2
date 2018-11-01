@@ -26,8 +26,5 @@ namespace WebService.Controllers
             var historyByUsername = _dataService.GetHistory(username,0,0);
             return Ok(historyByUsername);
         }
-
-
     }
-
 }
