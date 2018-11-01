@@ -44,9 +44,15 @@ namespace Webservice
         {
             Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<Question, QuestionModel>();
-                cfg.CreateMap<Question, QuestionListModel>();
+                cfg.CreateMap<Answer, AnswerListModel>();
                 cfg.CreateMap<Comment, CommentListModel>();
+                cfg.CreateMap<Favorite, FavoriteListModel>();
+                cfg.CreateMap<Favorite, FavoriteModel>();
+                cfg.CreateMap<History, HistoryListModel>();           
+                cfg.CreateMap<Question, QuestionListModel>();
+                cfg.CreateMap<Question, QuestionModel>();
+
+
                 //Måske skal nedenstående bruges på QA_User?
                 //.ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category.Name));
             });
