@@ -7,8 +7,8 @@ using AutoMapper;
 using DomainModel;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Webservice.Controller;
 using Webservice.Models;
+
 
 namespace WebService.Controllers
 {

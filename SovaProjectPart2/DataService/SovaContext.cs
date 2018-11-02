@@ -18,18 +18,15 @@ namespace DomainModel
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-<<<<<<< HEAD
             optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=olivia");
-=======
 
           //  optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow2;uid=postgres;pwd=vfh");
 
 
            // optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=olivia");
 
-            optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=elskerkage");
+           // optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=elskerkage");
 
->>>>>>> addab1e... * UserController.cs: usercontroller delete og create
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace Webservice.Controller
+namespace WebService.Controllers
 {
     public static class HelperController 
     {

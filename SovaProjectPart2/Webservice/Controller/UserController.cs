@@ -39,7 +39,9 @@ namespace Webservice.Controllers
                 _dataService.deleteUser(username, password);
                 return Ok("User is deleted.");
             }
-            else return NotFound("Password is wrong"); 
+            else {
+                return NotFound("Password is wrong");
+            }
         }
 
 
