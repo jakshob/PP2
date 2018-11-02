@@ -60,8 +60,15 @@ namespace Webservice.Controllers
                 return ErrorMessages(passwordMatch);
             }
            
-
         }
+
+        [HttpGet("myPage/{username}")]
+        public IActionResult GetUserPage(string username)
+        {
+            var data = _dataService.GetUserPage(username);
+            return Ok(data);
+        } 
+
         public IActionResult ErrorMessages(int number)
         {
             if (number == 2)

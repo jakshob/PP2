@@ -53,7 +53,6 @@ namespace DomainModel
                 else if (!userMatch) { number = 2; }
                 else if (userMatch && !PasswordMatch) { number = 3; }
                 
-            
                 return number; 
             }
         }
@@ -81,6 +80,24 @@ namespace DomainModel
                 
         }
 
+        public List<Object> GetUserPage(string username) {
+            
+            List<Question> favorites = GetFavorites(username, 0, 0);
+            string messageFavorites = "YOUR CHOSEN FAVORITE POSTS:";
+            List<History> history = GetHistory(username, 0, 0);
+            string messageHistory = "YOUR PERSONAL SEARCH HISTORY:";
+
+
+            //Objekter kunne tilføjes direkte til liste, men det her giver bedre overblik i svaret fra webserver.
+            List<Object> myList = new List<Object>();
+            myList.Add(messageFavorites);
+            myList.Add(favorites);
+            myList.Add(messageHistory);
+            myList.Add(history);
+
+            return myList;
+
+        }
 
         public List<Answer> GetAnswers()
         {
@@ -174,11 +191,11 @@ namespace DomainModel
             using (var db = new SovaContext())
             {
 
-                var historyByUser = db.Histories.Where(h => h.SOVA_UserUsername == username); 
+                var historyByUser = db.Histories.Where(h => h.SOVA_UserUsername == username);
                 return historyByUser
-                    .Skip(page * pageSize)
-                    .Take(page)
-                    .ToList();
+                  /*  .Skip(page * pageSize)
+                    .Take(page) */
+                    .ToList(); 
  
             }
         }

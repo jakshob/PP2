@@ -40,6 +40,7 @@ namespace DomainModel
         void EditUserPassword(string username, string password, string newpassword);
 
         SOVA_User GetUser(string username);
+        List<Object> GetUserPage(string username);
 
         // SALT FJERNET MIDLERTIDIGT
         SOVA_User CreateUser(string username, string password);
