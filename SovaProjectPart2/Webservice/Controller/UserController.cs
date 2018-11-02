@@ -24,23 +24,57 @@ namespace Webservice.Controllers
             _dataService = dataService;
         }
         [HttpPost] 
-        public IActionResult CreateUser(string username, string password, string salt) 
+        //SALT FJERNET MIDLERTIDIGT
+        public IActionResult CreateUser(string username, string password) 
         {
-            var newUser = _dataService.CreateUser(username, password, salt);
+            var newUser = _dataService.CreateUser(username, password);
             return Ok(newUser); 
         }
 
         [HttpDelete]
         public IActionResult DeleteUser(string username, string password)
         {
-            bool passwordMatch = _dataService.doesPasswordMatch(username, password); 
-            if (passwordMatch)
+            int passwordMatch = _dataService.doesPasswordMatch(username, password); 
+            if (passwordMatch == 1)
             {
                 _dataService.deleteUser(username, password);
                 return Ok("User is deleted.");
             }
-            else {
-                return NotFound("Password is wrong");
+            else
+            {
+                return ErrorMessages(passwordMatch);
+            }
+        }
+        [HttpPut]
+        public IActionResult EditUser(string username, string password, string newpassword)
+        {
+            int passwordMatch = _dataService.doesPasswordMatch(username, password);
+            if (passwordMatch == 1)
+            {
+                _dataService.EditUserPassword(username, password, newpassword);
+                return Ok("Your password has been changed");
+
+            }
+            else
+            {
+                return ErrorMessages(passwordMatch);
+            }
+           
+
+        }
+        public IActionResult ErrorMessages(int number)
+        {
+            if (number == 2)
+            {
+                return NotFound("User does not exist");
+            }
+            else if (number == 3)
+            {
+                return NotFound("Password for user is wrong");
+            }
+            else
+            {
+                return NotFound("There was a problem? - ErrorMessage is not yet written");
             }
         }
 

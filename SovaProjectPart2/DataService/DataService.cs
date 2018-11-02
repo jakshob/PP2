@@ -24,14 +24,14 @@ namespace DomainModel
         }
 
 
-
-        public SOVA_User CreateUser(string username, string password, string salt)
+        //JEG HAR FJERNET SALT!!!! - Det virker jo forhelvede ikke endnu ;-) 
+        public SOVA_User CreateUser(string username, string password)
         {
             var user = new SOVA_User()
             {
                 Username = username,
                 Password = password,
-                Salt = salt
+                //Salt = salt
             };
             _users.Add(user);
             return user;
@@ -40,12 +40,21 @@ namespace DomainModel
         ///____________________________________________Her starter den fede kode___________________
 
 
-        public bool doesPasswordMatch(string username, string password)
+        public int doesPasswordMatch(string username, string password)
         {
             using (var db = new SovaContext())
             {
-                bool userMatch = db.SOVA_Users.Any(x => x.Username == username && x.Password == password);
-                return userMatch; 
+                int number = 0;
+                bool userMatch = db.SOVA_Users.Any(x => x.Username == username);
+                bool PasswordMatch = db.SOVA_Users.Any(x => x.Username == username && x.Password == password);
+
+                //number referer til errorMessages sent ud
+                if (userMatch && PasswordMatch) { number = 1; }
+                else if (!userMatch) { number = 2; }
+                else if (userMatch && !PasswordMatch) { number = 3; }
+                
+            
+                return number; 
             }
         }
 
@@ -59,6 +68,17 @@ namespace DomainModel
                 db.SaveChanges();  
                 
             }
+        }
+        public void EditUserPassword(string username, string password, string newpassword)
+        {
+            using (var db = new SovaContext()) {
+
+                SOVA_User userToChange = db.SOVA_Users.Where(x => x.Username == username).FirstOrDefault();
+                userToChange.Password = newpassword;
+                db.SOVA_Users.Update(userToChange);
+                db.SaveChanges();
+            }
+                
         }
 
 

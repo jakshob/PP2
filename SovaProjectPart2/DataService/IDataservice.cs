@@ -31,13 +31,18 @@ namespace DomainModel
 
         //Checks
         bool CheckIfUsernameExist(string username);
-        bool doesPasswordMatch(string username, string password);
+        int doesPasswordMatch(string username, string password);
 
         //delete
-        void deleteUser(string username, string password);  
+        void deleteUser(string username, string password);
+
+        //edit user
+        void EditUserPassword(string username, string password, string newpassword);
 
         SOVA_User GetUser(string username);
-        SOVA_User CreateUser(string username, string password, string salt);
+
+        // SALT FJERNET MIDLERTIDIGT
+        SOVA_User CreateUser(string username, string password);
 
 
         //List<string> GetPostsWithSameTags(string tags);
