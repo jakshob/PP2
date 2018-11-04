@@ -10,32 +10,35 @@ namespace DomainModel.Tests
 {
     public class WebServiceTests
     {
-        private const string postsApi = "http://localhost:50795/api/posts";
-        private const string ProductsApi = "http://localhost:50795/api/products";
+        private const string postsApi = "http://localhost:5001/api/posts";
+        //private const string ProductsApi = "http://localhost:5001/api/products";
 
-        /* /api/categories */
-        /*
+        /* /api/posts */
+        
         [Fact]
-        public void ApiCategories_GetWithNoArguments_OkAndAllCategories()
+        public void ApiPosts_GetWithNoArguments_OkAndAllQuestions()
         {
-            var (data, statusCode) = GetArray(postsApi);
+            var (data, statusCode) = GetObject(postsApi);
 
             Assert.Equal(HttpStatusCode.OK, statusCode);
-            Assert.Equal(13629, data.Count);
-            Assert.Equal("What is the fastest way to get the value of π?", data.First()["name"]);
+            Assert.Equal(5, data.GetValue("items").Count());
+            Assert.Equal("What is the fastest way to get the value of π?",
+                data.GetValue("items").First()["name"]);
            // Assert.Equal("Seafood", data.Last()["name"]);
         }
-        */
+        
+        
         /*
         [Fact]
-        public void ApiCategories_GetWithValidCategoryId_OkAndCategory()
+        public void ApiAnswerToQuestions_GetWithID_OkAndOneQuestionAndAnswers()
         {
-            var (category, statusCode) = GetObject($"{CategoriesApi}/1");
+            var (data, statusCode) = GetObject($"{postsApi}/answersToQuestion/19");
 
             Assert.Equal(HttpStatusCode.OK, statusCode);
-            Assert.Equal("Beverages", category["name"]);
+            Assert.Equal("Beverages", data["name"]);
         }
 
+        /*
         [Fact]
         public void ApiCategories_GetWithInvalidCategoryId_NotFound()
         {

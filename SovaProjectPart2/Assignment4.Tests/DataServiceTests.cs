@@ -55,7 +55,7 @@ namespace DomainModel.Tests
 		[Fact]
 		public void GetAllComments_CheckCount_andFirstAuthorid() {
 			var service = new DataService();
-			var comments = service.GetCommentsByPostId(22106846,0,50000);
+			var comments = service.GetCommentsByPostId(22106846,0,10);
 			Assert.Equal(10, comments.Count);
 			Assert.Equal(33534974, comments.First().Id);
 		}
