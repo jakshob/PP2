@@ -1,3 +1,4 @@
+using System;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -17,12 +18,21 @@ namespace DomainModel
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow2;uid=postgres;pwd=vfh");
+            optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=olivia");
+
+          //  optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow2;uid=postgres;pwd=vfh");
+
+
+           // optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=olivia");
+
+           // optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=elskerkage");
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
 
             //Fra Allan - Modellering:
 
@@ -98,5 +108,5 @@ namespace DomainModel
             modelBuilder.Entity<Answer>().Property(x => x.ParentId).HasColumnName("parentid");
 			
         }
-    }
+	}
 }

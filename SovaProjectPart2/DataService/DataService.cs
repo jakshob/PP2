@@ -23,21 +23,81 @@ namespace DomainModel
             return _users.FirstOrDefault(x => x.Username == username);
         }
 
-        public SOVA_User CreateUser(string name, string username, string password, string salt)
+
+        //JEG HAR FJERNET SALT!!!! - Det virker jo forhelvede ikke endnu ;-) 
+        public SOVA_User CreateUser(string username, string password)
         {
             var user = new SOVA_User()
             {
                 Username = username,
                 Password = password,
-                Salt = salt
+                //Salt = salt
             };
             _users.Add(user);
             return user;
         }
 
-    
         ///____________________________________________Her starter den fede kode___________________
 
+
+        public int doesPasswordMatch(string username, string password)
+        {
+            using (var db = new SovaContext())
+            {
+                int number = 0;
+                bool userMatch = db.SOVA_Users.Any(x => x.Username == username);
+                bool PasswordMatch = db.SOVA_Users.Any(x => x.Username == username && x.Password == password);
+
+                //number referer til errorMessages sent ud
+                if (userMatch && PasswordMatch) { number = 1; }
+                else if (!userMatch) { number = 2; }
+                else if (userMatch && !PasswordMatch) { number = 3; }
+                
+                return number; 
+            }
+        }
+
+        public void deleteUser(string username, string password)
+        {
+            using (var db = new SovaContext())
+            {
+
+                var user = db.SOVA_Users.Where(x => x.Username == username && x.Password == password).FirstOrDefault();
+                db.SOVA_Users.Remove(user);
+                db.SaveChanges();  
+                
+            }
+        }
+        public void EditUserPassword(string username, string password, string newpassword)
+        {
+            using (var db = new SovaContext()) {
+
+                SOVA_User userToChange = db.SOVA_Users.Where(x => x.Username == username).FirstOrDefault();
+                userToChange.Password = newpassword;
+                db.SOVA_Users.Update(userToChange);
+                db.SaveChanges();
+            }
+                
+        }
+
+        public List<Object> GetUserPage(string username) {
+            
+            List<Question> favorites = GetFavorites(username, 0, 0);
+            string messageFavorites = "YOUR CHOSEN FAVORITE POSTS:";
+            List<History> history = GetHistory(username, 0, 0);
+            string messageHistory = "YOUR PERSONAL SEARCH HISTORY:";
+
+
+            //Objekter kunne tilføjes direkte til liste, men det her giver bedre overblik i svaret fra webserver.
+            List<Object> myList = new List<Object>();
+            myList.Add(messageFavorites);
+            myList.Add(favorites);
+            myList.Add(messageHistory);
+            myList.Add(history);
+
+            return myList;
+
+        }
 
         public List<Answer> GetAnswers()
         {
@@ -131,39 +191,41 @@ namespace DomainModel
             using (var db = new SovaContext())
             {
 
-                var historyByUser = db.Histories.Where(h => h.SOVA_UserUsername == username); 
+                var historyByUser = db.Histories.Where(h => h.SOVA_UserUsername == username);
                 return historyByUser
-                    .Skip(page * pageSize)
-
-                    .Take(page)
-                    .ToList();
+                  /*  .Skip(page * pageSize)
+                    .Take(page) */
+                    .ToList(); 
+ 
             }
         }
 
         public List<string> GetMostUsedSearchTexts(int page, int pageSize)
         {
-            throw new NotImplementedException();
+            using (var db = new SovaContext()){
+
+                var listOfSearchWords = db.Histories.Select(x => x.SearchText).ToList();
+
+                return listOfSearchWords;
+                /*.Skip(page * pageSize)
+                    .Take(pageSize)
+                    .ToList();*/
+            }
         }
 
         public List<Question> GetFavorites(string username, int page, int pageSize)
         {
-
             using (var db = new SovaContext())
             {
 
-                var ListOfUserFavorites = db.Favorites.Where(x => x.SOVA_UserUsername == username);
-                var listOfQuestions = new List<Question>();
+                var listOfQuestions = db.Favorites
+                    .Where(x => x.SOVA_UserUsername == username)
+                    .Join(db.Questions, x => x.PostId, y => y.Id, (x, y) => y);
 
-                //Ikke total optimal løsning, men user har få favorites, så kører ikke så mange gange. 
-                foreach (Favorite f in ListOfUserFavorites) {
-                    Question que = db.Questions.Where(x => x.Id == f.PostId).FirstOrDefault();
-                    listOfQuestions.Add(que);
-                }
-
-                return listOfQuestions
-                    .Skip(page * pageSize)
+                return listOfQuestions.ToList();
+                /*.Skip(page * pageSize)
                     .Take(pageSize)
-                    .ToList();
+                    .ToList();*/
             }
         }
         public bool CheckIfUsernameExist(string username) {
@@ -225,6 +287,32 @@ namespace DomainModel
             }
         }
 
-       
-    }
+		public List<Question> SearchSova(string sinput, string userName, int pageSize) {
+			using (var db = new SovaContext()) {
+				var resultList = db.Questions.Where(x => x.Body.Contains(sinput) | x.Name.Contains(sinput));
+				History history = new History {
+					SOVA_UserUsername = userName,
+					CreationDate = DateTime.Now,
+					SearchText = sinput
+				};
+				db.Histories.Add(history);
+				db.SaveChanges();
+
+				return resultList
+					.Take(pageSize)
+					.ToList();
+			}
+		}
+		public List<Question> TraverseSearchResults(string sinput, string userName, int page, int pageSize) {
+			using (var db = new SovaContext()) {
+				var resultList = db.Questions.Where(x => x.Body.Contains(sinput) | x.Name.Contains(sinput));
+
+				return resultList
+					.Skip(page * pageSize)
+					.Take(pageSize)
+					.ToList();
+			}
+		}
+
+	}
 }
