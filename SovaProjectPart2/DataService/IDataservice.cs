@@ -32,7 +32,8 @@ namespace DomainModel
 
         //Numbers
         int GetNumberOfQuestions();
-        int GetNumberOfComments();
+        int GetNumberOfComments(int inputId);
+        int GetNumberOfAnswers(int inputId);
 
         //Checks
         bool CheckIfUsernameExist(string username);
