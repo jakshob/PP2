@@ -16,6 +16,5 @@ namespace Webservice.Models
         public int LinkPostId { get; set; }
         public List<string> Tags { get; set; }
 
-            
     }
 }
