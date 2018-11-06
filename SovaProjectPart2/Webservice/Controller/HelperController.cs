@@ -11,25 +11,25 @@ namespace WebService.Controllers
             return (int)Math.Ceiling((double)numberOfItems / pageSize);
         }
 
-        public static string CreateLink(int page, int pageSize, string action, IUrlHelper url)
+        public static string CreateLink(int page, int pageSize, string nameof, IUrlHelper url)
         {
-            var result = url.Link(action, new { page, pageSize });
+            var result = url.Link(nameof, new { page, pageSize });
 
             return result;
         }
 
-        public static string CreateLinkToNextPage(int page, int pageSize, int numberOfPages, string action, IUrlHelper url)
+        public static string CreateLinkToNextPage(int page, int pageSize, int numberOfPages, string nameof, IUrlHelper url)
         {
             return page >= numberOfPages - 1
                 ? null
-                : CreateLink(page = page + 1, pageSize, action, url);
+                : CreateLink(page = page + 1, pageSize, nameof, url);
         }
 
-        public static string CreateLinkToPrevPage(int page, int pageSize, string action, IUrlHelper url)
+        public static string CreateLinkToPrevPage(int page, int pageSize, string nameof, IUrlHelper url)
         {
             return page == 0
                 ? null
-                : CreateLink(page - 1, pageSize, action, url);
+                : CreateLink(page - 1, pageSize, nameof, url);
         }
 
     }

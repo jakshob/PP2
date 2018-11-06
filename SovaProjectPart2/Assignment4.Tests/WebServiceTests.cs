@@ -5,12 +5,20 @@ using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Xunit;
+// using Webservice.Models;
+/* MASSIVE problemer med at få Webservice.Models namespacet til at virke. På nuværende tidspunkt kan det kun virke
+ved at duplikere Webservice og Webservice/Models mapperne ind under Assignment4.Tests mappen. */
 
 namespace DomainModel.Tests
 {
     public class WebServiceTests
     {
         private const string postsApi = "http://localhost:5001/api/posts";
+
+        private const string commentsApi = "http://localhost:5001/api/comments";
+
+        private const string favoriteApi = "http://localhost:5001/api/favorites";
+
         //private const string ProductsApi = "http://localhost:5001/api/products";
 
         /* /api/posts */
@@ -19,15 +27,65 @@ namespace DomainModel.Tests
         public void ApiPosts_GetWithNoArguments_OkAndAllQuestions()
         {
             var (data, statusCode) = GetObject(postsApi);
+			//var (data, statusCode) = GetQuestions(postsApi);
 
-            Assert.Equal(HttpStatusCode.OK, statusCode);
+			Assert.Equal(HttpStatusCode.OK, statusCode);
             Assert.Equal(5, data.GetValue("items").Count());
             Assert.Equal("What is the fastest way to get the value of π?",
                 data.GetValue("items").First()["name"]);
-           // Assert.Equal("Seafood", data.Last()["name"]);
+/*			Assert.Equal(5, data.Items.Count());
+			Assert.Equal("What is the fastest way to get the value of π?",
+				data.Items.First().Name);								*/
+		}
+
+
+        /* /api/comments */
+
+        [Fact]
+        public void ApiComments_GetFromPost19_OkAndAllComments()
+        {
+            var (data, statusCode) = GetObject(commentsApi+"/fromPost/19");
+
+            Assert.Equal(HttpStatusCode.OK, statusCode);
+            Assert.Equal(5, data.GetValue("items").Count());
+            Assert.Equal(17, data.GetValue("items").First()["score"]);
+            Assert.Equal("84538", data.GetValue("items").Last()["qa_userid"]);
         }
+
+        /* /api/favorites */
+
         
-        
+        //Den her test har problemer men er vidst tæt på at virke
+        [Fact]
+        public void ApiFavorites_CreateNewFavoriteAndGetIt()
+        {
+            var newFavorite = new
+            {
+                SOVAUser_Username = "Mogens",
+                PostId = 19,
+                Note = "I want a drier solution"
+            };
+            var (data, statusCode) = PostData(favoriteApi, newFavorite);
+
+            Assert.Equal(HttpStatusCode.Created, statusCode);
+
+        }
+        /*
+        [Fact]
+        public void ApiFavorites_CreateNewFavoriteAndGetIt()
+        {
+            Favorite testFavorite = new Favorite
+            {
+                PostId = 19,
+                SOVA_UserUsername = "007",
+                Note = "I want a dry solution"
+            };
+            PostData(favoriteApi, testFavorite);
+
+            var (data, statusCode) = GetObject(favoriteApi+"/007");
+            Assert.Equal(HttpStatusCode.OK, statusCode);
+            Assert.Equal("I want a dry solution", data.GetValue("items").First()["note"]);
+        }
         /*
         [Fact]
         public void ApiAnswerToQuestions_GetWithID_OkAndOneQuestionAndAnswers()
@@ -211,9 +269,16 @@ namespace DomainModel.Tests
             var response = client.GetAsync(url).Result;
             var data = response.Content.ReadAsStringAsync().Result;
             return ((JObject)JsonConvert.DeserializeObject(data), response.StatusCode);
-        }
+		}
 
-        (JObject, HttpStatusCode) PostData(string url, object content)
+		(Webservice.Models.QuestionResponse, HttpStatusCode) GetQuestions(string url) {
+			var client = new HttpClient();
+			var response = client.GetAsync(url).Result;
+			var data = response.Content.ReadAsStringAsync().Result;
+			return (JsonConvert.DeserializeObject<Webservice.Models.QuestionResponse>(data), response.StatusCode);
+		}
+
+		(JObject, HttpStatusCode) PostData(string url, object content)
         {
             var client = new HttpClient();
             var requestContent = new StringContent(
@@ -222,6 +287,12 @@ namespace DomainModel.Tests
                 "application/json");
             var response = client.PostAsync(url, requestContent).Result;
             var data = response.Content.ReadAsStringAsync().Result;
+            if (response.StatusCode != HttpStatusCode.OK)
+            {
+                var tempdata = new {error = "error"};
+				data = JsonConvert.SerializeObject(tempdata);
+
+			}
             return ((JObject)JsonConvert.DeserializeObject(data), response.StatusCode);
         }
 

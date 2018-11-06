@@ -12,7 +12,7 @@ namespace Webservice
 {
     public class Program
     {
-        public static string CurrentUsername = "ObiWan.Kenobi";
+        public static string CurrentUsername = "Mogens";
         public static void Main(string[] args)
         {
             CreateWebHostBuilder(args).Build().Run();

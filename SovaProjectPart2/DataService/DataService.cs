@@ -232,10 +232,10 @@ namespace DomainModel
                     .Where(x => x.SOVA_UserUsername == username)
                     .Join(db.Questions, x => x.PostId, y => y.Id, (x, y) => y);
 
-                return listOfQuestions.ToList();
-                /*.Skip(page * pageSize)
+                return listOfQuestions.ToList()
+                .Skip(page * pageSize)
                     .Take(pageSize)
-                    .ToList();*/
+                    .ToList();
             }
         }
         public bool CheckIfUsernameExist(string username) {
@@ -297,10 +297,12 @@ namespace DomainModel
             }
         }
 
-		public List<Question> SearchSova(string sinput, string userName, int pageSize) {
+		public List<Question> SearchSova(string sinput, string userName, int page, int pageSize) {
 			using (var db = new SovaContext()) {
 				var resultList = db.Questions.Where(x => x.Body.Contains(sinput) | x.Name.Contains(sinput));
-				History history = new History {
+                var resultListSorted = resultList.OrderByDescending(x => x.Score).ToList();
+
+                History history = new History {
 					SOVA_UserUsername = userName,
 					CreationDate = DateTime.Now,
 					SearchText = sinput
@@ -309,9 +311,11 @@ namespace DomainModel
 				db.SaveChanges();
 
 				return resultList
-					.Take(pageSize)
-					.ToList();
-			}
+                    .Skip(page * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+
+            }
 		}
 		public List<Question> TraverseSearchResults(string sinput, string userName, int page, int pageSize) {
 			using (var db = new SovaContext()) {
