@@ -11,6 +11,11 @@ namespace DomainModel.Tests
     public class WebServiceTests
     {
         private const string postsApi = "http://localhost:5001/api/posts";
+
+        private const string commentsApi = "http://localhost:5001/api/comments";
+
+        private const string favoriteApi = "http://localhost:5001/api/favorites";
+
         //private const string ProductsApi = "http://localhost:5001/api/products";
 
         /* /api/posts */
@@ -24,10 +29,57 @@ namespace DomainModel.Tests
             Assert.Equal(5, data.GetValue("items").Count());
             Assert.Equal("What is the fastest way to get the value of π?",
                 data.GetValue("items").First()["name"]);
-           // Assert.Equal("Seafood", data.Last()["name"]);
+           
         }
+
+
+        /* /api/comments */
+
+        [Fact]
+        public void ApiComments_GetFromPost19_OkAndAllComments()
+        {
+            var (data, statusCode) = GetObject(commentsApi+"/fromPost/19");
+
+            Assert.Equal(HttpStatusCode.OK, statusCode);
+            Assert.Equal(5, data.GetValue("items").Count());
+            Assert.Equal(17, data.GetValue("items").First()["score"]);
+            Assert.Equal("84538", data.GetValue("items").Last()["qa_userid"]);
+        }
+
+        /* /api/favorites */
+
         
-        
+
+        [Fact]
+        public void ApiCategories_PostWithCategory_Created()
+        {
+            var newFavorite = new
+            {
+                SOVAUser_Username = "Mogens",
+                PostId = 19,
+                Note = "I want a drier solution"
+            };
+            var (data, statusCode) = PostData(favoriteApi, newFavorite);
+
+            Assert.Equal(HttpStatusCode.Created, statusCode);
+
+        }
+
+        [Fact]
+        public void ApiFavorites_CreateNewFavoriteAndGetIt()
+        {
+            Favorite testFavorite = new Favorite
+            {
+                PostId = 19,
+                SOVA_UserUsername = "007",
+                Note = "I want a dry solution"
+            };
+            PostData(favoriteApi, testFavorite);
+
+            var (data, statusCode) = GetObject(favoriteApi+"/007");
+            Assert.Equal(HttpStatusCode.OK, statusCode);
+            Assert.Equal("I want a dry solution", data.GetValue("items").First()["note"]);
+        }
         /*
         [Fact]
         public void ApiAnswerToQuestions_GetWithID_OkAndOneQuestionAndAnswers()

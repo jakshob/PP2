@@ -59,8 +59,24 @@ namespace WebService.Controllers
         [HttpGet("answersToQuestion/{id}")]
         public IActionResult GetAnswersToQuestion(int id, int page, int pageSize)
         {
-            var answerPosts = _dataService.GetAnswersToQuestion(id,page,pageSize);
-            return Ok(answerPosts);
+            var question = CreateQuestionModel(_dataService.GetQuestion(id));
+            //pageSize = pageSize * 2;
+
+            var answerPosts = _dataService.GetAnswersToQuestion(id,page,pageSize)
+                .Select(CreateAnswerListModel);
+            var numberOfItems = _dataService.GetNumberOfQuestions();
+            var numberOfPages = HelperController.ComputeNumberOfPages(pageSize, numberOfItems);
+
+            var result = new
+            {
+                Page = page,
+                First = HelperController.CreateLink(0, pageSize, nameof(GetQuestions), Url),
+                Next = HelperController.CreateLinkToNextPage(page, pageSize, numberOfPages, nameof(GetQuestions), Url),
+                Prev = HelperController.CreateLinkToPrevPage(page, pageSize, nameof(GetQuestions), Url),
+                Item = question,
+                Items = answerPosts
+            };
+            return Ok(result);
         }
 
         [HttpGet("searchQuestionsSortByScore/{searchInput}")]
@@ -76,6 +92,21 @@ namespace WebService.Controllers
         {
             var model = Mapper.Map<QuestionListModel>(question);
             model.Url = Url.Link(nameof(GetQuestionById), new { id = question.Id });
+            return model;
+        }
+
+        private QuestionModel CreateQuestionModel(Question question)
+        {
+            var model = Mapper.Map<QuestionModel>(question);
+            model.Url = Url.Link(nameof(GetQuestionById), new { id = question.Id });
+            return model;
+        }
+
+
+        private AnswerListModel CreateAnswerListModel(Answer answer)
+        {
+            var model = Mapper.Map<AnswerListModel>(answer);
+            model.Url = Url.Link(nameof(GetAnswersToQuestion), new { id = answer.Id });
             return model;
         }
     }
