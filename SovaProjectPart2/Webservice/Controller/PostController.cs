@@ -75,7 +75,8 @@ namespace WebService.Controllers
             };
             return Ok(result);
         }
-        /* ORIGINAL METODEN (Gemmer ikke søge-history)
+
+        /* ORIGINAL SØGE-METODE (Gemmer ikke søgehistorik)
         [HttpGet("searchQuestionsSortByScore/{searchInput}", Name = nameof(GetSearchQuestionsSortByScore))]
         public IActionResult GetSearchQuestionsSortByScore(string searchInput, int page = 0, int pageSize = 5)
         {
@@ -141,13 +142,13 @@ namespace WebService.Controllers
             model.Url = Url.Link(nameof(GetQuestionById), new { id = question.Id });
             return model;
         }
+
         private AnswerListModel CreateAnswerListModel (Answer answer)
         {
             var model = Mapper.Map<AnswerListModel>(answer);
-            //model.Url = Url.Link(nameof(GetAnswersToQuestion), new { id = answer.Id });
             return model;
         }
-        //Bliver ikke brugt endnu.
+
         private QuestionModel CreateQuestionModel(Question question)
         {
             var model = Mapper.Map<QuestionModel>(question);

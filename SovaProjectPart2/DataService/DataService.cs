@@ -185,7 +185,7 @@ namespace DomainModel
                 //Starter med søgning i navn, senere kan tilføjes body!
 
                 //Liste kun hvor indeholder "searchText" i navnet + gør mindre til comparison
-                var questionsFromSearch = db.Questions.Where(p => p.Name.ToLower().Contains(searchText.ToLower()));
+                var questionsFromSearch = db.Questions.Where(p => p.Title.ToLower().Contains(searchText.ToLower()));
                 //output to List<Post>
                 var queSortByScore = questionsFromSearch.OrderByDescending(x => x.Score).ToList();
 
@@ -299,7 +299,7 @@ namespace DomainModel
 
 		public List<Question> SearchSova(string sinput, string userName, int page, int pageSize) {
 			using (var db = new SovaContext()) {
-				var resultList = db.Questions.Where(x => x.Body.Contains(sinput) | x.Name.Contains(sinput));
+				var resultList = db.Questions.Where(x => x.Body.Contains(sinput) | x.Title.Contains(sinput));
                 var resultListSorted = resultList.OrderByDescending(x => x.Score).ToList();
 
                 History history = new History {
@@ -319,7 +319,7 @@ namespace DomainModel
 		}
 		public List<Question> TraverseSearchResults(string sinput, string userName, int page, int pageSize) {
 			using (var db = new SovaContext()) {
-				var resultList = db.Questions.Where(x => x.Body.Contains(sinput) | x.Name.Contains(sinput));
+				var resultList = db.Questions.Where(x => x.Body.Contains(sinput) | x.Title.Contains(sinput));
                 var resultListSorted = resultList.OrderByDescending(x => x.Score).ToList();
 
                 return resultListSorted

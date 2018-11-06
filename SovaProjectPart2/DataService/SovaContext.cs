@@ -104,7 +104,7 @@ namespace DomainModel
                 .HasValue<Question>(1)
                 .HasValue<Answer>(2);
 
-            modelBuilder.Entity<Question>().Property(x => x.Name).HasColumnName("title");
+            modelBuilder.Entity<Question>().Property(x => x.Title).HasColumnName("title");
 			
             modelBuilder.Entity<Answer>().Property(x => x.ParentId).HasColumnName("parentid");
 			
