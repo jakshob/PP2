@@ -34,15 +34,16 @@ namespace WebService.Controllers
             var comments = _dataService.GetCommentsByPostId(id, page, pageSize)
                 .Select(CreateCommentListModel);
 
-            var numberOfItems = _dataService.GetNumberOfComments();
-            var numberOfPages = ComputeNumberOfPages(pageSize, numberOfItems);
+            var numberOfItems = _dataService.GetNumberOfComments(id);
+            var numberOfPages = HelperController.ComputeNumberOfPages(pageSize, numberOfItems);
 
             var result = new
             {
                 Page = page,
-                First = CreateLink(0, pageSize),
-                Next = CreateLinkToNextPage(page, pageSize, numberOfPages),
-                Prev = CreateLinkToPrevPage(page, pageSize),
+                First = HelperController.CreateLink(0, pageSize, nameof(GetCommentsByPostId), Url),
+                Next = HelperController.CreateLinkToNextPage(page, pageSize, numberOfPages, nameof(GetCommentsByPostId), Url),
+                Prev = HelperController.CreateLinkToPrevPage(page, pageSize, nameof(GetCommentsByPostId), Url),
+                NumberOfComments = numberOfItems,
                 Items = comments
             };
 
@@ -54,31 +55,7 @@ namespace WebService.Controllers
         {
             var model = Mapper.Map<CommentListModel>(comment);
             return model;
-        }
-
-        private static int ComputeNumberOfPages(int pageSize, int numberOfItems)
-        {
-            return (int)Math.Ceiling((double)numberOfItems / pageSize);
-        }
-
-        private string CreateLink(int page, int pageSize)
-        {
-            return Url.Link(nameof(GetCommentsByPostId), new { page, pageSize });
-        }
-
-        private string CreateLinkToNextPage(int page, int pageSize, int numberOfPages)
-        {
-            return page >= numberOfPages - 1
-                ? null
-                : CreateLink(page = page + 1, pageSize);
-        }
-
-        private string CreateLinkToPrevPage(int page, int pageSize)
-        {
-            return page == 0
-                ? null
-                : CreateLink(page - 1, pageSize);
-        }
+        }       
     }
 
 }

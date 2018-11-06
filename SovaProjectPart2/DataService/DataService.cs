@@ -14,7 +14,7 @@ namespace DomainModel
         {
             _users.Add(new SOVA_User()
             {
-               Username = "ObiWan.Kenobi"
+                Username = "ObiWan.Kenobi"
             });
         }
 
@@ -52,8 +52,8 @@ namespace DomainModel
                 if (userMatch && PasswordMatch) { number = 1; }
                 else if (!userMatch) { number = 2; }
                 else if (userMatch && !PasswordMatch) { number = 3; }
-                
-                return number; 
+
+                return number;
             }
         }
 
@@ -64,8 +64,8 @@ namespace DomainModel
 
                 var user = db.SOVA_Users.Where(x => x.Username == username && x.Password == password).FirstOrDefault();
                 db.SOVA_Users.Remove(user);
-                db.SaveChanges();  
-                
+                db.SaveChanges();
+
             }
         }
         public void EditUserPassword(string username, string password, string newpassword)
@@ -77,11 +77,11 @@ namespace DomainModel
                 db.SOVA_Users.Update(userToChange);
                 db.SaveChanges();
             }
-                
+
         }
 
         public List<Object> GetUserPage(string username) {
-            
+
             List<Question> favorites = GetFavorites(username, 0, 0);
             string messageFavorites = "YOUR CHOSEN FAVORITE POSTS:";
             List<History> history = GetHistory(username, 0, 0);
@@ -131,6 +131,16 @@ namespace DomainModel
                     .Take(pageSize)
                     .ToList();
             }
+        }
+        public int GetNumberOfAnswers(int inputId)
+        {
+            using (var db = new SovaContext())
+            {
+                var answers = db.Answers.Where(x => x.ParentId == inputId);
+                var numbers = answers.Count();
+                return numbers;
+            }
+            
         }
 
 
@@ -279,11 +289,11 @@ namespace DomainModel
         }
 
 
-        public int GetNumberOfComments()
+        public int GetNumberOfComments(int inputId)
         {
             using (var db = new SovaContext())
             {
-                return db.Comments.Count();
+                return db.Comments.Where(x => x.PostId == inputId).Count();
             }
         }
 
