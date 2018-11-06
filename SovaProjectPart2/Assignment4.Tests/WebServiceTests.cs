@@ -49,9 +49,9 @@ namespace DomainModel.Tests
         /* /api/favorites */
 
         
-
+        //Den her test har problemer men er vidst tæt på at virke
         [Fact]
-        public void ApiCategories_PostWithCategory_Created()
+        public void ApiFavorites_CreateNewFavoriteAndGetIt()
         {
             var newFavorite = new
             {
@@ -64,7 +64,7 @@ namespace DomainModel.Tests
             Assert.Equal(HttpStatusCode.Created, statusCode);
 
         }
-
+        /*
         [Fact]
         public void ApiFavorites_CreateNewFavoriteAndGetIt()
         {
@@ -274,6 +274,10 @@ namespace DomainModel.Tests
                 "application/json");
             var response = client.PostAsync(url, requestContent).Result;
             var data = response.Content.ReadAsStringAsync().Result;
+            /*if (response.StatusCode != HttpStatusCode.OK)
+            {
+                data = new {error = "error"};
+            }*/
             return ((JObject)JsonConvert.DeserializeObject(data), response.StatusCode);
         }
 
