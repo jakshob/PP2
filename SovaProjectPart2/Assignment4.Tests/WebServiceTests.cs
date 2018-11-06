@@ -5,6 +5,9 @@ using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Xunit;
+// using Webservice.Models;
+/* MASSIVE problemer med at få Webservice.Models namespacet til at virke. På nuværende tidspunkt kan det kun virke
+ved at duplikere Webservice og Webservice/Models mapperne ind under Assignment4.Tests mappen. */
 
 namespace DomainModel.Tests
 {
@@ -24,13 +27,16 @@ namespace DomainModel.Tests
         public void ApiPosts_GetWithNoArguments_OkAndAllQuestions()
         {
             var (data, statusCode) = GetObject(postsApi);
+			//var (data, statusCode) = GetQuestions(postsApi);
 
-            Assert.Equal(HttpStatusCode.OK, statusCode);
+			Assert.Equal(HttpStatusCode.OK, statusCode);
             Assert.Equal(5, data.GetValue("items").Count());
             Assert.Equal("What is the fastest way to get the value of π?",
                 data.GetValue("items").First()["name"]);
-           
-        }
+/*			Assert.Equal(5, data.Items.Count());
+			Assert.Equal("What is the fastest way to get the value of π?",
+				data.Items.First().Name);								*/
+		}
 
 
         /* /api/comments */
@@ -263,9 +269,16 @@ namespace DomainModel.Tests
             var response = client.GetAsync(url).Result;
             var data = response.Content.ReadAsStringAsync().Result;
             return ((JObject)JsonConvert.DeserializeObject(data), response.StatusCode);
-        }
+		}
 
-        (JObject, HttpStatusCode) PostData(string url, object content)
+		(Webservice.Models.QuestionResponse, HttpStatusCode) GetQuestions(string url) {
+			var client = new HttpClient();
+			var response = client.GetAsync(url).Result;
+			var data = response.Content.ReadAsStringAsync().Result;
+			return (JsonConvert.DeserializeObject<Webservice.Models.QuestionResponse>(data), response.StatusCode);
+		}
+
+		(JObject, HttpStatusCode) PostData(string url, object content)
         {
             var client = new HttpClient();
             var requestContent = new StringContent(
@@ -274,10 +287,12 @@ namespace DomainModel.Tests
                 "application/json");
             var response = client.PostAsync(url, requestContent).Result;
             var data = response.Content.ReadAsStringAsync().Result;
-            /*if (response.StatusCode != HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
             {
-                data = new {error = "error"};
-            }*/
+                var tempdata = new {error = "error"};
+				data = JsonConvert.SerializeObject(tempdata);
+
+			}
             return ((JObject)JsonConvert.DeserializeObject(data), response.StatusCode);
         }
 
