@@ -71,7 +71,6 @@ namespace WebService.Controllers
                 Prev = HelperController.CreateLinkToPrevPage(page, pageSize, nameof(GetAnswersToQuestion), Url),
                 NumberOfAnswers = numberOfItems,
                 Items = answerPosts
-
             };
             return Ok(result);
         }
