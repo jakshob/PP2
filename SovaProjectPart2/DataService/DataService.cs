@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Security.Cryptography;
 
 namespace DomainModel
 {
@@ -27,11 +27,11 @@ namespace DomainModel
         //JEG HAR FJERNET SALT!!!! - Det virker jo forhelvede ikke endnu ;-) 
         public SOVA_User CreateUser(string username, string password)
         {
+            
             var user = new SOVA_User()
             {
                 Username = username,
                 Password = password,
-                //Salt = salt
             };
             _users.Add(user);
             return user;

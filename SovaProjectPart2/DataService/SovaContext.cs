@@ -89,6 +89,7 @@ namespace DomainModel
             modelBuilder.Entity<SOVA_User>().ToTable("users");
             modelBuilder.Entity<SOVA_User>().Property(x => x.Username).HasColumnName("username");
             modelBuilder.Entity<SOVA_User>().Property(x => x.Password).HasColumnName("password");
+            modelBuilder.Entity<SOVA_User>().Property(x => x.Salt).HasColumnName("salt");
             modelBuilder.Entity<SOVA_User>().HasKey(x => x.Username);
 
             //Posts

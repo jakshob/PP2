@@ -25,7 +25,7 @@ namespace Webservice.Controllers
         }
         [HttpPost] 
         //SALT FJERNET MIDLERTIDIGT
-        public IActionResult CreateUser(string username, string password) 
+        public IActionResult CreateUser(string username, string password, string salt) 
         {
             var newUser = _dataService.CreateUser(username, password);
             return Ok(newUser); 
