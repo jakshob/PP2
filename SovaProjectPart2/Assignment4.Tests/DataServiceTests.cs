@@ -65,8 +65,8 @@ namespace DomainModel.Tests
         {
             var service = new DataService();
             var questionsList = service.GetFavorites("Mogens",0,0);
-            Assert.Equal(2, questionsList.Count);
-        //    Assert.Equal(19, questionsList.First().Id);
+            Assert.Equal(4, questionsList.Count);
+            Assert.Equal(19, questionsList.First().Id);
         }
 
 		[Fact]
