@@ -20,13 +20,7 @@ namespace WebService.Controllers
         public CommentsController(IDataService dataService)
         {
             _dataService = dataService;
-        }
-        [HttpGet("{id}")]
-        public IActionResult GetComment(int id)
-        {
-            var commentById = _dataService.GetComment(id);
-            return Ok(commentById);
-        }
+        }        
 
         [HttpGet("fromPost/{id}", Name = nameof(GetCommentsByPostId))]
         public IActionResult GetCommentsByPostId(int id, int page=0, int pageSize=5 )
