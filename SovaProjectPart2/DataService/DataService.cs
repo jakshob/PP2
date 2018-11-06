@@ -310,7 +310,7 @@ namespace DomainModel
 				db.Histories.Add(history);
 				db.SaveChanges();
 
-				return resultList
+				return resultListSorted
                     .Skip(page * pageSize)
                     .Take(pageSize)
                     .ToList();
@@ -320,8 +320,9 @@ namespace DomainModel
 		public List<Question> TraverseSearchResults(string sinput, string userName, int page, int pageSize) {
 			using (var db = new SovaContext()) {
 				var resultList = db.Questions.Where(x => x.Body.Contains(sinput) | x.Name.Contains(sinput));
+                var resultListSorted = resultList.OrderByDescending(x => x.Score).ToList();
 
-				return resultList
+                return resultListSorted
 					.Skip(page * pageSize)
 					.Take(pageSize)
 					.ToList();
