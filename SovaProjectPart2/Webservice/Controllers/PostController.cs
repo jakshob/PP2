@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using AutoMapper;
 using DomainModel;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Webservice.Models;
 
 
@@ -143,7 +138,7 @@ namespace WebService.Controllers
             return model;
         }
 
-        private AnswerListModel CreateAnswerListModel (Answer answer)
+        private static AnswerListModel CreateAnswerListModel (Answer answer)
         {
             var model = Mapper.Map<AnswerListModel>(answer);
             return model;

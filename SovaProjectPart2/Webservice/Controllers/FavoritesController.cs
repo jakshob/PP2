@@ -10,7 +10,7 @@ namespace WebService.Controllers
     [ApiController]
     public class FavoritesController : Controller
     {
-        IDataService _dataService;
+        private readonly IDataService _dataService;
 
         public FavoritesController(IDataService dataService)
         {
@@ -37,7 +37,7 @@ namespace WebService.Controllers
         [HttpPost]
         public IActionResult CreateFavoriteQuestion(int id, string username, string note)
         {
-            bool usernameExist = _dataService.CheckIfUsernameExist(username);
+            var usernameExist = _dataService.CheckIfUsernameExist(username);
             if (usernameExist)
             {
                 var newFavorite = _dataService.CreateFavoriteQuestion(id, username, note);
