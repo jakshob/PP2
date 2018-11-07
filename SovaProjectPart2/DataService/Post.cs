@@ -10,7 +10,7 @@ namespace DomainModel
 		public string Body { get; set; }
 		public int Score { get; set; }
 		public int QA_UserId { get; set; }
-		public QA_User QA_user{ get; set; }
+		//public QA_User QA_user { get; set; }
 		public DateTime CreationDate { get; set; }
 
 	}

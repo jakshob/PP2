@@ -287,7 +287,7 @@ namespace DomainModel.Tests
                 "application/json");
             var response = client.PostAsync(url, requestContent).Result;
             var data = response.Content.ReadAsStringAsync().Result;
-            if (response.StatusCode != HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.Created)
             {
                 var tempdata = new {error = "error"};
 				data = JsonConvert.SerializeObject(tempdata);
