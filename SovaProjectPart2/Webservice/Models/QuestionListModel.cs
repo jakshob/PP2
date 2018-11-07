@@ -5,7 +5,7 @@ namespace Webservice.Models
     {
         public string Url { get; set; }
         public string Qa_UserId { get; set; }
-        public string Name { get; set; }
+        public string Title { get; set; }
         public DateTime CreationDate { get; set; }
         public int Score { get; set; }
         

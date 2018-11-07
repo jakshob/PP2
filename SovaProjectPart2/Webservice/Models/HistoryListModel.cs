@@ -3,7 +3,8 @@ namespace Webservice.Models
 {
     public class HistoryListModel
     {
-        public String Url { get; set; }
+        public string Url { get; set; }
+        public string SearchText { get; set; }
         public DateTime CreationDate { get; set; }
     }
 }

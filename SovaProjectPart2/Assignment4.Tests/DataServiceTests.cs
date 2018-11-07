@@ -32,7 +32,7 @@ namespace DomainModel.Tests
             var service = new DataService();
             var questions = service.GetQuestions(0,2237);
             Assert.Equal(2237, questions.Count);
-            Assert.Equal("What is the fastest way to get the value of π?", questions.First().Name);
+            Assert.Equal("What is the fastest way to get the value of π?", questions.First().Title);
         }
 
         [Fact]
@@ -41,7 +41,7 @@ namespace DomainModel.Tests
             var service = new DataService();
             var questions = service.GetQuestion(19);
             Assert.Equal(19, questions.Id);
-            Assert.Equal("What is the fastest way to get the value of π?", questions.Name);
+            Assert.Equal("What is the fastest way to get the value of π?", questions.Title);
 		}
 
 		[Fact]
@@ -64,7 +64,7 @@ namespace DomainModel.Tests
         public void GetAllQuestionsByFavorite()
         {
             var service = new DataService();
-            var questionsList = service.GetFavorites("Mogens",0,5);
+            var questionsList = service.GetFavorites("Mogens",0,4);
             Assert.Equal(4, questionsList.Count);
             Assert.Equal(19, questionsList.First().Id);
         }

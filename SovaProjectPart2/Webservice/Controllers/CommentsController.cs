@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using AutoMapper;
 using DomainModel;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+
 using Webservice.Models;
 
 namespace WebService.Controllers
@@ -15,7 +11,7 @@ namespace WebService.Controllers
     [ApiController]
     public class CommentsController : Controller
     {
-        IDataService _dataService;
+        private readonly IDataService _dataService;
 
         public CommentsController(IDataService dataService)
         {
@@ -52,7 +48,7 @@ namespace WebService.Controllers
         }
         //Helpers
 
-        private CommentListModel CreateCommentListModel(Comment comment)
+        private static CommentListModel CreateCommentListModel(Comment comment)
         {
             var model = Mapper.Map<CommentListModel>(comment);
             return model;

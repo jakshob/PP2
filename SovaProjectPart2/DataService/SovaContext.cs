@@ -1,6 +1,4 @@
-using System;
 using Microsoft.EntityFrameworkCore;
-
 
 namespace DomainModel
 {
@@ -18,7 +16,7 @@ namespace DomainModel
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow2;uid=postgres;pwd=vfh");
+            optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=sko1bog");
 
           //  optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow2;uid=postgres;pwd=vfh");
 
@@ -89,6 +87,7 @@ namespace DomainModel
             modelBuilder.Entity<SOVA_User>().ToTable("users");
             modelBuilder.Entity<SOVA_User>().Property(x => x.Username).HasColumnName("username");
             modelBuilder.Entity<SOVA_User>().Property(x => x.Password).HasColumnName("password");
+            modelBuilder.Entity<SOVA_User>().Property(x => x.Salt).HasColumnName("salt");
             modelBuilder.Entity<SOVA_User>().HasKey(x => x.Username);
 
             //Posts
@@ -103,7 +102,7 @@ namespace DomainModel
                 .HasValue<Question>(1)
                 .HasValue<Answer>(2);
 
-            modelBuilder.Entity<Question>().Property(x => x.Name).HasColumnName("title");
+            modelBuilder.Entity<Question>().Property(x => x.Title).HasColumnName("title");
 			
             modelBuilder.Entity<Answer>().Property(x => x.ParentId).HasColumnName("parentid");
 			

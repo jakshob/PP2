@@ -32,7 +32,7 @@ namespace DomainModel.Tests
 			Assert.Equal(HttpStatusCode.OK, statusCode);
             Assert.Equal(5, data.GetValue("items").Count());
             Assert.Equal("What is the fastest way to get the value of π?",
-                data.GetValue("items").First()["name"]);
+                data.GetValue("items").First()["title"]);
 /*			Assert.Equal(5, data.Items.Count());
 			Assert.Equal("What is the fastest way to get the value of π?",
 				data.Items.First().Name);								*/
@@ -49,7 +49,7 @@ namespace DomainModel.Tests
             Assert.Equal(HttpStatusCode.OK, statusCode);
             Assert.Equal(5, data.GetValue("items").Count());
             Assert.Equal(17, data.GetValue("items").First()["score"]);
-            Assert.Equal("84538", data.GetValue("items").Last()["qa_userid"]);
+            Assert.Equal("84538", data.GetValue("items").Last()["qa_UserId"]);
         }
 
         /* /api/favorites */
