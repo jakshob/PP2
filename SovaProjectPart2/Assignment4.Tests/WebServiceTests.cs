@@ -27,8 +27,7 @@ namespace DomainModel.Tests
         public void ApiPosts_GetWithNoArguments_OkAndAllQuestions()
         {
             var (data, statusCode) = GetObject(postsApi);
-			//var (data, statusCode) = GetQuestions(postsApi);
-
+		
 			Assert.Equal(HttpStatusCode.OK, statusCode);
             Assert.Equal(5, data.GetValue("items").Count());
             Assert.Equal("What is the fastest way to get the value of π?",
@@ -54,23 +53,23 @@ namespace DomainModel.Tests
 
 
         //Den her test har problemer men er vidst tæt på at virke
-        /*
+        
 
         [Fact]
         public void ApiFavorites_CreateNewFavoriteAndGetIt()
         {
             var newFavorite = new
             {
-                SOVAUser_Username = "Mogens",
-                PostId = 19,
-                Note = "I want a drier solution"
+                id = 19,
+                username = "Mogens",
+                note = "I want a drier solution"
             };
             var (data, statusCode) = PostData(favoriteApi, newFavorite);
 
             Assert.Equal(HttpStatusCode.Created, statusCode);
 
         }
-        */
+        
 
         // Helpers
 
