@@ -6,7 +6,7 @@ namespace DomainModel
 {
     public class DataService : IDataService
     {
-        //_____________________Hardcoded USER________MEGA NEDEREN KODE_____________
+       
         readonly List<SOVA_User> _users = new List<SOVA_User>();
 
         public DataService()
@@ -22,8 +22,7 @@ namespace DomainModel
             return _users.FirstOrDefault(x => x.Username == username);
         }
 
-
-        //JEG HAR FJERNET SALT!!!! - Det virker jo forhelvede ikke endnu ;-) 
+        
         public SOVA_User CreateUser(string username, string password)
         {
             
@@ -35,9 +34,6 @@ namespace DomainModel
             _users.Add(user);
             return user;
         }
-
-        ///____________________________________________Her starter den fede kode___________________
-
 
         public int doesPasswordMatch(string username, string password)
         {

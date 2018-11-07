@@ -14,16 +14,14 @@ namespace Webservice
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
             services.AddSingleton<IDataService,DataService>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+       public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             MapperConfig();
 
@@ -34,10 +32,7 @@ namespace Webservice
 
             app.UseMvc();
 
-        //app.Run(async (context) =>
-            //{
-            //    await context.Response.WriteAsync("Hello World and RAWDATA!");
-            //});
+      
         }
 
         private void MapperConfig()
@@ -52,9 +47,6 @@ namespace Webservice
                 cfg.CreateMap<Question, QuestionListModel>();
                 cfg.CreateMap<Question, QuestionModel>();
 
-
-                //Måske skal nedenstående bruges på QA_User?
-                //.ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category.Name));
             });
         }
 

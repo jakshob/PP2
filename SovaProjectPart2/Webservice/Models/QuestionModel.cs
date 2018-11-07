@@ -12,9 +12,6 @@ namespace Webservice.Models
         public DateTime CreationDate { get; set; }
         public int Score { get; set; }
         public string Body { get; set; }
-        //        public int PostTypeId { get; set; }
-        //        public int LinkPostId { get; set; }
-        //        public List<string> Tags { get; set; }
-
+    
     }
 }

@@ -49,11 +49,8 @@ namespace DomainModel
         SOVA_User GetUser(string username);
         List<Object> GetUserPage(string username);
 
-        // SALT FJERNET MIDLERTIDIGT
         SOVA_User CreateUser(string username, string password);
 
-
-        //List<string> GetPostsWithSameTags(string tags);
 
     }
 }
