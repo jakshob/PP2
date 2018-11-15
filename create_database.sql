@@ -254,8 +254,8 @@ insert into postlinks(id, postlinkid)
         and linkpostid in (select id from post)
 on conflict do nothing;
 
-DROP TABLE IF EXISTS posts_universal;
-DROP TABLE IF EXISTS comments_universal;
+--DROP TABLE IF EXISTS posts_universal;
+--DROP TABLE IF EXISTS comments_universal;
 DROP FUNCTION IF EXISTS split_tags;
 DROP FUNCTION IF EXISTS assign_tags;
 
