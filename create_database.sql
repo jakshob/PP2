@@ -258,5 +258,40 @@ on conflict do nothing;
 --DROP TABLE IF EXISTS comments_universal;
 DROP FUNCTION IF EXISTS split_tags;
 DROP FUNCTION IF EXISTS assign_tags;
+								      
+CREATE OR REPLACE FUNCTION "public"."exactMatchSova"("sinput" text, "loggedusername" text)
+  RETURNS TABLE("postid" int4, "posttitle" text, "postscore" int4, "postbody" text) AS $BODY$
+DECLARE
+   counter integer := 1;
+   inputArray text[];
+	 word text;
+	 q text :='';
+	 max_counter integer;
+BEGIN
 
+		INSERT INTO history (username, creation_date, search_text)
+		VALUES(loggedusername,now(),sinput);
+		
+		SELECT regexp_split_to_array(sinput, '\s+')
+		INTO inputArray;
+		max_counter := array_length(inputArray,1);
+		
+		q:= 'select id, title, score, body from post where id in
+								(select id from words where word = ''';
+		q := q || inputArray[1];
+		WHILE counter < max_counter
+		LOOP
+			counter := counter + 1;
+			q := q || ''') and id in (select id from words where word = ''';
+			q := q || inputArray[counter];
+		END LOOP;
+		q := q || ''');';
+		RAISE NOTICE '%', q;
+		RETURN QUERY EXECUTE q;
+		
+END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 1000;
 
