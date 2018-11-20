@@ -318,3 +318,6 @@ create table wordfrequency as
 select id, count (word) as wordfrequency, word 
 from wordindexbody 
 group by id, word; 
+								  
+insert into tfidf_idx(select id, word from wordindexbody) on conflict do nothing;
+insert into tfidf_idx(select id, word from wordindextitle) on conflict do nothing;
