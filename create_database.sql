@@ -294,7 +294,29 @@ $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100
   ROWS 1000;
+								    
+CREATE OR REPLACE FUNCTION "public"."wordToWords"("winput" text, "loggedusername" text)
+  RETURNS TABLE("word" varchar, "word_f" numeric) AS $BODY$
+DECLARE
+	
+BEGIN
 
+INSERT INTO history (username, creation_date, search_text)
+VALUES(loggedusername,now(),winput);
+	
+RETURN QUERY SELECT distinct wordfrequency.word, sum(wordfrequency) as word_f
+	     FROM wordfrequency
+	     WHERE id in (SELECT id  
+			  FROM wordfrequency
+			  WHERE wordfrequency.word = winput)
+	     GROUP BY wordfrequency.word
+	     ORDER BY word_f DESC;
+END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 1000
+								      
 drop table if exists tfidf_idx;
 create table tfidf_idx ( 
 	id int not null,
