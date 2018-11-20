@@ -295,3 +295,11 @@ $BODY$
   COST 100
   ROWS 1000;
 
+create table tfidf_idx ( 
+		id	int not null,
+		word text not null, 
+		tf float, 
+		idf float, 
+		tfidf float,
+		primary key (id, word)
+); 
