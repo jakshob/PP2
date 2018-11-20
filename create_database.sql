@@ -304,3 +304,12 @@ create table tfidf_idx (
 	tfidf float,
 	primary key (id, word)
 ); 
+								      
+create index wib_word on wordindexbody(word);
+create index wib_id on wordindexbody(id);
+create index wib_idx on wordindexbody(idx);
+create index wib_sen on wordindexbody(sen);
+
+create index wit_word on wordindextitle(word);
+create index wit_id on wordindextitle(id);
+create index wit_idx on wordindextitle(idx);
