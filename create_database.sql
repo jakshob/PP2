@@ -319,5 +319,17 @@ select id, count (word) as wordfrequency, word
 from wordindexbody 
 group by id, word; 
 								  
-insert into tfidf_idx(select id, word from wordindexbody) on conflict do nothing;
-insert into tfidf_idx(select id, word from wordindextitle) on conflict do nothing;
+
+CREATE TABLE wordindex as select distinct id, word, what, sen, idx 
+from words
+where tablename='posts' and word ~* '[a-z]';
+
+create index wi_word on wordindex(word);
+create index wi_id on wordindex(id);
+create index wi_idx on wordindex(idx);
+create index wi_sen on wordindex(sen);
+
+insert into tfidf_idx(select id, word from wordindex) on conflict do nothing;
+
+update tfidf_idx set tf = 
+	(select count(*) from wordindex wi where wi.id = tfidf_idx.id and wi.word = tfidf_idx.word group by word);
