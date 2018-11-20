@@ -313,3 +313,8 @@ create index wib_sen on wordindexbody(sen);
 create index wit_word on wordindextitle(word);
 create index wit_id on wordindextitle(id);
 create index wit_idx on wordindextitle(idx);
+								      
+create table wordfrequency as
+select id, count (word) as wordfrequency, word 
+from wordindexbody 
+group by id, word; 
