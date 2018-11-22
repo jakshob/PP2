@@ -449,3 +449,8 @@ create index idx_dw on frequencyindex(dw);
 create index idx_tf on frequencyindex(tf);
 
 update frequencyindex set tfidf = round((log(1+(tf/dw))*(1/df)*1000)::numeric,2);
+
+create table associations as select w1.word as word1,w2.word as word2,count(*) grade from frequencyindex w1,frequencyindex w2
+where w1.id=w2.id and w1.word<w2.word
+and w1.tfidf>0.02 and w2.tfidf>0.02 and w1.df>20 and w2.df>20
+group by w1.word,w2.word order by count(*) desc;
