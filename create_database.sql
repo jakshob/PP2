@@ -259,6 +259,8 @@ on conflict do nothing;
 DROP FUNCTION IF EXISTS split_tags;
 DROP FUNCTION IF EXISTS assign_tags;
 								      
+--------Exact Match Query Function: 								      
+								      
 CREATE OR REPLACE FUNCTION "public"."exactMatchSova"("sinput" text, "loggedusername" text)
   RETURNS TABLE("postid" int4, "posttitle" text, "postscore" int4, "postbody" text) AS $BODY$
 DECLARE
@@ -295,6 +297,8 @@ $BODY$
   COST 100
   ROWS 1000;
 								      
+-------------Best Match Query Function								      
+								      
 CREATE OR REPLACE FUNCTION "public"."bestMatchSova"("sinput" text, "loggedusername" text)
   RETURNS TABLE("postid" int4, "rank" int8, "body" text) AS $BODY$
 DECLARE
@@ -327,7 +331,10 @@ END;
 $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100
-  ROWS 1000								      
+  ROWS 1000	
+								      								      
+----------- Word to Words Query Function 
+----------- Lav evt. til words to words								      
 								    
 CREATE OR REPLACE FUNCTION "public"."wordToWords"("winput" text, "loggedusername" text)
   RETURNS TABLE("word" varchar, "word_f" numeric) AS $BODY$
@@ -360,6 +367,8 @@ create table tfidf_idx (
 	tfidf float,
 	primary key (id, word)
 ); 
+								      
+-------Opretter eller indexerer tabeller
 								      
 create index wib_word on wordindexbody(word);
 create index wib_id on wordindexbody(id);
