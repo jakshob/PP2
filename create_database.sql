@@ -411,9 +411,9 @@ create table frequencyindex (
 	primary key (id, word)
 ); 
 
-/*CREATE TABLE wordindex as select distinct id, word, what, sen, idx 
+CREATE TABLE wordindex as select distinct id, lower(word) as word, what, sen, idx 
 from words
-where tablename='posts' and word ~* '[a-z]';*/
+where tablename='posts' and word ~* '[a-z]';
 
 create index wi_word on wordindex(word);
 create index wi_id on wordindex(id);
