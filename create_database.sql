@@ -423,7 +423,7 @@ create index wi_sen on wordindex(sen);
 insert into frequencyindex(select id, lower(word) as word from wordindex) on conflict do nothing;
 
 update frequencyindex set tf = 
-	(select count(*) from wordindex wi where wi.id = frequencyindex.id and wi.word = frequencyindex.word group by word);
+	(select count(*) from wordindex wi where wi.id = frequencyindex.id and wi.lower(word) = frequencyindex.word group by word);
 	
 create index frequencyindex_word on frequencyindex(word);
 create index frequencyindex_id on frequencyindex(id);
