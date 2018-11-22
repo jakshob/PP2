@@ -294,6 +294,40 @@ $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100
   ROWS 1000;
+								      
+CREATE OR REPLACE FUNCTION "public"."bestMatchSova"("sinput" text, "loggedusername" text)
+  RETURNS TABLE("postid" int4, "rank" int8, "body" text) AS $BODY$
+DECLARE
+   counter integer := 1;
+   inputArray text[];
+	 q text :='';
+	 max_counter integer;
+BEGIN
+		INSERT INTO history (username, creation_date, search_text)
+		VALUES(loggedusername,now(),sinput);
+		
+		SELECT regexp_split_to_array(sinput, '\s+')
+		INTO inputArray;
+		max_counter := array_length(inputArray,1);
+		
+		q:= 'select post.id, sum(rank_score) rank, body from post,
+								(select distinct id, 1 rank_score from wordindexbody where word = ''';
+		q := q || inputArray[1];
+		WHILE counter < max_counter
+		LOOP
+			counter := counter + 1;
+			q := q || ''' union all select distinct id, 1 rank_score  from wordindexbody where word = ''';
+			q := q || inputArray[counter];
+		END LOOP;
+		q := q || ''') as t where t.id=post.id GROUP BY post.id, body ORDER BY rank DESC;';
+		RAISE NOTICE '%', q;
+		RETURN QUERY EXECUTE q;
+		
+END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 1000								      
 								    
 CREATE OR REPLACE FUNCTION "public"."wordToWords"("winput" text, "loggedusername" text)
   RETURNS TABLE("word" varchar, "word_f" numeric) AS $BODY$
