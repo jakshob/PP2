@@ -99,3 +99,18 @@ create table associations as
 		and w2.df>5
 		
 	group by w1.word,w2.word order by count(*) desc;
+
+-- Function findAssociations								       
+CREATE OR REPLACE FUNCTION "public"."findAssociations"("sinput" text)
+  RETURNS TABLE("first" text, "second" text, "grade" int8) AS $BODY$BEGIN
+	
+	RETURN query
+	SELECT * 
+	FROM associations
+	WHERE sinput = word1 
+	OR sinput = word2; 
+
+END$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 1000;								       
