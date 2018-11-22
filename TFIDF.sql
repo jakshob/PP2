@@ -26,6 +26,7 @@ create index frequencyindex_id on frequencyindex(id);
 update frequencyindex set tf = 
 	(select count(*) from wordindex wi where wi.id = frequencyindex.id and wi.word = frequencyindex.word group by word);
 	
+delete from frequencyindex where frequencyindex.word = any(select word from stopwords);
 
 CREATE TABLE documentfrequency as select distinct lower(word) as word, count(distinct id) 
 from frequencyindex
