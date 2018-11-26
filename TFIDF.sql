@@ -83,7 +83,10 @@ END;
 $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100
-  ROWS 1000;								       
+  ROWS 1000;			
+								       
+create index idx_tfidf on frequencyindex(tfidf);
+create index idx_word on frequencyindex(word);
 
 create table associations as 
 	select w1.word as word1, 
