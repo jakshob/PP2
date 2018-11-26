@@ -49,11 +49,31 @@ namespace DomainModel.Tests
             Assert.Equal("84538", data.GetValue("items").Last()["qa_UserId"]);
         }
 
+
+        [Fact]
+        public void ApiPosts_GetRelevantWordsToJava()
+        {
+            var (data, statusCode) = GetObject(postsApi + "/relevantWords/java");
+            Assert.Equal(HttpStatusCode.OK, statusCode);
+            Assert.Equal(5, data.GetValue("items").Count());
+            Assert.Equal("a",
+                data.GetValue("items").First()["word"]);
+        }
+
+        [Fact]
+        public void ApiPosts_GetSearchQuestionsSortedByScoreHowToProgramInJava()
+        {
+            var (data, statusCode) = GetObject(postsApi + "/searchquestionssortbyscore/how to program in java");
+            Assert.Equal(HttpStatusCode.OK, statusCode);
+            Assert.Equal(5, data.GetValue("items").Count());
+            Assert.Equal(4, data.GetValue("items").First()["rank"]);
+            Assert.Equal(3457967, data.GetValue("items").First()["postId"]);
+        }
         /* /api/favorites */
 
 
         //Den her test har problemer men er vidst tæt på at virke
-        
+
 
         [Fact]
         public void ApiFavorites_CreateNewFavoriteAndGetIt()

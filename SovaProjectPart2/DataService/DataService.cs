@@ -191,7 +191,6 @@ namespace DomainModel
                     {
                         var tmp = new RelevantWord
                         {
-                            
                             word = result.word,
                             word_f = result.word_f
                         };
