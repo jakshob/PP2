@@ -67,7 +67,7 @@ namespace DomainModel.Tests
             Assert.Equal(HttpStatusCode.OK, statusCode);
             Assert.Equal(5, data.GetValue("items").Count());
             Assert.Equal(4, data.GetValue("items").First()["rank"]);
-            Assert.Equal(3457967, data.GetValue("items").First()["postId"]);
+            Assert.Equal(944479, data.GetValue("items").First()["postId"]);
         }
         /* /api/favorites */
 
