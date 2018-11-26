@@ -20,7 +20,7 @@ namespace DomainModel
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseNpgsql("host=localhost;db=so5;uid=postgres;pwd=vfh");
+            optionsBuilder.UseNpgsql("host=rawdata.ruc.dk;db=raw1;uid=raw1;pwd=Y.aDOhAK");
 
         }
 
