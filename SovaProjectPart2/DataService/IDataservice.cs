@@ -27,7 +27,8 @@ namespace DomainModel
         
         //Search
         List<string> GetMostUsedSearchTexts(int page, int pageSize);
-       
+        List<RelevantWord> GetRelevantWords(string word, int page, int pageSize);
+
         //Favorites
         List<Question> GetFavorites(string username, int page, int pageSize);
         Favorite CreateFavoriteQuestion(int questionId, string username);

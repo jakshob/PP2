@@ -47,6 +47,7 @@ namespace Webservice
                 cfg.CreateMap<Question, QuestionListModel>();
                 cfg.CreateMap<Question, QuestionModel>();
                 cfg.CreateMap<SearchResult, SearchListModel>();
+                cfg.CreateMap<RelevantWord, WordListModel>();
 
             });
         }

@@ -71,11 +71,29 @@ namespace WebService.Controllers
             return Ok(result);
         }
 
-       
+        [HttpGet("relevantWords/{wordInput}", Name = nameof(GetRelevantWords))]
+        public IActionResult GetRelevantWords(string wordInput, int page = 0, int pageSize = 5)
+        {
+            var answerPosts = _dataService.GetRelevantWords(wordInput, page, pageSize)
+                .Select(CreateWordListModel);
+            var numberOfPages = HelperController.ComputeNumberOfPages(page, pageSize);
+
+            var result = new
+            {
+                Page = page,
+                First = HelperController.CreateLink(0, pageSize, nameof(GetRelevantWords), Url),
+                Next = HelperController.CreateLinkToNextPage(page, pageSize, numberOfPages, nameof(GetRelevantWords), Url),
+                Prev = HelperController.CreateLinkToPrevPage(page, pageSize, nameof(GetRelevantWords), Url),
+                Items = answerPosts
+            };
+            return Ok(result);
+        }
+
+
         [HttpGet("searchQuestionsSortByScore/{searchInput}", Name = nameof(GetSearchQuestionsSortByScore))]
         public IActionResult GetSearchQuestionsSortByScore(string searchInput, int page = 0, int pageSize = 5)
         {
-            var answerPosts = _dataService.GetSearchQuestionsSortedByScore(searchInput, page, pageSize)
+            var questionPosts = _dataService.GetSearchQuestionsSortedByScore(searchInput, page, pageSize)
                 .Select(CreateSearchListModel);
             var numberOfPages = HelperController.ComputeNumberOfPages(page, pageSize);
 
@@ -85,7 +103,7 @@ namespace WebService.Controllers
                 First = HelperController.CreateLink(0, pageSize, nameof(GetSearchQuestionsSortByScore), Url),
                 Next = HelperController.CreateLinkToNextPage(page, pageSize, numberOfPages, nameof(GetSearchQuestionsSortByScore), Url),
                 Prev = HelperController.CreateLinkToPrevPage(page, pageSize, nameof(GetSearchQuestionsSortByScore), Url),
-                Items = answerPosts
+                Items = questionPosts
             };
             return Ok(result);
         }
@@ -148,6 +166,12 @@ namespace WebService.Controllers
         {
             var model = Mapper.Map<QuestionModel>(question);
             model.Url = Url.Link(nameof(GetQuestionById), new { id = question.Id });
+            return model;
+        }
+
+        private static WordListModel CreateWordListModel(RelevantWord word)
+        {
+            var model = Mapper.Map<WordListModel>(word);
             return model;
         }
 

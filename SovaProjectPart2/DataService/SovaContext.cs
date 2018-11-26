@@ -14,12 +14,13 @@ namespace DomainModel
         public DbSet<SOVA_User> SOVA_Users { get; set; }
 
         public DbQuery<SearchResult> SearchResults { get; set; }
+        public DbQuery<RelevantWord> RelevantWords { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseNpgsql("host=localhost;db=so4;uid=postgres;pwd=vfh");
+            optionsBuilder.UseNpgsql("host=localhost;db=so5;uid=postgres;pwd=vfh");
 
         }
 

@@ -175,6 +175,38 @@ namespace DomainModel
                 return db.Comments.Find(id);
             }
         }
+
+        public List<RelevantWord> GetRelevantWords(string word, int page, int pageSize)
+        {
+            using (var db = new SovaContext())
+
+            {
+                List<RelevantWord> tempList = new List<RelevantWord>();
+
+
+                foreach (var result in db.RelevantWords.FromSql("select * from \"wordToWords\"({0},{1})", word,
+                    "Mogens"))
+                {
+                    if (result.word != word)
+                    {
+                        var tmp = new RelevantWord
+                        {
+                            
+                            word = result.word,
+                            word_f = result.word_f
+                        };
+                        tempList.Add(tmp);
+                    }
+
+                }
+
+                return tempList
+                    .Skip(page * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+            }
+        }
+
         public List<SearchResult> GetSearchQuestionsSortedByScore(string searchText, int page, int pageSize) {
 
             using (var db = new SovaContext())
