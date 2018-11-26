@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
 namespace DomainModel
 {
     public class DataService : IDataService
@@ -172,19 +175,32 @@ namespace DomainModel
                 return db.Comments.Find(id);
             }
         }
-        public List<Question> GetSearchQuestionsSortedByScore(string searchText, int page, int pageSize) {
+        public List<SearchResult> GetSearchQuestionsSortedByScore(string searchText, int page, int pageSize) {
 
             using (var db = new SovaContext())
             {
-                // OBS!!! SØGER IKKE I BODY!!
-                //Starter med søgning i navn, senere kan tilføjes body!
+                
+                List<SearchResult> tempList = new List<SearchResult>();
 
-                //Liste kun hvor indeholder "searchText" i navnet + gør mindre til comparison
-                var questionsFromSearch = db.Questions.Where(p => p.Title.ToLower().Contains(searchText.ToLower()));
-                //output to List<Post>
-                var queSortByScore = questionsFromSearch.OrderByDescending(x => x.Score).ToList();
+                foreach (var result in db.SearchResults.FromSql("select * from \"bestMatchSova\"({0},{1})", searchText,
+                    "Mogens"))
+                {
+                    if (result.posttype == 1)
+                    {
+                        var tmp = new SearchResult
+                        {
+                            body = result.body,
+                            postId = result.postId,
+                            rank = result.rank,
+                            posttype = result.posttype
+                        };
+                        tempList.Add(tmp);
+                    }
 
-                return queSortByScore
+                }
+                
+
+                return tempList
                     .Skip(page * pageSize)
                     .Take(pageSize)
                     .ToList();

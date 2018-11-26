@@ -1,3 +1,4 @@
+
 using Microsoft.EntityFrameworkCore;
 
 namespace DomainModel
@@ -12,11 +13,13 @@ namespace DomainModel
         public DbSet<Question> Questions { get; set; }
         public DbSet<SOVA_User> SOVA_Users { get; set; }
 
+        public DbQuery<SearchResult> SearchResults { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseNpgsql("host=rawdata.ruc.dk;db=raw1;uid=raw1;pwd=Y.aDOhAK");
+            optionsBuilder.UseNpgsql("host=localhost;db=so4;uid=postgres;pwd=vfh");
 
         }
 
@@ -55,7 +58,8 @@ namespace DomainModel
             modelBuilder.Entity<QA_User>().Property(x => x.CreationDate).HasColumnName("creationdate");
             modelBuilder.Entity<QA_User>().Property(x => x.Location).HasColumnName("location");
             modelBuilder.Entity<QA_User>().Property(x => x.Age).HasColumnName("age");
-        
+
+            
             //Sova_User
             modelBuilder.Entity<SOVA_User>().ToTable("users");
             modelBuilder.Entity<SOVA_User>().Property(x => x.Username).HasColumnName("username");
@@ -78,6 +82,8 @@ namespace DomainModel
             modelBuilder.Entity<Question>().Property(x => x.Title).HasColumnName("title");
 			
             modelBuilder.Entity<Answer>().Property(x => x.ParentId).HasColumnName("parentid");
+
+            
 			
         }
 	}

@@ -71,12 +71,12 @@ namespace WebService.Controllers
             return Ok(result);
         }
 
-        /* ORIGINAL SØGE-METODE (Gemmer ikke søgehistorik)
+       
         [HttpGet("searchQuestionsSortByScore/{searchInput}", Name = nameof(GetSearchQuestionsSortByScore))]
         public IActionResult GetSearchQuestionsSortByScore(string searchInput, int page = 0, int pageSize = 5)
         {
             var answerPosts = _dataService.GetSearchQuestionsSortedByScore(searchInput, page, pageSize)
-                .Select(CreateQuestionListModel);
+                .Select(CreateSearchListModel);
             var numberOfPages = HelperController.ComputeNumberOfPages(page, pageSize);
 
             var result = new
@@ -89,7 +89,7 @@ namespace WebService.Controllers
             };
             return Ok(result);
         }
-        */
+        
 
         [HttpGet("TraverseSearchResults/{searchInput}", Name =nameof(TraverseSearchResults))]
         public IActionResult TraverseSearchResults(string searchInput, int page = 0, int pageSize = 5)
@@ -109,7 +109,7 @@ namespace WebService.Controllers
 
             return Ok(result);
         }
-
+        /*
         [HttpGet("searchQuestionsSortByScore/{searchInput}", Name = nameof(GetSearchQuestionsSortByScore))]
         public IActionResult GetSearchQuestionsSortByScore(string searchInput, int page = 0, int pageSize = 5)
         {
@@ -127,7 +127,7 @@ namespace WebService.Controllers
             };
             return Ok(result);
         }
-        
+        */
 
         //Helpers
 
@@ -148,6 +148,12 @@ namespace WebService.Controllers
         {
             var model = Mapper.Map<QuestionModel>(question);
             model.Url = Url.Link(nameof(GetQuestionById), new { id = question.Id });
+            return model;
+        }
+
+        private SearchListModel CreateSearchListModel(SearchResult searchResult)
+        {
+            var model = Mapper.Map<SearchListModel>(searchResult);
             return model;
         }
     }
