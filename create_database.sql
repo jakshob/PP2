@@ -300,7 +300,7 @@ $BODY$
 -------------Best Match Query Function								      
 								      
 CREATE OR REPLACE FUNCTION "public"."bestMatchSova"("sinput" text, "loggedusername" text)
-  RETURNS TABLE("postid" int4, "rank" int8, "body" text) AS $BODY$
+  RETURNS TABLE("postid" int4, "rank" int8, "body" text, "posttype" int4) AS $BODY$
 DECLARE
    counter integer := 1;
    inputArray text[];
@@ -314,13 +314,13 @@ BEGIN
 		INTO inputArray;
 		max_counter := array_length(inputArray,1);
 		
-		q:= 'select post.id, sum(rank_score) rank, body from post,
+		q:= 'select post.id, sum(rank_score) rank, body, post.posttype from post, 
 								(select distinct id, 1 rank_score from wordindexbody where word = ''';
 		q := q || inputArray[1];
 		WHILE counter < max_counter
 		LOOP
 			counter := counter + 1;
-			q := q || ''' union all select distinct id, 1 rank_score  from wordindexbody where word = ''';
+			q := q || ''' union all select distinct id, 1 rank_score from wordindexbody where word = ''';
 			q := q || inputArray[counter];
 		END LOOP;
 		q := q || ''') as t where t.id=post.id GROUP BY post.id, body ORDER BY rank DESC;';
@@ -331,13 +331,13 @@ END;
 $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100
-  ROWS 1000	
+  ROWS 1000
 								      								      
 ----------- Word to Words Query Function 
 ----------- Lav evt. til words to words								      
 								    
 CREATE OR REPLACE FUNCTION "public"."wordToWords"("winput" text, "loggedusername" text)
-  RETURNS TABLE("word" varchar, "word_f" numeric) AS $BODY$
+  RETURNS TABLE("word_f" numeric, "word" varchar) AS $BODY$
 DECLARE
 	
 BEGIN
@@ -345,11 +345,13 @@ BEGIN
 INSERT INTO history (username, creation_date, search_text)
 VALUES(loggedusername,now(),winput);
 	
-RETURN QUERY SELECT distinct wordfrequency.word, sum(wordfrequency) as word_f
+RETURN QUERY SELECT sum(wordfrequency) as word_f, wordfrequency.word as foo
 	     FROM wordfrequency
-	     WHERE id in (SELECT id  
+             WHERE id in (SELECT id  
 			  FROM wordfrequency
 			  WHERE wordfrequency.word = winput)
+	     AND wordfrequency.word NOT in (SELECT stopwords.word 
+					    FROM stopwords)
 	     GROUP BY wordfrequency.word
 	     ORDER BY word_f DESC;
 END;
