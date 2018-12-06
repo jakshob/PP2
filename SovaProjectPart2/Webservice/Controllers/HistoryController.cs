@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using AutoMapper;
 using DomainModel;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Webservice;
 using Webservice.Models;
 
@@ -16,7 +11,7 @@ namespace WebService.Controllers
     [ApiController]
     public class HistoryController : Controller
     {
-        IDataService _dataService;
+        private readonly IDataService _dataService;
 
         public HistoryController(IDataService dataService)
         {
@@ -29,10 +24,10 @@ namespace WebService.Controllers
             return Ok(historyByUsername);
         }
 
-        private HistoryListModel CreateHistoryListModel(History history)
+        private static HistoryListModel CreateHistoryListModel(History history)
         {
             var model = Mapper.Map<HistoryListModel>(history);
-            model.Url = Url.Link("api/", new { id = history.SearchText });
+            model.Url = "http://localhost:5001/api/posts/TraverseSearchResults/" + model.SearchText;
             return model;
         }
     }

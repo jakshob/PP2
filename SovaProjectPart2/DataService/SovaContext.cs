@@ -1,6 +1,5 @@
-using System;
-using Microsoft.EntityFrameworkCore;
 
+using Microsoft.EntityFrameworkCore;
 
 namespace DomainModel
 {
@@ -14,18 +13,14 @@ namespace DomainModel
         public DbSet<Question> Questions { get; set; }
         public DbSet<SOVA_User> SOVA_Users { get; set; }
 
+        public DbQuery<SearchResult> SearchResults { get; set; }
+        public DbQuery<RelevantWord> RelevantWords { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-           // optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=Sko1bog");
-
-          //  optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow2;uid=postgres;pwd=vfh");
-
-
-            optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=olivia");
-
-           // optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=elskerkage");
+            optionsBuilder.UseNpgsql("host=rawdata.ruc.dk;db=raw1;uid=raw1;pwd=Y.aDOhAK");
 
         }
 
@@ -33,9 +28,7 @@ namespace DomainModel
         {
             base.OnModelCreating(modelBuilder);
 
-
-            //Fra Allan - Modellering:
-
+            
             //Comment
             modelBuilder.Entity<Comment>().ToTable("comment");
             modelBuilder.Entity<Comment>().Property(x => x.Id).HasColumnName("id");
@@ -66,25 +59,8 @@ namespace DomainModel
             modelBuilder.Entity<QA_User>().Property(x => x.CreationDate).HasColumnName("creationdate");
             modelBuilder.Entity<QA_User>().Property(x => x.Location).HasColumnName("location");
             modelBuilder.Entity<QA_User>().Property(x => x.Age).HasColumnName("age");
-        /*
-            //Questions
-            modelBuilder.Entity<Question>().ToTable("questions");
-            modelBuilder.Entity<Question>().Property(x => x.Id).HasColumnName("id");
-            modelBuilder.Entity<Question>().Property(x => x.Name).HasColumnName("title");
-            modelBuilder.Entity<Question>().Property(x => x.QA_UserId).HasColumnName("ownerid");
-            modelBuilder.Entity<Question>().Property(x => x.Body).HasColumnName("body");
-            modelBuilder.Entity<Question>().Property(x => x.CreationDate).HasColumnName("creationdate");
-            modelBuilder.Entity<Question>().Property(x => x.Score).HasColumnName("score");
-          
-            //Answers
-            modelBuilder.Entity<Answer>().ToTable("answers");
-            modelBuilder.Entity<Answer>().Property(x => x.Id).HasColumnName("id");
-            modelBuilder.Entity<Answer>().Property(x => x.QA_UserId).HasColumnName("ownerid");
-            modelBuilder.Entity<Answer>().Property(x => x.Body).HasColumnName("body");
-            modelBuilder.Entity<Answer>().Property(x => x.CreationDate).HasColumnName("creationdate");
-            modelBuilder.Entity<Answer>().Property(x => x.Score).HasColumnName("score");
-            modelBuilder.Entity<Answer>().Property(x => x.ParentId).HasColumnName("parentid");
-        */
+
+            
             //Sova_User
             modelBuilder.Entity<SOVA_User>().ToTable("users");
             modelBuilder.Entity<SOVA_User>().Property(x => x.Username).HasColumnName("username");
@@ -104,9 +80,11 @@ namespace DomainModel
                 .HasValue<Question>(1)
                 .HasValue<Answer>(2);
 
-            modelBuilder.Entity<Question>().Property(x => x.Name).HasColumnName("title");
+            modelBuilder.Entity<Question>().Property(x => x.Title).HasColumnName("title");
 			
             modelBuilder.Entity<Answer>().Property(x => x.ParentId).HasColumnName("parentid");
+
+            
 			
         }
 	}

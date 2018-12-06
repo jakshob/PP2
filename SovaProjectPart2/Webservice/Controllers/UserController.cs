@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
 using DomainModel;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Webservice.Models;
+
 
 namespace Webservice.Controllers
 {
@@ -17,15 +12,14 @@ namespace Webservice.Controllers
     public class UserController : Controller
 
     {
-        IDataService _dataService;
+        private readonly IDataService _dataService;
 
         public UserController(IDataService dataService)
         {
             _dataService = dataService;
         }
         [HttpPost] 
-        //SALT FJERNET MIDLERTIDIGT
-        public IActionResult CreateUser(string username, string password, string salt) 
+       public IActionResult CreateUser(string username, string password, string salt) 
         {
             var newUser = _dataService.CreateUser(username, password);
             return Ok(newUser); 
@@ -34,7 +28,7 @@ namespace Webservice.Controllers
         [HttpDelete]
         public IActionResult DeleteUser(string username, string password)
         {
-            int passwordMatch = _dataService.doesPasswordMatch(username, password); 
+            var passwordMatch = _dataService.doesPasswordMatch(username, password); 
             if (passwordMatch == 1)
             {
                 _dataService.deleteUser(username, password);
@@ -46,14 +40,13 @@ namespace Webservice.Controllers
             }
         }
         [HttpPut]
-        public IActionResult EditUser(string username, string password, string newpassword)
+        public IActionResult EditUser(string username, string password, string newPassword)
         {
-            int passwordMatch = _dataService.doesPasswordMatch(username, password);
+            var passwordMatch = _dataService.doesPasswordMatch(username, password);
             if (passwordMatch == 1)
             {
-                _dataService.EditUserPassword(username, password, newpassword);
+                _dataService.EditUserPassword(username, password, newPassword);
                 return Ok("Your password has been changed");
-
             }
             else
             {

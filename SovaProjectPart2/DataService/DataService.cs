@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DomainModel
 {
     public class DataService : IDataService
     {
-        //_____________________Hardcoded USER________MEGA NEDEREN KODE_____________
+       
         readonly List<SOVA_User> _users = new List<SOVA_User>();
 
         public DataService()
@@ -23,8 +25,7 @@ namespace DomainModel
             return _users.FirstOrDefault(x => x.Username == username);
         }
 
-
-        //JEG HAR FJERNET SALT!!!! - Det virker jo forhelvede ikke endnu ;-) 
+        
         public SOVA_User CreateUser(string username, string password)
         {
             
@@ -36,9 +37,6 @@ namespace DomainModel
             _users.Add(user);
             return user;
         }
-
-        ///____________________________________________Her starter den fede kode___________________
-
 
         public int doesPasswordMatch(string username, string password)
         {
@@ -177,19 +175,63 @@ namespace DomainModel
                 return db.Comments.Find(id);
             }
         }
-        public List<Question> GetSearchQuestionsSortedByScore(string searchText, int page, int pageSize) {
+
+        public List<RelevantWord> GetRelevantWords(string word, int page, int pageSize)
+        {
+            using (var db = new SovaContext())
+
+            {
+                List<RelevantWord> tempList = new List<RelevantWord>();
+
+
+                foreach (var result in db.RelevantWords.FromSql("select * from \"wordToWords\"({0},{1})", word,
+                    "Mogens"))
+                {
+                    if (result.word != word)
+                    {
+                        var tmp = new RelevantWord
+                        {
+                            word = result.word,
+                            word_f = result.word_f
+                        };
+                        tempList.Add(tmp);
+                    }
+
+                }
+
+                return tempList
+                    .Skip(page * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+            }
+        }
+
+        public List<SearchResult> GetSearchQuestionsSortedByScore(string searchText, int page, int pageSize) {
 
             using (var db = new SovaContext())
             {
-                // OBS!!! SØGER IKKE I BODY!!
-                //Starter med søgning i navn, senere kan tilføjes body!
+                
+                List<SearchResult> tempList = new List<SearchResult>();
 
-                //Liste kun hvor indeholder "searchText" i navnet + gør mindre til comparison
-                var questionsFromSearch = db.Questions.Where(p => p.Name.ToLower().Contains(searchText.ToLower()));
-                //output to List<Post>
-                var queSortByScore = questionsFromSearch.OrderByDescending(x => x.Score).ToList();
+                foreach (var result in db.SearchResults.FromSql("select * from \"bestMatchSova\"({0},{1})", searchText,
+                    "Mogens"))
+                {
+                    if (result.posttype == 1)
+                    {
+                        var tmp = new SearchResult
+                        {
+                            body = result.body,
+                            postId = result.postId,
+                            rank = result.rank,
+                            posttype = result.posttype
+                        };
+                        tempList.Add(tmp);
+                    }
 
-                return queSortByScore
+                }
+                
+
+                return tempList
                     .Skip(page * pageSize)
                     .Take(pageSize)
                     .ToList();
@@ -299,7 +341,7 @@ namespace DomainModel
 
 		public List<Question> SearchSova(string sinput, string userName, int page, int pageSize) {
 			using (var db = new SovaContext()) {
-				var resultList = db.Questions.Where(x => x.Body.Contains(sinput) | x.Name.Contains(sinput));
+				var resultList = db.Questions.Where(x => x.Body.Contains(sinput) | x.Title.Contains(sinput));
                 var resultListSorted = resultList.OrderByDescending(x => x.Score).ToList();
 
                 History history = new History {
@@ -319,7 +361,7 @@ namespace DomainModel
 		}
 		public List<Question> TraverseSearchResults(string sinput, string userName, int page, int pageSize) {
 			using (var db = new SovaContext()) {
-				var resultList = db.Questions.Where(x => x.Body.Contains(sinput) | x.Name.Contains(sinput));
+				var resultList = db.Questions.Where(x => x.Body.Contains(sinput) | x.Title.Contains(sinput));
                 var resultListSorted = resultList.OrderByDescending(x => x.Score).ToList();
 
                 return resultListSorted

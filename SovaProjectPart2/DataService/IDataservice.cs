@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+
 
 
 namespace DomainModel
@@ -14,7 +14,8 @@ namespace DomainModel
         //Questions
         Question GetQuestion(int id);
         List<Question> GetQuestions(int page, int pageSize);
-        List<Question> GetSearchQuestionsSortedByScore(string searchText, int page, int pageSize);
+
+        List<SearchResult> GetSearchQuestionsSortedByScore(string searchText, int page, int pageSize);
         List<Question> SearchSova(string sinput, string userName, int page, int pageSize);
         List<Question> TraverseSearchResults(string sinput, string userName, int page, int pageSize);
 
@@ -26,7 +27,8 @@ namespace DomainModel
         
         //Search
         List<string> GetMostUsedSearchTexts(int page, int pageSize);
-       
+        List<RelevantWord> GetRelevantWords(string word, int page, int pageSize);
+
         //Favorites
         List<Question> GetFavorites(string username, int page, int pageSize);
         Favorite CreateFavoriteQuestion(int questionId, string username);
@@ -50,11 +52,8 @@ namespace DomainModel
         SOVA_User GetUser(string username);
         List<Object> GetUserPage(string username);
 
-        // SALT FJERNET MIDLERTIDIGT
         SOVA_User CreateUser(string username, string password);
 
-
-        //List<string> GetPostsWithSameTags(string tags);
 
     }
 }
