@@ -8,6 +8,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataService", "DataService\DataService.csproj", "{D93E3B2E-D653-4B1E-BE13-18A00692FB43}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SovaPart2.Tests", "Assignment4.Tests\SovaPart2.Tests.csproj", "{66BC4C96-85CA-43E5-ACFB-5C58E599BA26}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B2753D70-2ECD-40C9-8381-49D647CAE7A7} = {B2753D70-2ECD-40C9-8381-49D647CAE7A7}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

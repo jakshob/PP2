@@ -18,12 +18,12 @@ namespace DomainModel
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=Sko1bog");
+           // optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=Sko1bog");
 
           //  optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow2;uid=postgres;pwd=vfh");
 
 
-           // optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=olivia");
+            optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=olivia");
 
            // optionsBuilder.UseNpgsql("host=localhost;db=stackoverflow;uid=postgres;pwd=elskerkage");
 
