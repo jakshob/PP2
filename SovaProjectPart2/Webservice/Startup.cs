@@ -30,6 +30,7 @@ namespace Webservice
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseFileServer();
             app.UseMvc();
 
       
