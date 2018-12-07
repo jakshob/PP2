@@ -21,6 +21,7 @@ namespace DomainModel
         {
             base.OnConfiguring(optionsBuilder);
             optionsBuilder.UseNpgsql("host=rawdata.ruc.dk;db=raw1;uid=raw1;pwd=Y.aDOhAK");
+            //optionsBuilder.UseNpgsql("host = localhost; db = stackoverflow; uid = postgres; pwd = Sko1bog");
 
         }
 

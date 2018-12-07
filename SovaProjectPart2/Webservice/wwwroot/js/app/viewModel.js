@@ -19,12 +19,7 @@
 
 
     var currentTemplate = ko.observable("posts");
-
-    var string = "hej";
-
-
-    var apiString = ko.observable("http://localhost:1891/api/posts/");
-
+    var apiString = ko.observable("api/posts");
 
     var update = function (apiString) {
         if (currentTemplate() === "posts") {
@@ -45,65 +40,23 @@
                 score(data.score);
                 postBody(data.body);
                 answers(data.answers);
-
-
-
-            });
-
-            $.getJSON("http://localhost:1891/api/posts/19/answers", function (data) {
-                console.log("hej");
-                answerList(data);
-                //answerBody(answerList.body);
-
-
-            });
-
-        }
-
-        if (currentTemplate() === "answers") {
-            $.getJSON("http://localhost:1891/api/posts/19/answers", function (data) {
-                console.log("hej");
-                answerList(data);
-                //answerBody(answerList.body);
-
-
             });
         }
     }
 
     var updatePost = function (data) {
-        currentTemplate("post");
+        currentTemplate("posts");
 
         apiString(data.link);
-
         update(apiString());
 
     }
 
 
-    //update(apiString());
-
-	/*var prevPage = function ()
-	{
-		apiString(prev());
-		update(apiString());
-
-	}
-
-	var nextPage = function ()
-	{
-		apiString(next());
-		update(apiString());
-
-	}*/
-
     return {
-        currentTemplate,
-        posts,
+        currentTemplate,       
         update,
-        updatePost,
-        prevPage,
-        nextPage,
+        updatePost,        
         title,
         postBody,
         answerBody,

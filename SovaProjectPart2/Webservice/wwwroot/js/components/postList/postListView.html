@@ -2,9 +2,8 @@
 
 <div data-bind="foreach: posts">
     <div>
-
-        <div data-bind="component: { name: $parent.currentComponent, params: {post: $data}}"></div>
-        HEJ
+        <div data-bind="text: title"></div>
+        
 
     </div>
 </div>

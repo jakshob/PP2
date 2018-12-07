@@ -20,15 +20,8 @@ require(['knockout'], function (ko) {
         viewModel: { require: 'components/postList/postList' },
         template: { require: 'text!components/postList/postListView.html' }
     });
-
-    ko.components.register("post", {
-        viewModel: { require: 'components/post/post' },
-        template: { require: 'text!components/post/postView.html' }
-    });
-
-
 });
 
-require(['knockout', 'app'], function (ko, app) {
+require(['knockout', 'app/viewModel'], function (ko, app) {
     ko.applyBindings(app);
 });

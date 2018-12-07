@@ -4,24 +4,32 @@
         var next = ko.observable();
         var prev = ko.observable();
         var link = ko.observable();
+        var apiString = ko.observable("api/posts");
 
         var currentComponent = ko.observable("post");
 
-        ds.getPosts(function (data) {
-            posts(data.items);
+        var update = function (api) {
+            ds.getPosts(function (data) {
+                posts(data.items);
+                next(data.next);
+                prev(data.prev);
+            }, api);
 
-        });
+        }
+
+        update(apiString());
+        
+
+        
 
         var prevPage = function () {
             apiString(prev());
             update(apiString());
-
         }
 
         var nextPage = function () {
-            apiString(next());
+            apiString(next());            
             update(apiString());
-
         }
 
         return {

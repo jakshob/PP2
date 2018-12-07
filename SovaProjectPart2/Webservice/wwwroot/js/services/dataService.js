@@ -1,12 +1,11 @@
 ﻿define(['jquery'], function ($) {
-    var getPosts = function (callback) {
-        $.getJSON('api/posts', function (data) {
-            callback(data);
-        });
+	var getPosts = function (callback, api) {
+		$.getJSON(api, function (data) {
+			callback(data);
+		});
     };
 
-
-    return {
-        getPosts
-    };
+	return {
+		getPosts
+	};
 });
