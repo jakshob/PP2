@@ -13,15 +13,20 @@
         'jqcloud': ['jquery']
     }
 });
-
+/*
 // register components
 require(['knockout'], function (ko) {
     ko.components.register("post-list", {
         viewModel: { require: 'components/postList/postList' },
         template: { require: 'text!components/postList/postListView.html' }
     });
+    
 });
-
+*/
 require(['knockout', 'app/viewModel'], function (ko, app) {
+    ko.components.register("post-list", {
+        viewModel: { require: 'components/postList/postList' },
+        template: { require: 'text!components/postList/postListView.html' }
+    });
     ko.applyBindings(app);
 });

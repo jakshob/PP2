@@ -1,17 +1,65 @@
-﻿	Posts:
+﻿<style>
+    a.noLinkatt {
+        text-decoration: none;
+        color: black;
+    }
+    Button {
+        padding:10px;
+        font-weight: normal;
+        color: white;
+        border: none;
+        margin-top: 5px;
+    }
+    
+    Button:hover {
+        font-weight: bold;
+        border: solid;
+        border-color: black;
+        padding: 7px;
+        cursor: pointer;
+    }
+    Button.myNext {
+        background-color: green;
+    }
+        button.myNext::after {
+            content: " >"
+        }
 
-<div data-bind="foreach: posts">
+    Button.myPrev {
+        background-color: red;
+    }
+        button.myPrev::before {
+            content: "< "
+        }
+
+    .myPostTitle {
+        font-family:Roboto;
+        font-size: 1.2em;
+        padding: 5px;
+        border: 1px solid lightgrey;
+        margin: 5px;
+        width: 35%;
+    }
+        .myPostTitle:hover {
+            font-weight: 500;
+            border-color: black;
+            cursor: pointer;
+        }
+
+</style>
+<h3>List of Posts:</h3>
+<div class="container-fluid">
+    <div data-bind="foreach: posts">
+        <div>
+            <a class="noLinkatt" data-bind="attr: {href: url}"><div class="myPostTitle" data-bind="text: title"></div></a>
+            
+
+
+        </div>
+    </div>
     <div>
-        <div data-bind="text: title"></div>
-        
-
+        <button class="myPrev" data-bind="click: prevPage">Previous Page</button>
+        <button class="myNext" data-bind="click: nextPage">Next Page</button>
     </div>
+
 </div>
-
-<span>
-
-    <div class="btn">
-        <button data-bind="click: prevPage">Previous Page</button>
-        <button data-bind="click: nextPage">Next Page</button>
-    </div>
-</span>
