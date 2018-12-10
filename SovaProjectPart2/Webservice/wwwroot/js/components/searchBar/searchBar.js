@@ -20,8 +20,12 @@
 		var search = function () {
 			
 			apiString(apiString() + "java");
-			update(apiString());
-		}
+           // postlist.update(apiString());
+            update(apiString());
+        }
+
+
+        update(apiString());
 
 		return {
 			posts,

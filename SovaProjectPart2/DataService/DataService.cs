@@ -224,6 +224,8 @@ namespace DomainModel
                             postId = result.postId,
                             rank = result.rank,
                             posttype = result.posttype
+  
+                           
                         };
                         tempList.Add(tmp);
                     }
