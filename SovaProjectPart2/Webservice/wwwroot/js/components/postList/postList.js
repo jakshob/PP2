@@ -14,8 +14,7 @@
                 next(data.next);
                 prev(data.prev);
             }, api);
-
-        }
+		}
 
         update(apiString());
         
@@ -34,10 +33,7 @@
 
         return {
             posts,
-            next,
-            prev,
-            link,
-            nextPage,
+			nextPage,
             prevPage,
             currentComponent
         };

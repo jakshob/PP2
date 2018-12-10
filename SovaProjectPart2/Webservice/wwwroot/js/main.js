@@ -23,10 +23,25 @@ require(['knockout'], function (ko) {
     
 });
 */
-require(['knockout', 'app/viewModel'], function (ko, app) {
+require(['knockout'], function (ko) {
     ko.components.register("post-list", {
         viewModel: { require: 'components/postList/postList' },
         template: { require: 'text!components/postList/postListView.html' }
-    });
-    ko.applyBindings(app);
+	});
+
+	ko.components.register("post", {
+		viewModel: { require: 'components/post/post' },
+		template: { require: 'text!components/post/postView.html' }
+	});
+
+	ko.components.register("searchbar", {
+		viewModel: { require: 'components/searchBar/searchBar' },
+		template: { require: 'text!components/searchBar/searchBarView.html' }
+	});
+
+
+});
+
+require(['knockout', 'app'], function (ko, app) {
+	ko.applyBindings(app);
 });

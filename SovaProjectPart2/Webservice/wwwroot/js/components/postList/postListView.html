@@ -18,6 +18,7 @@
         padding: 7px;
         cursor: pointer;
     }
+
     Button.myNext {
         background-color: green;
     }
@@ -51,8 +52,7 @@
 <div class="container-fluid">
     <div data-bind="foreach: posts">
         <div>
-            <a class="noLinkatt" data-bind="attr: {href: url}"><div class="myPostTitle" data-bind="text: title"></div></a>
-            
+	        <div data-bind="component: { name: $parent.currentComponent, params: {post: $data}}"></div>
 
 
         </div>

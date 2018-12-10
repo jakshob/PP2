@@ -3,7 +3,9 @@
 		$.getJSON(api, function (data) {
 			callback(data);
 		});
-    };
+	};
+
+	
 
 	return {
 		getPosts
