@@ -52,7 +52,7 @@
 <div class="container-fluid">
     <div data-bind="foreach: posts">
         <div>
-	        <div data-bind="component: { name: $parent.currentComponent, params: {post: $data}}"></div>
+	        <div class="myPostTitle" data-bind="component: { name: $parent.currentComponent, params: {post: $data}}"></div>
 
 
         </div>
