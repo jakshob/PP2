@@ -6,6 +6,7 @@ namespace DomainModel
 {
     public class SearchResult
     {
+        public string title { get; set; }
         public int postId { get; set; }
         public int rank { get; set; }
         public string body { get; set; }

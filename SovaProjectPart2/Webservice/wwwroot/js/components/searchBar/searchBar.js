@@ -4,6 +4,8 @@
 		var posts = ko.observableArray([]);
 		var next = ko.observable();
 		var prev = ko.observable();
+
+		var searchString = ko.observable();
 		
 		var apiString = ko.observable("api/posts/searchQuestionsSortByScore/");
 
@@ -14,24 +16,23 @@
 				posts(data.items);
 				next(data.next);
 				prev(data.prev);
+				postman.publish("newPosts", data);
 			}, api);
 		}
 
 		var search = function () {
+			apiString("api/posts/searchQuestionsSortByScore/");
+			apiString(apiString() + searchString());
+			update(apiString());
 			
-			apiString(apiString() + "java");
-           // postlist.update(apiString());
-            update(apiString());
-        }
-
-
-        update(apiString());
+		}
 
 		return {
 			posts,
 			next,
 			prev,
 			search,
+			searchString,
 			currentComponent
 			
 
