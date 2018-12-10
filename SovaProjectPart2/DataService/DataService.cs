@@ -220,6 +220,7 @@ namespace DomainModel
                     {
                         var tmp = new SearchResult
                         {
+                            title = result.title,
                             body = result.body,
                             postId = result.postId,
                             rank = result.rank,

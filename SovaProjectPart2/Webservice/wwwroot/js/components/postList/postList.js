@@ -17,8 +17,13 @@
 		}
 
         update(apiString());
-        
 
+	    postman.subscribe("newPosts",
+		    function(data) {
+				posts(data.items);
+				prev(data.prev);
+				next(data.next);
+		    });
         
 
         var prevPage = function () {

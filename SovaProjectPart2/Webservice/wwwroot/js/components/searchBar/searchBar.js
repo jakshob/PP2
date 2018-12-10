@@ -14,6 +14,7 @@
 				posts(data.items);
 				next(data.next);
 				prev(data.prev);
+				postman.publish("newPosts", data);
 			}, api);
 		}
 
