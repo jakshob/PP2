@@ -4,6 +4,8 @@
 		var posts = ko.observableArray([]);
 		var next = ko.observable();
 		var prev = ko.observable();
+
+		var searchString = ko.observable();
 		
 		var apiString = ko.observable("api/posts/searchQuestionsSortByScore/");
 
@@ -19,9 +21,10 @@
 		}
 
 		var search = function () {
-			
-			apiString(apiString() + "java");
+			apiString("api/posts/searchQuestionsSortByScore/");
+			apiString(apiString() + searchString());
 			update(apiString());
+			
 		}
 
 		return {
@@ -29,6 +32,7 @@
 			next,
 			prev,
 			search,
+			searchString,
 			currentComponent
 			
 
