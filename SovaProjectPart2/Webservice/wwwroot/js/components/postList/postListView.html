@@ -34,6 +34,7 @@
         }
 
     .myPostTitle {
+        display: block;
         font-family:Roboto;
         font-size: 1.2em;
         padding: 5px;
@@ -52,8 +53,8 @@
 <div class="container-fluid">
     <div data-bind="foreach: posts">
         <div>
-	        <div class="myPostTitle" data-bind="component: { name: $parent.currentComponent, params: {post: $data}}"></div>
-
+            <div class="myPostTitle" data-bind="component: { name: $parent.currentComponent, params: {post: $data}}, click: $parent.showSinglePost"></div>
+            <!--<span class="myPostTitle" data-bind="component: { name: $parent.currentComponent, params: {post: $data}}"></span>-->
 
         </div>
     </div>

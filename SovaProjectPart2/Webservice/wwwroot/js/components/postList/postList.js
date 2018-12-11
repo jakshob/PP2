@@ -7,7 +7,8 @@
         var apiString = ko.observable("api/posts");
 
         var currentComponent = ko.observable("post");
-
+        
+        
         var update = function (api) {
             ds.getPosts(function (data) {
                 posts(data.items);
@@ -18,6 +19,10 @@
 
         update(apiString());
 
+        var showSinglePost = function (data) {
+            postman.publish("postToShow", data);
+        }
+        
 	    postman.subscribe("newPosts",
 		    function(data) {
 				posts(data.items);
@@ -40,7 +45,8 @@
             posts,
 			nextPage,
             prevPage,
-            currentComponent
+            currentComponent,
+            showSinglePost
         };
     };
 });
