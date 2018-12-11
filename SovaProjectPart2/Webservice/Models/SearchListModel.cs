@@ -8,6 +8,7 @@ namespace Webservice.Models
 {
     public class SearchListModel
     {
+        //public string url { get; set; }
         public string title { get; set; }
         public int postId { get; set; }
         public int rank { get; set; }

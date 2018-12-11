@@ -6,6 +6,7 @@
         var link = ko.observable();
         var apiString = ko.observable("api/posts");
 
+        //kan bruges til at skifte mellem pages (pagination)
         var currentComponent = ko.observable("post");
         
         

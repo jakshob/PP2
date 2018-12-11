@@ -153,6 +153,7 @@ namespace WebService.Controllers
         {
             var model = Mapper.Map<QuestionListModel>(question);
             model.Url = Url.Link(nameof(GetQuestionById), new { id = question.Id });
+            model.PostId = question.Id.ToString();
             return model;
         }
 

@@ -1,16 +1,66 @@
 ﻿<style>
     .postContainer {
-        background: lightgrey;
-        padding: 20px;
+        margin-left: 20px;
         margin-top: 10px;
     }
+    .bodyContainer {
+        background-color: lightcyan;
+        padding: 10px 20px 20px 20px;
+        width: 50%;
+        color: black;
+    }
+    .postTitle {
+        background-color: darkcyan;
+        padding: 5px 20px 5px 20px;
+        margin-top: 20px;
+        width: 50%;
+        color: white;
+    }
+    .createDate {
+    color: black;
+    background-color: white;
+    }
+
+    .userId {
+        float: right;
+        width: 50%;
+        margin-right: 40px;
+    }
+
+        .userId:before {
+            content: 'User ID: ';
+        }
+
+
+    .postScore {
+        display: inline-block;
+        background-color: darkcyan;
+        padding: 10px 20px 10px 20px;
+        margin: 0px;
+        color: white;
+        font-weight: bold;
+        font-size: 12pt;
+        border: solid;
+        border-color: black;
+    }
+        .postScore::before {
+        content: 'Score: ';
+        font-weight: normal;
+        }
+
+
+
 </style>
 
 <div class="postContainer">
-    <p>Dette er en TestTekst</p>
-    <h3 data-bind="text: title"></h3>
-    <p data-bind="text: createDate"></p><br />
-    <p data-bind="html: body"></p> 
-    <h4 data-bind="text: score"></h4>
-    <button data-bind="text: userId"></button>
+    <br />
+    <div>
+        <span class="createDate" data-bind="text: createDate"></span>
+        <span class="userId" style="color: black;" data-bind="text: userId"></span>
+    </div>
+    <h3 class="postTitle" data-bind="text: title"></h3>
+    <div class="bodyContainer">
+        <p data-bind="html: body"></p>
+        <p class="postScore" data-bind="text: score"></p>
+    </div>
 </div>
