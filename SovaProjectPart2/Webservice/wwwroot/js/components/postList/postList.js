@@ -23,7 +23,9 @@
         var showSinglePost = function (data) {
             postman.publish("postToShow", data);
         }
-        
+
+	   
+
 	    postman.subscribe("newPosts",
 		    function(data) {
 				posts(data.items);

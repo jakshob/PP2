@@ -24,7 +24,8 @@
 			apiString("api/posts/searchQuestionsSortByScore/");
 			apiString(apiString() + searchString());
 			update(apiString());
-			
+			postman.publish("showPostList", "searchResults");
+
 		}
 
 		return {
