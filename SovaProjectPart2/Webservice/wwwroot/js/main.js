@@ -39,6 +39,10 @@ require(['knockout'], function (ko) {
 		template: { require: 'text!components/searchBar/searchBarView.html' }
 	});
 
+    ko.components.register("single-post", {
+        viewModel: { require: 'components/singlePost/singlePost' },
+        template: { require: 'text!components/singlePost/singlePostView.html' }
+    });
 
 });
 

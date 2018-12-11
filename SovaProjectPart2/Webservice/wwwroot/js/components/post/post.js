@@ -1,11 +1,9 @@
 ﻿define(['knockout', 'dataService', 'postman'], function (ko, ds, postman) {
 	return function (params) {
-		var title = params.post.title;
-		var score = params.post.score;
+        var title = params.post.title;
 
 		return {
-			title,
-			score
+            title
 		};
 	};
 });
