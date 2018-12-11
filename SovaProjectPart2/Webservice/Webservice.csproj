@@ -23,4 +23,12 @@
   <ItemGroup>
     <None Remove=".DS_Store" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\js\components\searchBar\searchBar.js" />
+    <Content Remove="wwwroot\js\components\singlePost\singlePostView.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\js\components\homePage\" />
+    <Folder Include="wwwroot\js\components\myPage\" />
+  </ItemGroup>
 </Project>
