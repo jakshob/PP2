@@ -5,7 +5,9 @@
 		var next = ko.observable();
 		var prev = ko.observable();
 
-		var searchString = ko.observable();
+        var searchString = ko.observable();
+
+        var shouldShowMessage = ko.observable(false);
 		
 		var apiString = ko.observable("api/posts/searchQuestionsSortByScore/");
 
@@ -23,7 +25,8 @@
 		var search = function () {
 			apiString("api/posts/searchQuestionsSortByScore/");
 			apiString(apiString() + searchString());
-			update(apiString());
+            update(apiString());
+            shouldShowMessage(true);
 			
 		}
 
@@ -33,7 +36,8 @@
 			prev,
 			search,
 			searchString,
-			currentComponent
+            currentComponent,
+            shouldShowMessage
 			
 
 			
