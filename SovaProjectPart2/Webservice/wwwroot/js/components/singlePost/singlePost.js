@@ -17,9 +17,9 @@
                     title(data.title);
                     body(data.body);
                     score(data.score);
-                    userId(data.qa_UserId)
-                    createDate(data.creationDate)
-                   
+	                userId(data.qa_UserId);
+	                createDate(data.creationDate);
+
                 }, data.url);
 
             });
