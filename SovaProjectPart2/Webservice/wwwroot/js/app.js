@@ -17,6 +17,10 @@
     }; 
 
 
+	postman.subscribe("showPostList",
+		function (postListType) {
+
+		});
 
     postman.subscribe("changeMenu", function(menuName){
         var menu = menuItems.find(function (m) {

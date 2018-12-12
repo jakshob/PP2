@@ -28,7 +28,9 @@
             postman.publish("postToShow", data);
             isVisible(true);
         }
-        
+
+	   
+
 	    postman.subscribe("newPosts",
 		    function(data) {
 				posts(data.items);
