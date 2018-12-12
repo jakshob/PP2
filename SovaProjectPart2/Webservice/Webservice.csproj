@@ -23,8 +23,4 @@
   <ItemGroup>
     <None Remove=".DS_Store" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="wwwroot\js\components\homePage\" />
-    <Folder Include="wwwroot\js\components\myPage\" />
-  </ItemGroup>
 </Project>
