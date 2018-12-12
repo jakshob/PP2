@@ -224,7 +224,8 @@ namespace DomainModel
                             body = result.body,
                             postId = result.postId,
                             rank = result.rank,
-                            posttype = result.posttype
+                            posttype = result.posttype,
+                            score = result.score
   
                            
                         };

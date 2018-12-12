@@ -3,64 +3,59 @@
         text-decoration: none;
         color: black;
     }
-    Button {
-        padding:10px;
-        font-weight: normal;
-        color: white;
-        border: none;
-        margin-top: 5px;
-    }
-    
-    Button:hover {
-        font-weight: bold;
-        border: solid;
-        border-color: black;
-        padding: 7px;
-        cursor: pointer;
-    }
+    .mybutton {
+            padding: 10px;
+            font-weight: normal;
+            color: white;
+            border: none;
+            margin-top: 5px;
+            }
 
-    Button.myNext {
+        .mybutton:hover {
+            font-weight: bold;
+            border: solid;
+            border-color: black;
+            padding: 7px;
+            cursor: pointer;
+        }
+    .myNext {
         background-color: green;
     }
-        button.myNext::after {
-            content: " >"
+        .myNext::after {
+            content: " >";
         }
-
-    Button.myPrev {
+    .myPrev {
         background-color: red;
     }
-        button.myPrev::before {
-            content: "< "
-        }
-
-    .myPostTitle {
-        display: block;
-        font-family:Roboto;
-        font-size: 1.2em;
-        padding: 5px;
-        border: 1px solid lightgrey;
-        margin: 5px;
-        width: 35%;
-    }
-        .myPostTitle:hover {
-            font-weight: 500;
-            border-color: black;
-            cursor: pointer;
+        .myPrev:::before {
+            content: "< ";
         }
 
 </style>
-<h3>List of Posts:</h3>
-<div class="container-fluid">
-    <div data-bind="foreach: posts">
-        <div>
-            <div class="myPostTitle" data-bind="component: { name: $parent.currentComponent, params: {post: $data}}, click: $parent.showSinglePost"></div>
-            <!--<span class="myPostTitle" data-bind="component: { name: $parent.currentComponent, params: {post: $data}}"></span>-->
 
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <h4 style="margin-top:10px; margin-bottom: 20px;">Search results: </h4>
+            <div data-bind="foreach: posts">
+                <div>
+                    <div data-bind="component: { name: $parent.currentComponent, params: {post: $data}}, click: $parent.showSinglePost"></div>
+                    <!--<span class="myPostTitle" data-bind="component: { name: $parent.currentComponent, params: {post: $data}}"></span>-->
+
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div>
+                <single-post data-bind="visible: isVisible"></single-post>
+            </div>
         </div>
     </div>
-    <div>
-        <button class="myPrev" data-bind="click: prevPage">Previous Page</button>
-        <button class="myNext" data-bind="click: nextPage">Next Page</button>
+    <div class="row">
+        <div class="col">
+            <button class="mybutton myPrev" data-bind="click: prevPage">Previous Page</button>
+            <button class="mybutton myNext" data-bind="click: nextPage">Next Page</button>
+        </div>
     </div>
-	
+
 </div>
