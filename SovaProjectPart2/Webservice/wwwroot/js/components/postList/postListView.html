@@ -35,7 +35,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col">
+        <div class="col-8">
             <h4 style="margin-top:10px; margin-bottom: 20px;">Search results: </h4>
             <div data-bind="foreach: posts">
                 <div>
@@ -45,17 +45,19 @@
                 </div>
             </div>
         </div>
-        <div class="col">
-            <div>
-                <single-post data-bind="visible: isVisible"></single-post>
+        <!-- VIS SINGLE POSTS I HØJRE SPALTE:
+       <div class="col">
+           <div>
+               <single-post data-bind="visible: isVisible"></single-post>
+           </div>
+       </div>
+         -->
+    </div>
+        <div class="row">
+            <div class="col">
+                <button class="mybutton myPrev" data-bind="click: prevPage">Previous Page</button>
+                <button class="mybutton myNext" data-bind="click: nextPage">Next Page</button>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <button class="mybutton myPrev" data-bind="click: prevPage">Previous Page</button>
-            <button class="mybutton myNext" data-bind="click: nextPage">Next Page</button>
-        </div>
-    </div>
 
-</div>
+    </div>

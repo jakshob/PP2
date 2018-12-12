@@ -38,6 +38,11 @@ require(['knockout'], function (ko) {
         viewModel: { require: 'components/post/post' },
         template: { require: 'text!components/post/postDetailView.html' }
     });
+
+    ko.components.register("singlePostWithAnswers", {
+        viewModel: { require: 'components/singlePostWithAnswers/singlePostWithAnswers' },
+        template: { require: 'text!components/singlePostWithAnswers/singlePostWithAnswersView.html'}
+    });
     
 	ko.components.register("searchbar", {
 		viewModel: { require: 'components/searchBar/searchBar' },

@@ -160,6 +160,7 @@ namespace WebService.Controllers
         private static AnswerListModel CreateAnswerListModel (Answer answer)
         {
             var model = Mapper.Map<AnswerListModel>(answer);
+            model.PostId = answer.Id;
             return model;
         }
 

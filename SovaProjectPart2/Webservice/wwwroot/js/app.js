@@ -4,23 +4,25 @@
     var title = "SOVA-APP";
 
     var menuItems = [
-    {name: 'Home', component: 'home-view'},
-    {name: 'MyPage', component: 'my-page-view'}
+    { name: 'Home', component: 'home-view'},
+    { name: 'MyPage', component: 'my-page-view' },
+    { name: 'SingleResult', component: 'single-post' }
+
     ]; 
 
     var selectedMenu = ko.observable(menuItems[0]); 
     var selectedComponent = ko.observable('home-view'); 
+    var selectedParams = ko.observable({});
 
     var changeMenu = function(menu) {
         selectedMenu(menu); 
         selectedComponent(menu.component);
     }; 
 
-
-	postman.subscribe("showPostList",
-		function (postListType) {
-
-		});
+    postman.subscribe("postToShow", function (data) {
+        selectedParams(data);
+        changeMenu(menuItems[2]);
+    });
 
     postman.subscribe("changeMenu", function(menuName){
         var menu = menuItems.find(function (m) {
@@ -35,7 +37,8 @@
         title,
         menuItems,
         changeMenu,
-        selectedComponent
+        selectedComponent,
+        selectedParams
 	};
 });
 
