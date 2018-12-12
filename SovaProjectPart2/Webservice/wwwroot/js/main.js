@@ -4,6 +4,7 @@
         knockout: "lib/knockout/dist/knockout.debug",
         jquery: "lib/jQuery/dist/jquery",
 
+        jqcloud: 'lib/jqcloud2/dist/jqcloud',
         text: 'lib/text/text',
         dataService: 'services/dataService',
         postman: 'services/postman'
@@ -47,17 +48,18 @@ require(['knockout'], function (ko) {
     ko.components.register("single-post", {
         viewModel: { require: 'components/singlePost/singlePost' },
         template: { require: 'text!components/singlePost/singlePostView.html' }
-        });
+    });
 
     ko.components.register("home-view", {
         viewModel: {require: 'components/homePage/homePage' },
         template: {require: 'text!components/homePage/homeView.html' }
-        }); 
+    }); 
 
-     ko.components.register("my-page-view", {
+    ko.components.register("my-page-view", {
         viewModel: {require: 'components/myPage/myPage' },
         template: {require: 'text!components/myPage/myPageView.html' }
-        }); 
+    });
+    
 
 });
 

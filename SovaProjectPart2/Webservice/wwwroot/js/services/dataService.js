@@ -4,10 +4,14 @@
 			callback(data);
 		});
 	};
-
+    var getWords = function (callback) {
+        $.getJSON('api/posts/relevantWords/java', function (data) {
+            callback(data);
+        });
+    };
 	
-
 	return {
-		getPosts
+        getPosts,
+        getWords
 	};
 });

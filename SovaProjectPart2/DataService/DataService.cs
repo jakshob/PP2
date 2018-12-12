@@ -187,12 +187,12 @@ namespace DomainModel
                 foreach (var result in db.RelevantWords.FromSql("select * from \"wordToWords\"({0},{1})", word,
                     "Mogens"))
                 {
-                    if (result.word != word)
+                    if (result.Text != word)
                     {
                         var tmp = new RelevantWord
                         {
-                            word = result.word,
-                            word_f = result.word_f
+                            Text = result.Text,
+                            Weight = result.Weight
                         };
                         tempList.Add(tmp);
                     }
