@@ -14,5 +14,6 @@ namespace Webservice.Models
         public int rank { get; set; }
         public string body { get; set; }
         public int posttype { get; set; }
+        public int score { get; set; }
     }
 }

@@ -179,6 +179,7 @@ namespace WebService.Controllers
         private SearchListModel CreateSearchListModel(SearchResult searchResult)
         {
             var model = Mapper.Map<SearchListModel>(searchResult);
+
             return model;
         }
     }

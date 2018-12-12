@@ -4,10 +4,14 @@
         var next = ko.observable();
         var prev = ko.observable();
         var link = ko.observable();
+
+        //
+        var isVisible = ko.observable(false);
+
         var apiString = ko.observable("api/posts");
 
         //kan bruges til at skifte mellem pages (pagination)
-        var currentComponent = ko.observable("post");
+        var currentComponent = ko.observable("postDetailed");
         
         
         var update = function (api) {
@@ -22,6 +26,7 @@
 
         var showSinglePost = function (data) {
             postman.publish("postToShow", data);
+            isVisible(true);
         }
 
 	   
@@ -30,7 +35,9 @@
 		    function(data) {
 				posts(data.items);
 				prev(data.prev);
-				next(data.next);
+                next(data.next);
+                
+
 		    });
         
 
@@ -49,7 +56,8 @@
 			nextPage,
             prevPage,
             currentComponent,
-            showSinglePost
+            showSinglePost,
+            isVisible
         };
     };
 });
