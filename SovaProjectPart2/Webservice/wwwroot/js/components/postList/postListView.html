@@ -51,16 +51,17 @@
 </style>
 <h3>List of Posts:</h3>
 <div class="container-fluid">
-    <div data-bind="foreach: posts">
-        <div>
-            <div class="myPostTitle" data-bind="component: { name: $parent.currentComponent, params: {post: $data}}, click: $parent.showSinglePost"></div>
-            <!--<span class="myPostTitle" data-bind="component: { name: $parent.currentComponent, params: {post: $data}}"></span>-->
+	<div data-bind="foreach: posts">
+		<div>
+			<div class="myPostTitle" data-bind="component: { name: $parent.currentComponent, params: {post: $data}}, click: $parent.showSinglePost"></div>
+			<!--<span class="myPostTitle" data-bind="component: { name: $parent.currentComponent, params: {post: $data}}"></span>-->
 
-        </div>
-    </div>
-    <div>
-        <button class="myPrev" data-bind="click: prevPage">Previous Page</button>
-        <button class="myNext" data-bind="click: nextPage">Next Page</button>
-    </div>
+		</div>
+	</div>
+	<div>
+		<button class="myPrev" data-bind="click: prevPage">Previous Page</button>
+		<button class="myNext" data-bind="click: nextPage">Next Page</button>
+	</div>
 	
+
 </div>
