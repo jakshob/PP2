@@ -72,7 +72,7 @@ namespace WebService.Controllers
         }
 
         [HttpGet("relevantWords/{wordInput}", Name = nameof(GetRelevantWords))]
-        public IActionResult GetRelevantWords(string wordInput, int page = 0, int pageSize = 5)
+        public IActionResult GetRelevantWords(string wordInput, int page = 0, int pageSize = 20)
         {
             var answerPosts = _dataService.GetRelevantWords(wordInput, page, pageSize)
                 .Select(CreateWordListModel);
@@ -86,7 +86,7 @@ namespace WebService.Controllers
                 Prev = HelperController.CreateLinkToPrevPage(page, pageSize, nameof(GetRelevantWords), Url),
                 Items = answerPosts
             };
-            return Ok(result);
+            return Ok(answerPosts);
         }
 
 
