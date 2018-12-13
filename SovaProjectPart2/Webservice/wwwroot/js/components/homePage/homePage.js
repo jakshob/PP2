@@ -12,6 +12,7 @@
         ds.getWords(function (data) {
             //words(data);
             $('#cloud').jQCloud(data);
+            console.log(JSON.stringify(data));
         })
 
         var words = ko.observableArray([
