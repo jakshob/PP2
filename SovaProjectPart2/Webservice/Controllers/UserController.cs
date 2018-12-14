@@ -19,11 +19,11 @@ namespace Webservice.Controllers
 
             _dataService = dataService;
         }
-        [HttpPost] 
-       public IActionResult CreateUser(string username, string password, string salt) 
+       [HttpPost] 
+       public IActionResult CreateUser(SOVA_User user) 
         {
-            var newUser = _dataService.CreateUser(username, password);
-            return Ok(newUser); 
+            var newUser = _dataService.CreateUser(user);
+            return Ok("User added"); 
         }
 
         [HttpDelete]

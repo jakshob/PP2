@@ -64,6 +64,16 @@ require(['knockout'], function (ko) {
         viewModel: {require: 'components/myPage/myPage' },
         template: {require: 'text!components/myPage/myPageView.html' }
     });
+
+    ko.components.register("login-view", {
+        viewModel: { require: 'components/login/login' },
+        template: { require: 'text!components/login/loginView.html' }
+    });
+
+    ko.components.register("create-user-view", {
+        viewModel: { require: 'components/login/login' },
+        template: { require: 'text!components/login/createUserView.html' }
+    });
     
 
 });

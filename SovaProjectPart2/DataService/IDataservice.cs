@@ -52,7 +52,7 @@ namespace DomainModel
         SOVA_User GetUser(string username);
         List<Object> GetUserPage(string username);
 
-        SOVA_User CreateUser(string username, string password);
+        SOVA_User CreateUser(SOVA_User user);
 
 
     }

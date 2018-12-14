@@ -1,0 +1,35 @@
+﻿body {
+}
+.logindiv {
+    text-align: center;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.logininput {
+    border: 1px solid #eaeaea;
+    background-color: #ffffff;
+    border-radius: 5px;
+    font-family: Verdana;
+    color: #666666;
+    height: 50px;
+    width: 300px;
+    padding: 5px;
+    margin-bottom: 15px;
+    padding-left: 10px;
+}
+
+.logininput:focus {
+    outline: none !important;
+    border: 1px solid #18ae01;
+    box-shadow: 0 0 10px #f3f3f3;
+}    
+
+.loginheader {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-family: Verdana;
+    font-weight: 600;
+    font-size: 30pt;
+    color: #333333;
+}
