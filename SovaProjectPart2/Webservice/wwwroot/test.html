@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="js/lib/jqcloud2/dist/jqcloud.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="js/lib/jQuery/dist/jquery.js"></script>
+    <script src="js/lib/jqcloud2/dist/jqcloud.js"></script>
+    <div id="cloud" style="width: 1500px; height: 500px">
+
+    </div>
+    <script>
+        var words = [{ "text": "string", "weight": 6 }, { "text": "class", "weight": 5 }, { "text": "code", "weight": 4 }, { "text": "int", "weight": 3 }, { "text": "regex", "weight": 3 }, { "text": "match", "weight": 2 }, { "text": "character", "weight": 2 }, { "text": "public", "weight": 2 }, { "text": "method", "weight": 2 }, { "text": "pattern", "weight": 2 }, { "text": "return", "weight": 2 }, { "text": "android", "weight": 2 }, { "text": "object", "weight": 2 }, { "text": "static", "weight": 2 }, { "text": "p", "weight": 1 }, { "text": "language", "weight": 1 }, { "text": "c++", "weight": 1 }, { "text": "s", "weight": 1 }, { "text": "number", "weight": 1 }, { "text": "void", "weight": 1 }];
+        var words2 = [
+            { text: "Lorem", weight: 13 },
+            { text: "Ipsum", weight: 10.5 },
+            { text: "Dolor", weight: 9.4 },
+            { text: "Sit", weight: 8 },
+            { text: "Amet", weight: 6.2 },
+            { text: "Consectetur", weight: 5 },
+            { text: "Adipiscing", weight: 5 },
+            /* ... */
+        ];
+        $('#cloud').jQCloud(words2);
+    </script>
+</body>
+</html>

@@ -7,7 +7,7 @@ namespace Webservice.Models
 {
     public class WordListModel
     {
-        public string word { get; set; }
-        public int word_f { get; set; }
+        public string Text { get; set; }
+        public int Weight { get; set; }
     }
 }

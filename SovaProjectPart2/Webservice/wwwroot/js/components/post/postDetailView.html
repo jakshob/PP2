@@ -1,0 +1,78 @@
+﻿<style>
+    .excerptBody {
+        display: block;
+        max-height: 4em;
+        overflow: hidden;
+        padding: 10px;
+        border-left: solid;
+        border-width: 5px;
+        padding-right: 20%;
+        font-size: 0.8em;
+    }
+    
+
+    .myPostTitle {
+        background-color: darkcyan;
+        color: white;
+        font-weight: normal;
+        padding: 10px;
+        font-size: 1em;
+        margin-bottom:0px;
+        
+    }
+
+        .myPostTitle:hover {
+            color: black;
+            cursor: pointer;
+        }
+
+    .postScore-DetailView {
+        display: flex;
+        width: 100%;
+        background-color: lightcyan;
+        color: black;
+        padding: 4px 20px 4px 20px;
+        margin: 0px;
+        font-size: 10pt;
+
+    }
+
+    .postScore-DetailView::before {
+        content: 'Score: ';
+        font-weight: normal;
+    }
+    .sePostKnap {
+        display: flex;
+        width: 100%;
+        color: white;
+        padding: 4px 20px 4px 20px;
+        border:none;
+        font-size:10pt;
+        margin-top:0px;
+        background-color:black;
+    }
+    .sePostKnap:hover{
+        background-color: darkcyan;
+        cursor: pointer;
+    }
+       
+    
+</style>
+<div class="container-fluid mb-2">
+            <h5 class="myPostTitle" style="font-weight:bold;" data-bind="text: title"></h5>
+    <div class="row">
+        <div class="col-8">
+            <span class="excerptBody .d-sm-none .d-md-block" data-bind="html: body"></span>
+        </div>
+        <div class="col-4">
+            <div class="row">
+                <div class="col">
+                    <p class="postScore-DetailView" data-bind="text: score"></p>
+                </div>
+                <div class="col">
+                    <button class="sePostKnap">Show Post</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

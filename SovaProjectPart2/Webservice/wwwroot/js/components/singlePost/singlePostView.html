@@ -3,27 +3,27 @@
         margin-left: 20px;
         margin-top: 10px;
     }
+
     .bodyContainer {
         background-color: lightcyan;
         padding: 10px 20px 20px 20px;
-        width: 50%;
         color: black;
     }
+
     .postTitle {
         background-color: darkcyan;
         padding: 5px 20px 5px 20px;
         margin-top: 20px;
-        width: 50%;
         color: white;
     }
+
     .createDate {
-    color: black;
-    background-color: white;
+        color: black;
+        background-color: white;
     }
 
     .userId {
         float: right;
-        width: 50%;
         margin-right: 40px;
     }
 
@@ -40,19 +40,33 @@
         color: white;
         font-weight: bold;
         font-size: 12pt;
-        border: solid;
+        border: none;
         border-color: black;
     }
+
         .postScore::before {
-        content: 'Score: ';
-        font-weight: normal;
+            content: 'Score: ';
+            font-weight: normal;
         }
 
+    .jensButton {
+        background-color: black;
+        margin-top: 5px;
+        padding: 10px;
+        font-weight: normal;
+        font-size: 12pt;
+        color: white;
+        border: none;
+    }
 
+        .jensButton:hover {
+            background-color: darkcyan;
+            cursor: pointer;
+        }
 
 </style>
 
-<div class="postContainer">
+<div class="container-fluid col-8 postContainer">
     <br />
     <div>
         <span class="createDate" data-bind="text: createDate"></span>
@@ -62,5 +76,10 @@
     <div class="bodyContainer">
         <p data-bind="html: body"></p>
         <p class="postScore" data-bind="text: score"></p>
+        <button class="jensButton">Show answers</button>
+        <button class="jensButton">Show comments</button>
+    </div>
+    <div class="commentContainer">
+
     </div>
 </div>

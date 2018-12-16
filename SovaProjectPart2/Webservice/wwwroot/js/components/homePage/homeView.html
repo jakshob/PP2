@@ -1,1 +1,16 @@
-﻿
+﻿<searchbar></searchbar>
+<nav class="navbar navbar-light bg-light justify-content-between">
+
+    <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" data-bind="value: searchString" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0"
+                type="submit"
+                data-bind="click: wordCloud">
+            Word Cloud
+        </button>
+
+    </form>
+</nav>
+<div> <!---data-bind="visible: shouldShowCloud"-->
+    <div id= "cloud" style="width: 500px; height: 350px; color: black; position: relative;"></div>
+</div>

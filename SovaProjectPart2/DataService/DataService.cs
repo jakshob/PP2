@@ -26,16 +26,14 @@ namespace DomainModel
         }
 
         
-        public SOVA_User CreateUser(string username, string password)
+        public SOVA_User CreateUser(SOVA_User user)
         {
-            
-            var user = new SOVA_User()
+            using (var db = new SovaContext())
             {
-                Username = username,
-                Password = password,
-            };
-            _users.Add(user);
-            return user;
+                db.SOVA_Users.Add(user);
+                db.SaveChanges();                
+                return user;
+            }   
         }
 
         public int doesPasswordMatch(string username, string password)
@@ -81,16 +79,16 @@ namespace DomainModel
         public List<Object> GetUserPage(string username) {
 
             List<Question> favorites = GetFavorites(username, 0, 0);
-            string messageFavorites = "YOUR CHOSEN FAVORITE POSTS:";
+            //string messageFavorites = "YOUR CHOSEN FAVORITE POSTS:";
             List<History> history = GetHistory(username, 0, 0);
-            string messageHistory = "YOUR PERSONAL SEARCH HISTORY:";
+            //string messageHistory = "YOUR PERSONAL SEARCH HISTORY:";
 
 
             //Objekter kunne tilføjes direkte til liste, men det her giver bedre overblik i svaret fra webserver.
             List<Object> myList = new List<Object>();
-            myList.Add(messageFavorites);
+            //myList.Add(messageFavorites);
             myList.Add(favorites);
-            myList.Add(messageHistory);
+            //myList.Add(messageHistory);
             myList.Add(history);
 
             return myList;
@@ -187,12 +185,12 @@ namespace DomainModel
                 foreach (var result in db.RelevantWords.FromSql("select * from \"wordToWords\"({0},{1})", word,
                     "Mogens"))
                 {
-                    if (result.word != word)
+                    if (result.Text != word)
                     {
                         var tmp = new RelevantWord
                         {
-                            word = result.word,
-                            word_f = result.word_f
+                            Text = result.Text,
+                            Weight = result.Weight
                         };
                         tempList.Add(tmp);
                     }
@@ -224,7 +222,8 @@ namespace DomainModel
                             body = result.body,
                             postId = result.postId,
                             rank = result.rank,
-                            posttype = result.posttype
+                            posttype = result.posttype,
+                            score = result.score
   
                            
                         };

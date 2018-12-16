@@ -2,40 +2,35 @@
 <html>
 <head>
     <title>SovaApp</title>
+    <script src="js/lib/jQuery/dist/jquery.js"></script>
+    <script src="js/lib/jqcloud2/dist/jqcloud.js"></script>
     <link href="js/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="js/lib/jqcloud2/dist/jqcloud.css" rel="stylesheet" />
+    <link rel="StyleSheet" type="text/css" href="/js/components/login/StyleSheet.css">
+
 </head>
 <body>
-    <h1>Sova Application</h1>
-    <img style="float: right;" src="http://vridstedby.dk/wp-content/uploads/2016/12/gl%C3%A6delig-jul-1.jpg" width="600" height="320">
-    <p>Mogens siger "Hej"</p>
+    <!--  <img style="float: right;" src="http://vridstedby.dk/wp-content/uploads/2016/12/gl%C3%A6delig-jul-1.jpg" width="600" height="320"> -->
 
-
-    <div class="container-fluid">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-	    <a class="navbar-brand" href="#"><span data-bind="text: title"></span></a>
-	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-		    <span class="navbar-toggler-icon"></span>
-	    </button>
+        <a class="navbar-brand" href="#"><span data-bind="text: title"></span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-		    <ul class="navbar-nav mr-auto" data-bind="foreach: menuItems">
-			    <!-- <li class="nav-item" data-bind="css: $parent.isActive($data)">-->
-			    <a class="nav-link" href="#" data-bind="click: $parent.changeMenu">
-				    <span data-bind="text: name"></span>
-			    </a>
-			    <!--</li>-->
-		    </ul>
-	    </div>
-		 </nav>
-	
-        <div data-bind="component: { name: selectedComponent}"></div>
-    </div>
-        <searchbar></searchbar>
-        <post-list></post-list>
-        <single-post></single-post>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto" data-bind="foreach: menuItems">
+                <!-- <li class="nav-item" data-bind="css: $parent.isActive($data)">-->
+                <a href="#" class="nav-link" data-bind="click: $parent.changeMenu">
+                    <span data-bind="text: name"></span>
+                </a>
+                <!--</li>-->
+            </ul>
+        </div>
+    </nav>
+    <div data-bind="component: { name: selectedComponent, params: selectedParams}"></div>
 
 
-
-        <script data-main="js/main.js" src="js/lib/requirejs/require.js"></script>
+    <script data-main="js/main.js" src="js/lib/requirejs/require.js"></script>
 </body>
 </html>
