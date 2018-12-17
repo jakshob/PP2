@@ -4,8 +4,8 @@
 			callback(data);
 		});
 	};
-    var getWords = function (callback) {
-        $.getJSON('api/posts/relevantWords/java', function (data) {
+    var getWords = function (callback, inputWord) {
+        $.getJSON('api/posts/relevantWords/' + inputWord, function (data) {
             callback(data);
         });
     };

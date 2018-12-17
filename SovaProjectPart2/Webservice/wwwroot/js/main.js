@@ -84,7 +84,11 @@ require(['knockout'], function (ko) {
         viewModel: { require: 'components/login/login' },
         template: { require: 'text!components/login/createUserView.html' }
     });
-    
+
+    ko.components.register("word-cloud", {
+        viewModel: { require: 'components/wordCloud/wordCloud' },
+        template: { require: 'text!components/wordCloud/wordCloudView.html' }
+    });
 
 });
 
