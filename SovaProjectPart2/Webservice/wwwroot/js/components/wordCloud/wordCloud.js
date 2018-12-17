@@ -1,19 +1,51 @@
-﻿// note that we do not need a reference to jqcloud
-// as it is a extention to jquery
-define(['jquery', 'knockout', 'dataService', 'postman', 'jqcloud'], function ($, ko, ds, postman) {
+﻿define(['jquery', 'knockout', 'dataService', 'postman', 'jqcloud'], function ($, ko, ds, postman, jqcloud){
     return function (params) {
-        // just added some elements to the array so we can
-        // get the binding to work
-        var words = ko.observableArray([
-            { text: "A", weight: 13 },
-            { text: "B", weight: 10.5 }]);
 
-        // to be able to use a asynchronous functon call
-        // we need to implement updates on the cloud, since
-        // the data will first be available after the creation
-        // of the cloud
-        ds.getWords(function (data) {
-            words(data);
+        var cloudString = ko.observable();
+        var shouldShowCloud = ko.observable(false);
+        var apiString = ko.observable("api/posts/relevantWords/");
+        var text = ko.observable();
+        var weight = ko.observable();
+
+        var wordCloud = function () {
+            shouldShowCloud(true);
+            apiString("api/posts/relevantWords/");
+            apiString(apiString() + cloudString());
+            update(apiString());
+        };
+
+        var words = ko.observableArray([
+            { text: "This", weight: 1 },
+            { text: "is", weight: 1 },
+            { text: "a", weight: 1 },
+            { text: "placeholder", weight: 1 }
+        ]);
+
+        var update = function (api) {
+            ds.getPosts(function (data) {
+                text(data.text);
+                weight(data.weight);
+                $('#cloud').jQCloud(data);
+                console.log(JSON.stringify(data));
+            }, api);
+        };
+
+        ds.getWords(function (api) {
+            ds.getPosts(function (data) {
+                text(data.text);
+                weight(data.weight);
+                $('#cloud').jQCloud(data);
+                console.log(JSON.stringify(data));
+            }, api);
         });
+
+        return {
+            words,
+            wordCloud,
+            cloudString,
+            shouldShowCloud,
+            text,
+            weight
+        };
     };
 });
