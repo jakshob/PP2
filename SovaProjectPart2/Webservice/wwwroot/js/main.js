@@ -65,6 +65,16 @@ require(['knockout'], function (ko) {
         template: {require: 'text!components/myPage/myPageView.html' }
     });
 
+    ko.components.register("history", {
+        viewModel: { require: 'components/history/history' },
+        template: { require: 'text!components/history/historyView.html' }
+    });
+
+    ko.components.register("history-list-view", {
+        viewModel: { require: 'components/historyList/historyList' },
+        template: { require: 'text!components/historyList/historyListView.html' }
+    });
+
     ko.components.register("login-view", {
         viewModel: { require: 'components/login/login' },
         template: { require: 'text!components/login/loginView.html' }

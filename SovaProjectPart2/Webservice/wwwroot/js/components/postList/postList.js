@@ -27,9 +27,7 @@
         var showSinglePost = function (data) {
             postman.publish("postToShow", data);
             isVisible(true);
-        }
-
-	   
+        }   
 
 	    postman.subscribe("newPosts",
 		    function(data) {

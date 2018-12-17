@@ -1,0 +1,6 @@
+﻿<div data-bind="foreach: histories">
+    <div data-bind="component: { name: $parent.currentComponent, params: {history: $data}}"></div>
+
+    
+</div>
+<button data-bind="click: update">Update history</button>

@@ -2,6 +2,7 @@
 
 
     var title = "SOVA-APP";
+    var history = ko.observableArray([]);
 
     var menuItems = [
         { name: 'Home', component: 'home-view' },
@@ -38,10 +39,14 @@
         console.log(data.password());
         */
     });
-
+    postman.subscribe("needUserData", function () {
+        postman.publish("newUserData", history());
+        console.log("Mypage requesting userdata");
+    });
     postman.subscribe("newUserData", function (data) {
-
-
+        changeMenu(menuItems[1]);
+        history(data);
+        //console.log("newUSerData ====== " + history());
     });
 
     postman.subscribe("createNewUser", function () {

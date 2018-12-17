@@ -29,12 +29,22 @@
             console.log("button pushed");
         };
 
+        var validateForm = function () {
+            var x = document.forms["frmLogin"]["username"].value;
+            //var y = document.form["frmLogin"]["password"].value;
+            if (x == "") {
+                alert("Name must be filled out");
+                return false;
+            } else login();
+        }
+
         return {
             username,
             password,
             login,
             newUser,
-            createUser
+            createUser,
+            validateForm
         };
     };
 });
