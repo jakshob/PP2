@@ -44,6 +44,11 @@ require(['knockout'], function (ko) {
 		viewModel: { require: 'components/post/post' },
 		template: { require: 'text!components/post/postView.html' }
 	});
+    
+    ko.components.register("comment", {
+        viewModel: { require: 'components/comment/comment' },
+        template: { require: 'text!components/comment/commentView.html' }
+    });
 
     ko.components.register("postSearch", {
         viewModel: { require: 'components/post/post' },

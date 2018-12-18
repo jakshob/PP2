@@ -68,4 +68,16 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div data-bind="visible: showCommentsVisible">
+            <div data-bind="foreach: comments">
+                <div>
+                    <!--<div data-bind="component: { name: $parent.currentComponent, params: {post: $data}}, click: $parent.showSinglePost"></div>-->
+                    <span data-bind="component: { name: $parent.commentsComponent, params: {post: $data}}"></span>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div> 

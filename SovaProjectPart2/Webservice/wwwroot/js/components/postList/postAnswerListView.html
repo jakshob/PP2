@@ -32,7 +32,7 @@
         background-color: red;
     }
 
-        .myPrev:::before {
+        .myPrev::before {
             content: "< ";
         }
 </style>
@@ -42,9 +42,7 @@
         <div class="col">
             <div data-bind="foreach: posts">
                 <div>
-                    <!--<div data-bind="component: { name: $parent.currentComponent, params: {post: $data}}, click: $parent.showSinglePost"></div>-->
                     <span data-bind="component: { name: $parent.currentComponent, params: {post: $data}}"></span>
-
                 </div>
             </div>
         </div>

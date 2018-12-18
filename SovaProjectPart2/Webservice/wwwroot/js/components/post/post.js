@@ -8,11 +8,46 @@
         var text = params.post.text;
         var creationDate = params.post.creationDate;
 
-        var showComments = function (data) {
-            var string = data;
-            debugger;
+        var showCommentsVisible = ko.observable(false);
+
+        var comments = ko.observable([]);
+        var commentsNext = ko.observable();
+        var commentsPrev = ko.observable();
+        var apiStringComments = "api/comments/fromPost/" + postId;
+
+        var commentsComponent = ko.observable("comment");
+
+        ds.getPosts(function (data) {
+            comments(data.items);
+            commentsNext(data.next);
+            commentsPrev(data.prev);
+        }, apiStringComments)
+
+
+        var showComments = function () {
+            showCommentsVisible(true);
+            
         }
-       
+
+        var updateComments = function (urlInput) {
+            ds.getPosts(function (data) {
+                comments(data.items);
+                commentsNext(data.next);
+                commentsPrev(data.prev);
+            }, urlInput);
+            showCommentsVisible(true);
+        }
+
+        var commentsPrevPage = function () {
+            apiStringComments(commentsPrev());
+            updateComments(apiStringComments());
+        };
+
+        var commentsNextPage = function () {
+            apiStringComments(commentsNext());
+            updateComments(apiStringComments());
+        };
+
 		return {
             title,
             score,
@@ -21,7 +56,12 @@
             qa_UserId,
             text,
             postId,
-            showComments
+            showComments,
+            commentsNextPage,
+            commentsPrevPage,
+            showCommentsVisible,
+            commentsComponent,
+            comments
 		};
 	};
 });

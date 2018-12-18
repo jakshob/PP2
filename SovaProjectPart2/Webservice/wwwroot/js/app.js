@@ -3,7 +3,7 @@
 
     var title = "SOVA-APP";
     var user = ko.observable();
-    var username = ko.observable();
+    var username = ko.observable("");
 
     var menuItems = [
         { name: 'Home', component: 'home-view' },
