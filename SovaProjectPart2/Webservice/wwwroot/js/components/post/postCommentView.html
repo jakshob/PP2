@@ -1,0 +1,52 @@
+﻿<style>
+    .commentsBody {
+        display: block;
+        padding: 10px;
+        border-left: solid 5px;
+        border-bottom: solid 1px;
+        border-color: black;
+        font-size: 0.8em;
+    }
+
+    .commentScore {
+        display: flex;
+        background-color: lightcyan;
+        color: black;
+        margin: 0px;
+        padding: 2px 0px 2px 15px;
+        font-size: 0.8em;
+    }
+
+    .sePostKnap {
+        display: flex;
+        width: 100%;
+        color: white;
+        padding: 4px 20px 4px 20px;
+        border: none;
+        font-size: 10pt;
+        margin-top: 0px;
+        background-color: black;
+    }
+
+        .sePostKnap:hover {
+            background-color: darkcyan;
+            cursor: pointer;
+        }
+</style>
+<div class="container-fluid mb-1 mt-1">
+    <div class="commentScore">
+        <span>UserId:</span>&nbsp;
+        <span class="pr-4" data-bind="text: qa_UserId"></span>
+        <span>Date:  </span>&nbsp;
+        <span class="pr-4" data-bind="text: creationDate"></span>
+        <span>Score:  </span>&nbsp;
+        <span class="pr-4" data-bind="text: score"></span>
+
+    </div>
+    <span class=""></span>
+    <div class="row">
+        <div class="col">
+            <span class="commentsBody" data-bind="text: text"></span>
+        </div>
+    </div>
+</div> 

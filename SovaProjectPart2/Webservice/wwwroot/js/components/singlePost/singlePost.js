@@ -8,6 +8,11 @@
         var score = ko.observable();
         var userId = ko.observable();
         var createDate = ko.observable();
+        var postId = ko.observable();
+        
+        var answerVisible = ko.observable(false);
+        var commentVisible = ko.observable(false);
+
 
         url("api/posts/");
         url(url() + params.postId);
@@ -17,8 +22,24 @@
             score(data.score);
             userId(data.qa_UserId);
             createDate(data.creationDate);
+            postId(data.postId);
+
 
         }, url());
+
+        var showAnswers = function (data) {
+            answerVisible(true);
+            url("api/posts/answersToQuestion/" + params.postId);
+            ds.getPosts(function (data) {
+                postman.publish("showAnswers", data)
+            }, url());
+        };
+
+        var showComments = function (data) {
+            commentVisible(true);
+            var urlComments = "api/comments/fromPost/" + postId();
+            postman.publish("showComments", urlComments);
+        };
 
             //var answers = ko.observableArray([]);
 
@@ -46,7 +67,11 @@
                 body,
                 score,
                 userId,
-                createDate
+                createDate,
+                showAnswers,
+                showComments,
+                answerVisible,
+                commentVisible
 
             };
         };

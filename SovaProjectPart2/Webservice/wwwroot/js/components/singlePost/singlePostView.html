@@ -76,10 +76,16 @@
     <div class="bodyContainer">
         <p data-bind="html: body"></p>
         <p class="postScore" data-bind="text: score"></p>
-        <button class="jensButton">Show answers</button>
-        <button class="jensButton">Show comments</button>
+        <button class="jensButton" data-bind="click: showAnswers" >Show answers</button>
+        <button class="jensButton" data-bind="click: showComments">Show comments</button>
     </div>
-    <div class="commentContainer">
-
+    <div class="commentContainer" data-bind="visible: commentVisible">
+        <comment-list></comment-list>
+        <br />
+    </div>
+    <div data-bind="visible: answerVisible">
+        <br />
+        <h5>Answers:</h5>
+        <answer-list></answer-list>
     </div>
 </div>
