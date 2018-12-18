@@ -5,22 +5,14 @@
 
         var login = function () {
             postman.publish("login", {
-                    username,
-                    password
-            });
-            getUserInformation();
+                Username: username(),
+                Password: password()
+            });            
         }
         var newUser = function () {
             postman.publish("createNewUser");
         };
 
-        var getUserInformation = function () {
-            ds.getUser(function (data) {
-                username(data.username);
-                password(data.password);
-                postman.publish("newUserData", data);
-            }, username());
-        };
         var createUser = function () {
             ds.createUser({
                 Username: username(),
@@ -29,12 +21,22 @@
             console.log("button pushed");
         };
 
+        var validateForm = function () {
+            var x = document.forms["frmLogin"]["username"].value;
+            //var y = document.form["frmLogin"]["password"].value;
+            if (x == "") {
+                alert("Name must be filled out");
+                return false;
+            } else login();
+        }
+
         return {
             username,
             password,
             login,
             newUser,
-            createUser
+            createUser,
+            validateForm
         };
     };
 });

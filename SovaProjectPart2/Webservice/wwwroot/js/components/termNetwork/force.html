@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.links line {
+  stroke: #999;
+  stroke-opacity: 0.6;
+}
+
+.nodes circle {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+text {
+  font-family: sans-serif;
+  font-size: 10px;
+}
+
+</style>
+<svg width="960" height="600"></svg>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+
+var graph = 
+{"nodes":[
+
+{"id":"email"},
+{"id":"addresses"},
+{"id":"valid"},
+{"id":"pointer"},
+{"id":"rfc"},
+{"id":"validate"},
+{"id":"domain"},
+{"id":"invalid"},
+{"id":"send"},
+{"id":"validation"},
+{"id":"e-mail"},
+{"id":"memory"},
+{"id":"ip"},
+{"id":"characters"},
+{"id":"regex"},
+{"id":"regular"},
+{"id":"expression"},
+{"id":"mail"},
+{"id":"allowed"},
+{"id":"validating"},
+{"id":"catch"},
+{"id":"pointers"},
+{"id":"server"},
+{"id":"n"},
+{"id":"a-z"},
+{"id":"p"},
+{"id":"host"},
+{"id":"address"},
+],
+"links":[
+{"source":"address", "target":"addresses", "value":4},
+{"source":"address", "target":"allowed", "value":1},
+{"source":"address", "target":"a-z", "value":1},
+{"source":"address", "target":"catch", "value":1},
+{"source":"address", "target":"characters", "value":1},
+{"source":"address", "target":"domain", "value":2},
+{"source":"address", "target":"email", "value":5},
+{"source":"address", "target":"e-mail", "value":1},
+{"source":"address", "target":"expression", "value":1},
+{"source":"address", "target":"host", "value":1},
+{"source":"address", "target":"invalid", "value":2},
+{"source":"address", "target":"ip", "value":1},
+{"source":"address", "target":"mail", "value":1},
+{"source":"address", "target":"memory", "value":1},
+{"source":"address", "target":"n", "value":1},
+{"source":"address", "target":"p", "value":1},
+{"source":"address", "target":"pointer", "value":2},
+{"source":"address", "target":"pointers", "value":1},
+{"source":"address", "target":"regex", "value":1},
+{"source":"address", "target":"regular", "value":1},
+{"source":"address", "target":"rfc", "value":2},
+{"source":"address", "target":"send", "value":1},
+{"source":"address", "target":"server", "value":1},
+{"source":"address", "target":"valid", "value":2},
+{"source":"address", "target":"validate", "value":2},
+{"source":"address", "target":"validating", "value":1},
+{"source":"address", "target":"validation", "value":1},
+{"source":"addresses", "target":"allowed", "value":0},
+{"source":"addresses", "target":"a-z", "value":0},
+{"source":"addresses", "target":"catch", "value":0},
+{"source":"addresses", "target":"characters", "value":0},
+{"source":"addresses", "target":"domain", "value":1},
+{"source":"addresses", "target":"email", "value":5},
+{"source":"addresses", "target":"e-mail", "value":1},
+{"source":"addresses", "target":"expression", "value":0},
+{"source":"addresses", "target":"host", "value":0},
+{"source":"addresses", "target":"invalid", "value":1},
+{"source":"addresses", "target":"ip", "value":0},
+{"source":"addresses", "target":"mail", "value":0},
+{"source":"addresses", "target":"memory", "value":0},
+{"source":"addresses", "target":"n", "value":0},
+{"source":"addresses", "target":"p", "value":0},
+{"source":"addresses", "target":"pointer", "value":0},
+{"source":"addresses", "target":"pointers", "value":0},
+{"source":"addresses", "target":"regex", "value":1},
+{"source":"addresses", "target":"regular", "value":0},
+{"source":"addresses", "target":"rfc", "value":1},
+{"source":"addresses", "target":"send", "value":1},
+{"source":"addresses", "target":"server", "value":0},
+{"source":"addresses", "target":"valid", "value":2},
+{"source":"addresses", "target":"validate", "value":1},
+{"source":"addresses", "target":"validating", "value":1},
+{"source":"addresses", "target":"validation", "value":1},
+{"source":"allowed", "target":"a-z", "value":0},
+{"source":"allowed", "target":"characters", "value":1},
+{"source":"allowed", "target":"domain", "value":0},
+{"source":"allowed", "target":"email", "value":1},
+{"source":"allowed", "target":"e-mail", "value":0},
+{"source":"allowed", "target":"expression", "value":0},
+{"source":"allowed", "target":"host", "value":0},
+{"source":"allowed", "target":"invalid", "value":0},
+{"source":"allowed", "target":"ip", "value":0},
+{"source":"allowed", "target":"mail", "value":0},
+{"source":"allowed", "target":"memory", "value":0},
+{"source":"allowed", "target":"n", "value":0},
+{"source":"allowed", "target":"p", "value":0},
+{"source":"allowed", "target":"pointer", "value":0},
+{"source":"allowed", "target":"pointers", "value":0},
+{"source":"allowed", "target":"regex", "value":0},
+{"source":"allowed", "target":"regular", "value":0},
+{"source":"allowed", "target":"rfc", "value":0},
+{"source":"allowed", "target":"send", "value":0},
+{"source":"allowed", "target":"server", "value":0},
+{"source":"allowed", "target":"valid", "value":1},
+{"source":"allowed", "target":"validate", "value":0},
+{"source":"allowed", "target":"validation", "value":0},
+{"source":"a-z", "target":"characters", "value":1},
+{"source":"a-z", "target":"domain", "value":1},
+{"source":"a-z", "target":"email", "value":1},
+{"source":"a-z", "target":"e-mail", "value":0},
+{"source":"a-z", "target":"expression", "value":0},
+{"source":"a-z", "target":"host", "value":0},
+{"source":"a-z", "target":"invalid", "value":0},
+{"source":"a-z", "target":"ip", "value":0},
+{"source":"a-z", "target":"mail", "value":0},
+{"source":"a-z", "target":"n", "value":0},
+{"source":"a-z", "target":"p", "value":0},
+{"source":"a-z", "target":"pointers", "value":0},
+{"source":"a-z", "target":"regex", "value":1},
+{"source":"a-z", "target":"regular", "value":0},
+{"source":"a-z", "target":"rfc", "value":0},
+{"source":"a-z", "target":"send", "value":0},
+{"source":"a-z", "target":"server", "value":0},
+{"source":"a-z", "target":"valid", "value":0},
+{"source":"a-z", "target":"validate", "value":0},
+{"source":"a-z", "target":"validating", "value":0},
+{"source":"a-z", "target":"validation", "value":0},
+{"source":"catch", "target":"domain", "value":0},
+{"source":"catch", "target":"email", "value":0},
+{"source":"catch", "target":"e-mail", "value":0},
+{"source":"catch", "target":"expression", "value":0},
+{"source":"catch", "target":"host", "value":0},
+{"source":"catch", "target":"invalid", "value":1},
+{"source":"catch", "target":"ip", "value":0},
+{"source":"catch", "target":"mail", "value":0},
+{"source":"catch", "target":"memory", "value":0},
+{"source":"catch", "target":"n", "value":0},
+{"source":"catch", "target":"p", "value":0},
+{"source":"catch", "target":"pointer", "value":0},
+{"source":"catch", "target":"regex", "value":0},
+{"source":"catch", "target":"regular", "value":0},
+{"source":"catch", "target":"rfc", "value":0},
+{"source":"catch", "target":"send", "value":0},
+{"source":"catch", "target":"server", "value":0},
+{"source":"catch", "target":"valid", "value":0},
+{"source":"catch", "target":"validate", "value":1},
+{"source":"catch", "target":"validating", "value":0},
+{"source":"catch", "target":"validation", "value":0},
+{"source":"characters", "target":"domain", "value":1},
+{"source":"characters", "target":"email", "value":1},
+{"source":"characters", "target":"e-mail", "value":0},
+{"source":"characters", "target":"expression", "value":0},
+{"source":"characters", "target":"host", "value":0},
+{"source":"characters", "target":"invalid", "value":1},
+{"source":"characters", "target":"ip", "value":0},
+{"source":"characters", "target":"mail", "value":0},
+{"source":"characters", "target":"memory", "value":0},
+{"source":"characters", "target":"n", "value":1},
+{"source":"characters", "target":"p", "value":0},
+{"source":"characters", "target":"pointer", "value":0},
+{"source":"characters", "target":"pointers", "value":0},
+{"source":"characters", "target":"regex", "value":3},
+{"source":"characters", "target":"regular", "value":1},
+{"source":"characters", "target":"rfc", "value":1},
+{"source":"characters", "target":"send", "value":0},
+{"source":"characters", "target":"server", "value":0},
+{"source":"characters", "target":"valid", "value":2},
+{"source":"characters", "target":"validate", "value":0},
+{"source":"characters", "target":"validating", "value":0},
+{"source":"characters", "target":"validation", "value":0},
+{"source":"domain", "target":"email", "value":1},
+{"source":"domain", "target":"e-mail", "value":0},
+{"source":"domain", "target":"expression", "value":0},
+{"source":"domain", "target":"host", "value":1},
+{"source":"domain", "target":"invalid", "value":0},
+{"source":"domain", "target":"ip", "value":0},
+{"source":"domain", "target":"mail", "value":0},
+{"source":"domain", "target":"memory", "value":0},
+{"source":"domain", "target":"n", "value":0},
+{"source":"domain", "target":"p", "value":0},
+{"source":"domain", "target":"regex", "value":1},
+{"source":"domain", "target":"regular", "value":0},
+{"source":"domain", "target":"rfc", "value":1},
+{"source":"domain", "target":"send", "value":1},
+{"source":"domain", "target":"server", "value":0},
+{"source":"domain", "target":"valid", "value":1},
+{"source":"domain", "target":"validate", "value":1},
+{"source":"domain", "target":"validating", "value":0},
+{"source":"domain", "target":"validation", "value":0},
+{"source":"email", "target":"e-mail", "value":0},
+{"source":"email", "target":"expression", "value":1},
+{"source":"email", "target":"host", "value":0},
+{"source":"email", "target":"invalid", "value":1},
+{"source":"email", "target":"ip", "value":0},
+{"source":"email", "target":"mail", "value":2},
+{"source":"email", "target":"memory", "value":0},
+{"source":"email", "target":"n", "value":0},
+{"source":"email", "target":"p", "value":0},
+{"source":"email", "target":"pointers", "value":0},
+{"source":"email", "target":"regex", "value":1},
+{"source":"email", "target":"regular", "value":1},
+{"source":"email", "target":"rfc", "value":2},
+{"source":"email", "target":"send", "value":2},
+{"source":"email", "target":"server", "value":0},
+{"source":"email", "target":"valid", "value":3},
+{"source":"email", "target":"validate", "value":2},
+{"source":"email", "target":"validating", "value":1},
+{"source":"email", "target":"validation", "value":2},
+{"source":"e-mail", "target":"expression", "value":0},
+{"source":"e-mail", "target":"host", "value":0},
+{"source":"e-mail", "target":"invalid", "value":0},
+{"source":"e-mail", "target":"ip", "value":0},
+{"source":"e-mail", "target":"mail", "value":0},
+{"source":"e-mail", "target":"regex", "value":0},
+{"source":"e-mail", "target":"regular", "value":0},
+{"source":"e-mail", "target":"rfc", "value":0},
+{"source":"e-mail", "target":"send", "value":0},
+{"source":"e-mail", "target":"server", "value":0},
+{"source":"e-mail", "target":"valid", "value":0},
+{"source":"e-mail", "target":"validate", "value":0},
+{"source":"e-mail", "target":"validating", "value":0},
+{"source":"e-mail", "target":"validation", "value":0},
+{"source":"expression", "target":"host", "value":0},
+{"source":"expression", "target":"invalid", "value":0},
+{"source":"expression", "target":"ip", "value":0},
+{"source":"expression", "target":"mail", "value":0},
+{"source":"expression", "target":"memory", "value":0},
+{"source":"expression", "target":"n", "value":1},
+{"source":"expression", "target":"p", "value":1},
+{"source":"expression", "target":"pointer", "value":0},
+{"source":"expression", "target":"pointers", "value":0},
+{"source":"expression", "target":"regex", "value":2},
+{"source":"expression", "target":"regular", "value":9},
+{"source":"expression", "target":"rfc", "value":0},
+{"source":"expression", "target":"valid", "value":1},
+{"source":"expression", "target":"validate", "value":0},
+{"source":"expression", "target":"validating", "value":0},
+{"source":"expression", "target":"validation", "value":0},
+{"source":"host", "target":"invalid", "value":0},
+{"source":"host", "target":"ip", "value":0},
+{"source":"host", "target":"mail", "value":0},
+{"source":"host", "target":"n", "value":0},
+{"source":"host", "target":"p", "value":0},
+{"source":"host", "target":"regex", "value":0},
+{"source":"host", "target":"regular", "value":0},
+{"source":"host", "target":"rfc", "value":0},
+{"source":"host", "target":"send", "value":0},
+{"source":"host", "target":"server", "value":1},
+{"source":"host", "target":"valid", "value":0},
+{"source":"host", "target":"validate", "value":0},
+{"source":"host", "target":"validating", "value":0},
+{"source":"host", "target":"validation", "value":0},
+{"source":"invalid", "target":"ip", "value":0},
+{"source":"invalid", "target":"mail", "value":0},
+{"source":"invalid", "target":"memory", "value":0},
+{"source":"invalid", "target":"n", "value":0},
+{"source":"invalid", "target":"p", "value":0},
+{"source":"invalid", "target":"pointer", "value":0},
+{"source":"invalid", "target":"pointers", "value":0},
+{"source":"invalid", "target":"regex", "value":0},
+{"source":"invalid", "target":"regular", "value":0},
+{"source":"invalid", "target":"rfc", "value":0},
+{"source":"invalid", "target":"send", "value":0},
+{"source":"invalid", "target":"server", "value":0},
+{"source":"invalid", "target":"valid", "value":2},
+{"source":"invalid", "target":"validate", "value":1},
+{"source":"invalid", "target":"validating", "value":0},
+{"source":"invalid", "target":"validation", "value":1},
+{"source":"ip", "target":"mail", "value":0},
+{"source":"ip", "target":"p", "value":0},
+{"source":"ip", "target":"regex", "value":0},
+{"source":"ip", "target":"regular", "value":0},
+{"source":"ip", "target":"rfc", "value":0},
+{"source":"ip", "target":"send", "value":0},
+{"source":"ip", "target":"server", "value":1},
+{"source":"ip", "target":"valid", "value":0},
+{"source":"ip", "target":"validate", "value":0},
+{"source":"ip", "target":"validating", "value":0},
+{"source":"mail", "target":"n", "value":0},
+{"source":"mail", "target":"regex", "value":0},
+{"source":"mail", "target":"rfc", "value":0},
+{"source":"mail", "target":"send", "value":1},
+{"source":"mail", "target":"server", "value":0},
+{"source":"mail", "target":"valid", "value":0},
+{"source":"mail", "target":"validate", "value":0},
+{"source":"mail", "target":"validating", "value":0},
+{"source":"mail", "target":"validation", "value":0},
+{"source":"memory", "target":"n", "value":0},
+{"source":"memory", "target":"p", "value":0},
+{"source":"memory", "target":"pointer", "value":2},
+{"source":"memory", "target":"pointers", "value":1},
+{"source":"memory", "target":"regex", "value":0},
+{"source":"memory", "target":"regular", "value":0},
+{"source":"memory", "target":"rfc", "value":0},
+{"source":"memory", "target":"send", "value":0},
+{"source":"memory", "target":"server", "value":0},
+{"source":"memory", "target":"valid", "value":0},
+{"source":"memory", "target":"validating", "value":0},
+{"source":"n", "target":"p", "value":2},
+{"source":"n", "target":"pointer", "value":1},
+{"source":"n", "target":"pointers", "value":0},
+{"source":"n", "target":"regex", "value":3},
+{"source":"n", "target":"regular", "value":2},
+{"source":"n", "target":"rfc", "value":0},
+{"source":"n", "target":"send", "value":0},
+{"source":"n", "target":"server", "value":0},
+{"source":"n", "target":"valid", "value":0},
+{"source":"n", "target":"validate", "value":0},
+{"source":"n", "target":"validating", "value":0},
+{"source":"n", "target":"validation", "value":0},
+{"source":"p", "target":"pointer", "value":2},
+{"source":"p", "target":"pointers", "value":1},
+{"source":"p", "target":"regex", "value":1},
+{"source":"p", "target":"regular", "value":0},
+{"source":"p", "target":"rfc", "value":0},
+{"source":"p", "target":"send", "value":0},
+{"source":"p", "target":"server", "value":0},
+{"source":"p", "target":"valid", "value":0},
+{"source":"p", "target":"validate", "value":0},
+{"source":"p", "target":"validating", "value":0},
+{"source":"p", "target":"validation", "value":0},
+{"source":"pointer", "target":"pointers", "value":4},
+{"source":"pointer", "target":"regex", "value":0},
+{"source":"pointer", "target":"valid", "value":0},
+{"source":"pointers", "target":"regex", "value":0},
+{"source":"pointers", "target":"regular", "value":0},
+{"source":"pointers", "target":"send", "value":0},
+{"source":"pointers", "target":"valid", "value":0},
+{"source":"regex", "target":"regular", "value":5},
+{"source":"regex", "target":"rfc", "value":0},
+{"source":"regex", "target":"send", "value":0},
+{"source":"regex", "target":"valid", "value":1},
+{"source":"regex", "target":"validate", "value":2},
+{"source":"regex", "target":"validating", "value":0},
+{"source":"regex", "target":"validation", "value":0},
+{"source":"regular", "target":"rfc", "value":0},
+{"source":"regular", "target":"send", "value":0},
+{"source":"regular", "target":"server", "value":0},
+{"source":"regular", "target":"valid", "value":1},
+{"source":"regular", "target":"validate", "value":1},
+{"source":"regular", "target":"validating", "value":0},
+{"source":"regular", "target":"validation", "value":0},
+{"source":"rfc", "target":"send", "value":0},
+{"source":"rfc", "target":"server", "value":0},
+{"source":"rfc", "target":"valid", "value":1},
+{"source":"rfc", "target":"validate", "value":0},
+{"source":"rfc", "target":"validating", "value":0},
+{"source":"rfc", "target":"validation", "value":0},
+{"source":"send", "target":"server", "value":2},
+{"source":"send", "target":"valid", "value":0},
+{"source":"send", "target":"validate", "value":0},
+{"source":"send", "target":"validating", "value":0},
+{"source":"send", "target":"validation", "value":0},
+{"source":"server", "target":"valid", "value":0},
+{"source":"server", "target":"validate", "value":0},
+{"source":"server", "target":"validation", "value":0},
+{"source":"valid", "target":"validate", "value":1},
+{"source":"valid", "target":"validating", "value":0},
+{"source":"valid", "target":"validation", "value":1},
+{"source":"validate", "target":"validating", "value":0},
+{"source":"validate", "target":"validation", "value":2},
+{"source":"validating", "target":"validation", "value":0},
+]}
+
+var svg = d3.select("svg"),
+    width = +svg.attr("width"),
+    height = +svg.attr("height");
+
+var color = d3.scaleOrdinal(d3.schemeCategory10);
+
+var simulation = d3.forceSimulation()
+    .force("link", d3.forceLink().id(function(d) { return d.id; }).strength(0.001))
+    .force("charge", d3.forceManyBody())
+    .force("center", d3.forceCenter(width / 2, height / 2));
+
+//d3.json("miserables.json", function(error, graph) {
+(function () {
+//  if (error) throw error;
+
+  var link = svg.append("g")
+      .attr("class", "links")
+    .selectAll("line")
+    .data(graph.links)
+    .enter().append("line")
+      .attr("stroke-width", function(d) { return Math.sqrt(d.value)*1.0; });
+
+  var node = svg.append("g")
+      .attr("class", "nodes")
+    .selectAll("g")
+    .data(graph.nodes)
+    .enter().append("g")
+    
+  var circles = node.append("circle")
+      .attr("r", 8)
+      .attr("fill", function(d) { return color(d.group); })
+      .call(d3.drag()
+          .on("start", dragstarted)
+          .on("drag", dragged)
+          .on("end", dragended));
+
+  var lables = node.append("text")
+      .text(function(d) {
+        return d.id;
+      })
+      .style("font-size", "14px")
+      .attr('x', 8)
+      .attr('y', 3);
+
+  node.append("title")
+      .text(function(d) { return d.id*2; });
+      
+
+
+  simulation
+      .nodes(graph.nodes)
+      .on("tick", ticked);
+
+  simulation.force("link")
+      .links(graph.links);
+      
+      
+
+  function ticked() {
+    link
+        .attr("x1", function(d) { return d.source.x; })
+        .attr("y1", function(d) { return d.source.y; })
+        .attr("x2", function(d) { return d.target.x; })
+        .attr("y2", function(d) { return d.target.y; });
+
+    node
+        .attr("transform", function(d) {
+          return "translate(" + d.x + "," + d.y + ")";
+        })
+  }
+})();
+
+function dragstarted(d) {
+  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+  d.fx = d.x;
+  d.fy = d.y;
+}
+
+function dragged(d) {
+  d.fx = d3.event.x;
+  d.fy = d3.event.y;
+}
+
+function dragended(d) {
+  if (!d3.event.active) simulation.alphaTarget(0);
+  d.fx = null;
+  d.fy = null;
+}
+
+</script>

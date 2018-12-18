@@ -1,1 +1,11 @@
-﻿<div data-bind="cloud: { words: words, width: 300, height: 200 }"></div>
+﻿<form class="form-inline">
+        <input class="wordCloudButton" type="search" placeholder="WordCloud" data-bind="value: cloudString" aria-label="WordCloud" />
+
+        <button class="wordCloudButton"
+                type="submit"
+                data-bind="click: wordCloud">
+            Word Cloud
+        </button>
+    </form>
+<div id="cloud" style="width: 500px; height: 350px; color: black; position: relative;"></div>
+
