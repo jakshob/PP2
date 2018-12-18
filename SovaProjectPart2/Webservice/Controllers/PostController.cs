@@ -89,8 +89,13 @@ namespace WebService.Controllers
             return Ok(answerPosts);
         }
 
+		[HttpGet("termNetwork/{wordInput}", Name = nameof(GetForceGraph))]
+		public IActionResult GetForceGraph(string word) {
+			var result = _dataService.GetForceGraph(word);
+			return Ok(result);
+		}
 
-        [HttpGet("searchQuestionsSortByScore/{searchInput}", Name = nameof(GetSearchQuestionsSortByScore))]
+		[HttpGet("searchQuestionsSortByScore/{searchInput}", Name = nameof(GetSearchQuestionsSortByScore))]
         public IActionResult GetSearchQuestionsSortByScore(string searchInput, int page = 0, int pageSize = 5)
         {
             var questionPosts = _dataService.GetSearchQuestionsSortedByScore(searchInput, page, pageSize)

@@ -204,6 +204,14 @@ namespace DomainModel
             }
         }
 
+		public string GetForceGraph(string word) {
+			string result;
+			using (var db = new SovaContext()) {
+				result = db.RelevantWords.FromSql("select generate_force_graph_input('" + word + "',12)").ToString();
+			}
+			return result;
+		}
+
         public List<SearchResult> GetSearchQuestionsSortedByScore(string searchText, int page, int pageSize) {
 
             using (var db = new SovaContext())

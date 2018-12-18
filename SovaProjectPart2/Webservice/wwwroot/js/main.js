@@ -90,6 +90,16 @@ require(['knockout'], function (ko) {
         template: { require: 'text!components/wordCloud/wordCloudView.html' }
     });
 
+    ko.components.register("term-network", {
+        viewModel: { require: 'components/termNetwork/termNetwork' },
+        template: { require: 'text!components/termNetwork/termNetworkView.html' }
+    });
+
+    ko.components.register("force-graph", {
+        viewModel: { require: 'components/termNetwork/termNetwork' },
+        template: { require: 'text!components/termNetwork/force.html' }
+    });
+
 });
 
 require(['knockout', 'app'], function (ko, app) {

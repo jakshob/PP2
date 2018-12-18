@@ -19,6 +19,8 @@ namespace DomainModel
         List<Question> SearchSova(string sinput, string userName, int page, int pageSize);
         List<Question> TraverseSearchResults(string sinput, string userName, int page, int pageSize);
 
+		string GetForceGraph(string word);
+
         //Answers
         List<Answer> GetAnswersToQuestion(int postId, int page, int pageSize);
         

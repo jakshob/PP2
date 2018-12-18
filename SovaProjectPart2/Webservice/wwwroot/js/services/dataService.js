@@ -10,6 +10,10 @@
         });
     };
 
+    var getForceGraph = function (word) {
+        $.getJSON('api/posts/termNetwork/' + word)
+    };
+
     var getUser = function (callback, user) {
         $.getJSON('api/user/myPage/' + user, function (data) {
             callback(data);
@@ -31,6 +35,7 @@
         getPosts,
         getWords,
         getUser,    
-        createUser
+        createUser,
+        getForceGraph
 	};
 });
