@@ -2,23 +2,27 @@
     return function (params) {
         var histories = ko.observableArray([]);
         var favorite = ko.observableArray([]);
+        var currentUser = ko.observable();
 
-        var currentComponent = ko.observable("history");
+        var currentComponent = ko.observable("history");   
 
-        var update = function () {
-            postman.publish("needUserData");
-        }
-
-        postman.subscribe("newUserData", function (data) {
-                favorite(data[0]);
-                histories(data[1]);
+        postman.subscribe("user", function (user) {
+            currentUser(user.Username);
         });
 
-        return {
-            histories,
-            update,
-            currentComponent
+        var getUserInformation = function () {
+            ds.getUser(function (data) {
+                favorite(data[0]);
+                histories(data[1]); 
+            }, currentUser());
+        };
 
+        postman.publish("needUserData");
+        getUserInformation();
+
+        return {
+            histories,            
+            currentComponent,
         };
     };
 

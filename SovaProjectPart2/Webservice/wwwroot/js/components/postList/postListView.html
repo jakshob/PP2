@@ -39,8 +39,8 @@
             <h4 style="margin-top:10px; margin-bottom: 20px;">Search results: </h4>
             <div data-bind="foreach: posts">
                 <div>
-                    <div data-bind="component: { name: $parent.currentComponent, params: {post: $data}}, click: $parent.showSinglePost"></div>
-                    <!--<span class="myPostTitle" data-bind="component: { name: $parent.currentComponent, params: {post: $data}}"></span>-->
+                    <!--<div data-bind="component: { name: $parent.currentComponent, params: {post: $data}}, click: $parent.showSinglePost"></div>-->
+                    <span data-bind="component: { name: $parent.currentComponent, params: {post: $data}}, click: $parent.sendSinglePost"></span>
 
                 </div>
             </div>

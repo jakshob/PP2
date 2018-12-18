@@ -47,6 +47,7 @@ namespace WebService.Controllers
             if (question == null) return NotFound();
             var model = CreateQuestionModel(question);
             model.Url = Url.Link(nameof(GetAnswersToQuestion), new { id });
+            model.PostId = id;
             return Ok(model);
         }
 

@@ -5,22 +5,14 @@
 
         var login = function () {
             postman.publish("login", {
-                    username,
-                    password
-            });
-            getUserInformation();
+                Username: username(),
+                Password: password()
+            });            
         }
         var newUser = function () {
             postman.publish("createNewUser");
         };
 
-        var getUserInformation = function () {
-            ds.getUser(function (data) {
-                username(data.username);
-                password(data.password);
-                postman.publish("newUserData", data);
-            }, username());
-        };
         var createUser = function () {
             ds.createUser({
                 Username: username(),

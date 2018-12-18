@@ -1,0 +1,83 @@
+﻿<style>
+    .answerBody {
+        display: block;
+        padding: 10px;
+        border-top: solid;
+        border-width: 15px;
+        border-color: darkcyan;
+        padding-right: 20%;
+
+    }
+
+    .postScore-DetailView {
+        display: flex;
+        width: 100%;
+        background-color: lightcyan;
+        color: black;
+        padding: 4px 20px 4px 20px;
+        margin: 0px;
+        font-size: 10pt;
+    }
+
+        .postScore-DetailView::before {
+            content: 'Score: ';
+            font-weight: normal;
+        }
+
+    .metaInfo {
+        font-size: 0.8em;
+        font-weight: bold;
+    }
+
+    .sePostKnap {
+        display: flex;
+        width: 100%;
+        color: white;
+        padding: 4px 20px 4px 20px;
+        border: none;
+        font-size: 10pt;
+        margin-top: 0px;
+        background-color: black;
+    }
+
+        .sePostKnap:hover {
+            background-color: darkcyan;
+            cursor: pointer;
+        }
+</style>
+<div class="container-fluid mb-2 mt-2">
+    <div class="metaInfo">
+        <span>UserId:</span>&nbsp;
+        <span class="pr-4" data-bind="text: qa_UserId"></span>
+        <span>Date:  </span>&nbsp;
+        <span class="pr-4" data-bind="text: creationDate"></span>
+
+    </div>
+    <div class="row">
+        <div class="col-10">
+            <span class="answerBody" data-bind="html: body"></span>
+        </div>
+        <div class="col-2">
+            <div class="row">
+                <div class="col">
+                    <p class="postScore-DetailView" data-bind="text: score"></p>
+                </div>
+                <div class="col">
+                    <button class="sePostKnap" data-bind="click: showComments">Show Comments</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div data-bind="visible: showCommentsVisible">
+            <div data-bind="foreach: comments">
+                <div>
+                    <!--<div data-bind="component: { name: $parent.currentComponent, params: {post: $data}}, click: $parent.showSinglePost"></div>-->
+                    <span data-bind="component: { name: $parent.commentsComponent, params: {post: $data}}"></span>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div> 

@@ -30,14 +30,39 @@ require(['knockout'], function (ko) {
         template: { require: 'text!components/postList/postListView.html' }
 	});
 
+    ko.components.register("answer-list", {
+        viewModel: { require: 'components/postList/postList' },
+        template: { require: 'text!components/postList/postAnswerListView.html' }
+    });
+
+    ko.components.register("comment-list", {
+        viewModel: { require: 'components/postList/postList' },
+        template: { require: 'text!components/postList/postCommentListView.html' }
+    });
+
 	ko.components.register("post", {
 		viewModel: { require: 'components/post/post' },
 		template: { require: 'text!components/post/postView.html' }
 	});
+    
+    ko.components.register("comment", {
+        viewModel: { require: 'components/comment/comment' },
+        template: { require: 'text!components/comment/commentView.html' }
+    });
 
-    ko.components.register("postDetailed", {
+    ko.components.register("postSearch", {
         viewModel: { require: 'components/post/post' },
-        template: { require: 'text!components/post/postDetailView.html' }
+        template: { require: 'text!components/post/postSearchView.html' }
+    });
+
+    ko.components.register("postComment", {
+        viewModel: { require: 'components/post/post' },
+        template: { require: 'text!components/post/postCommentView.html' }
+    });
+
+    ko.components.register("postAnswers", {
+        viewModel: { require: 'components/post/post' },
+        template: { require: 'text!components/post/postAnswerView.html' }
     });
 
     ko.components.register("singlePostWithAnswers", {

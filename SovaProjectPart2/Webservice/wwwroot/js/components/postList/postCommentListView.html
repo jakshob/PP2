@@ -1,0 +1,55 @@
+﻿<style>
+    a.noLinkatt {
+        text-decoration: none;
+        color: black;
+    }
+
+    .commentButton {
+        padding: 0px 10px 0px 10px;
+        font-weight: normal;
+        color: white;
+        border: none;
+        margin-top: 2px;
+    }
+
+        .mybutton:hover {
+            cursor: pointer;
+        }
+
+    .myNext {
+        background-color: green;
+    }
+
+        .myNext::after {
+            content: " >";
+        }
+
+    .myPrev {
+        background-color: red;
+    }
+
+        .myPrev:::before {
+            content: "< ";
+        }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div data-bind="foreach: comments">
+                <div>
+                    <!--<div data-bind="component: { name: $parent.currentComponent, params: {post: $data}}, click: $parent.showSinglePost"></div>-->
+                    <span data-bind="component: { name: $parent.commentsComponent, params: {post: $data}}"></span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button class="commentButton myPrev" data-bind="click: commentsPrevPage">Previous Page</button>
+            <button class="commentButton myNext" data-bind="click: commentsNextPage">Next Page</button>
+        </div>
+    </div>
+
+</div>
