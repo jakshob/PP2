@@ -15,6 +15,7 @@ namespace DomainModel
 
         public DbQuery<SearchResult> SearchResults { get; set; }
         public DbQuery<RelevantWord> RelevantWords { get; set; }
+        public DbQuery<RelevantWord2> RelevantWords2 { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

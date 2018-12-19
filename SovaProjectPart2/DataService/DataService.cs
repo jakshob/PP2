@@ -4,6 +4,7 @@ using System.Linq;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace DomainModel
 {
@@ -204,11 +205,11 @@ namespace DomainModel
         }
 
 		public string GetForceGraph(string word) {
-			string result;
 			using (var db = new SovaContext()) {
-				result = db.RelevantWords.FromSql("select generate_force_graph_input('" + word + "',12)").ToString();
-			}
-			return result;
+				var result = db.RelevantWords2.FromSql("select * from \"generate_force_graph_input\"('" + word + "',12)").ToList();
+			   return string.Join("", result.Select(x => x.Line));
+            }
+			
 		}
 
         public List<SearchResult> GetSearchQuestionsSortedByScore(string username, string searchText, int page, int pageSize) {

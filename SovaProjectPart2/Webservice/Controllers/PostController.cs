@@ -91,8 +91,8 @@ namespace WebService.Controllers
         }
 
 		[HttpGet("termNetwork/{wordInput}", Name = nameof(GetForceGraph))]
-		public IActionResult GetForceGraph(string word) {
-			var result = _dataService.GetForceGraph(word);
+		public IActionResult GetForceGraph(string wordInput) {
+			var result = _dataService.GetForceGraph(wordInput);
 			return Ok(result);
 		}
 
