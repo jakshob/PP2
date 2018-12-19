@@ -7,7 +7,7 @@
         var comments = ko.observableArray([]);
         var commentsNext = ko.observable();
         var commentsPrev = ko.observable();
-        
+
         //
         var isVisible = ko.observable(false);
 
@@ -17,8 +17,8 @@
         //kan bruges til at skifte mellem pages (pagination)
         var currentComponent = ko.observable("postSearch");
         var commentsComponent = ko.observable("postComment");
-        
-        
+
+
         var update = function (api) {
             ds.getPosts(function (data) {
                 posts(data.items);
@@ -27,7 +27,7 @@
             }, api);
         };
 
-        update(apiString());
+        //update(apiString());
 
         var sendSinglePost = function (data) {
             postman.publish("postToShow", data);
@@ -35,12 +35,12 @@
             currentComponent("postAnswers");
         };
 
-	    postman.subscribe("newPosts",
-		    function(data) {
-				posts(data.items);
-				prev(data.prev);
+        postman.subscribe("newPosts",
+            function (data) {
+                posts(data.items);
+                prev(data.prev);
                 next(data.next);
-		    });
+            });
 
         postman.subscribe("showAnswers", function (data) {
             posts(data.items);
@@ -51,7 +51,7 @@
 
         postman.subscribe("showComments", function (urlInput) {
             updateComments(urlInput);
-           
+
         });
 
         var updateComments = function (urlInput) {
@@ -84,7 +84,7 @@
 
         return {
             posts,
-			nextPage,
+            nextPage,
             prevPage,
             currentComponent,
             commentsComponent,

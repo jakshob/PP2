@@ -51,13 +51,12 @@
 
 
 
-	return {
+    return {
         title,
         username,
         menuItems,
         changeMenu,
         selectedComponent,
         selectedParams
-	};
+    };
 });
-

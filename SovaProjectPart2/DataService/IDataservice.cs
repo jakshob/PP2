@@ -10,23 +10,23 @@ namespace DomainModel
         // Comments
         List<Comment> GetCommentsByPostId(int id, int page, int pageSize);
         Comment GetComment(int id);
-        
+
         //Questions
         Question GetQuestion(int id);
         List<Question> GetQuestions(int page, int pageSize);
 
-        List<SearchResult> GetSearchQuestionsSortedByScore(string username, string searchText, int page, int pageSize);
+        List<SearchResult> GetSearchQuestionsSortedByScore(string searchText, int page, int pageSize);
         List<Question> SearchSova(string sinput, string userName, int page, int pageSize);
         List<Question> TraverseSearchResults(string sinput, string userName, int page, int pageSize);
 
-		string GetForceGraph(string word);
+        string GetForceGraph(string word);
 
         //Answers
         List<Answer> GetAnswersToQuestion(int postId, int page, int pageSize);
-        
+
         //History
         List<History> GetHistory(string username, int page, int pageSize);
-        
+
         //Search
         List<string> GetMostUsedSearchTexts(int page, int pageSize);
         List<RelevantWord> GetRelevantWords(string word, int page, int pageSize);

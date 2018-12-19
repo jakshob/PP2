@@ -4,12 +4,13 @@ using System.Linq;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace DomainModel
 {
     public class DataService : IDataService
     {
-       
+
         readonly List<SOVA_User> _users = new List<SOVA_User>();
 
         public DataService()
@@ -25,15 +26,15 @@ namespace DomainModel
             return _users.FirstOrDefault(x => x.Username == username);
         }
 
-        
+
         public SOVA_User CreateUser(SOVA_User user)
         {
             using (var db = new SovaContext())
             {
                 db.SOVA_Users.Add(user);
-                db.SaveChanges();                
+                db.SaveChanges();
                 return user;
-            }   
+            }
         }
 
         public int doesPasswordMatch(string username, string password)
@@ -66,7 +67,8 @@ namespace DomainModel
         }
         public void EditUserPassword(string username, string password, string newpassword)
         {
-            using (var db = new SovaContext()) {
+            using (var db = new SovaContext())
+            {
 
                 SOVA_User userToChange = db.SOVA_Users.Where(x => x.Username == username).FirstOrDefault();
                 userToChange.Password = newpassword;
@@ -76,7 +78,8 @@ namespace DomainModel
 
         }
 
-        public List<Object> GetUserPage(string username) {
+        public List<Object> GetUserPage(string username)
+        {
 
             List<Question> favorites = GetFavorites(username, 0, 0);
             //string messageFavorites = "YOUR CHOSEN FAVORITE POSTS:";
@@ -104,7 +107,8 @@ namespace DomainModel
         }
 
 
-        public List<Question> GetQuestions(int page, int pageSize) {
+        public List<Question> GetQuestions(int page, int pageSize)
+        {
 
             using (var db = new SovaContext())
             {
@@ -136,7 +140,7 @@ namespace DomainModel
                 var numbers = answers.Count();
                 return numbers;
             }
-            
+
         }
 
 
@@ -147,14 +151,16 @@ namespace DomainModel
             {
                 return db.Answers.Find(inputId);
             }
-		}
-		public Question GetQuestion(int inputId) {
+        }
+        public Question GetQuestion(int inputId)
+        {
 
-			using (var db = new SovaContext()) {
-				return db.Questions.Find(inputId);
-			}
-		}
-		public List<Comment> GetCommentsByPostId(int inputId, int page, int pageSize)
+            using (var db = new SovaContext())
+            {
+                return db.Questions.Find(inputId);
+            }
+        }
+        public List<Comment> GetCommentsByPostId(int inputId, int page, int pageSize)
         {
             using (var db = new SovaContext())
             {
@@ -182,7 +188,8 @@ namespace DomainModel
                 List<RelevantWord> tempList = new List<RelevantWord>();
 
 
-                foreach (var result in db.RelevantWords.FromSql("select * from \"wordToWords\"({0},{1})", word,"Mogens"))
+                foreach (var result in db.RelevantWords.FromSql("select * from \"wordToWords\"({0},{1})", word,
+                    "Mogens"))
                 {
                     if (result.Text != word)
                     {
@@ -203,22 +210,26 @@ namespace DomainModel
             }
         }
 
-		public string GetForceGraph(string word) {
-			string result;
-			using (var db = new SovaContext()) {
-				result = db.RelevantWords.FromSql("select generate_force_graph_input('" + word + "',12)").ToString();
-			}
-			return result;
-		}
+        public string GetForceGraph(string word)
+        {
+            using (var db = new SovaContext())
+            {
+                var result = db.RelevantWords2.FromSql("select * from \"generate_force_graph_input\"('" + word + "',12)").ToList();
+                return string.Join("", result.Select(x => x.Line));
+            }
 
-        public List<SearchResult> GetSearchQuestionsSortedByScore(string username, string searchText, int page, int pageSize) {
+        }
+
+        public List<SearchResult> GetSearchQuestionsSortedByScore(string searchText, int page, int pageSize)
+        {
 
             using (var db = new SovaContext())
             {
-                
+
                 List<SearchResult> tempList = new List<SearchResult>();
 
-                foreach (var result in db.SearchResults.FromSql("select * from \"bestMatchSova\"({0},{1})", searchText, username))
+                foreach (var result in db.SearchResults.FromSql("select * from \"bestMatchSova\"({0},{1})", searchText,
+                    "Mogens"))
                 {
                     if (result.posttype == 1)
                     {
@@ -230,20 +241,20 @@ namespace DomainModel
                             rank = result.rank,
                             posttype = result.posttype,
                             score = result.score
-  
-                           
+
+
                         };
                         tempList.Add(tmp);
                     }
 
                 }
-                
+
 
                 return tempList
                     .Skip(page * pageSize)
                     .Take(pageSize)
                     .ToList();
-            }    
+            }
         }
 
         public List<History> GetHistory(string username, int page, int pageSize)
@@ -253,16 +264,17 @@ namespace DomainModel
 
                 var historyByUser = db.Histories.Where(h => h.SOVA_UserUsername == username);
                 return historyByUser
-                  /*  .Skip(page * pageSize)
-                    .Take(page) */
-                    .ToList(); 
- 
+                    /*  .Skip(page * pageSize)
+                      .Take(page) */
+                    .ToList();
+
             }
         }
 
         public List<string> GetMostUsedSearchTexts(int page, int pageSize)
         {
-            using (var db = new SovaContext()){
+            using (var db = new SovaContext())
+            {
 
                 var listOfSearchWords = db.Histories.Select(x => x.SearchText).ToList();
 
@@ -288,15 +300,17 @@ namespace DomainModel
                     .ToList();
             }
         }
-        public bool CheckIfUsernameExist(string username) {
+        public bool CheckIfUsernameExist(string username)
+        {
 
-            using (var db = new SovaContext()) {
+            using (var db = new SovaContext())
+            {
 
                 bool doesUsernameExist = db.SOVA_Users.Any(x => x.Username == username);
 
                 return doesUsernameExist;
             }
-            
+
         }
 
         public Favorite CreateFavoriteQuestion(int questionId, string username)
@@ -347,37 +361,42 @@ namespace DomainModel
             }
         }
 
-		public List<Question> SearchSova(string sinput, string userName, int page, int pageSize) {
-			using (var db = new SovaContext()) {
-				var resultList = db.Questions.Where(x => x.Body.Contains(sinput) | x.Title.Contains(sinput));
+        public List<Question> SearchSova(string sinput, string userName, int page, int pageSize)
+        {
+            using (var db = new SovaContext())
+            {
+                var resultList = db.Questions.Where(x => x.Body.Contains(sinput) | x.Title.Contains(sinput));
                 var resultListSorted = resultList.OrderByDescending(x => x.Score).ToList();
 
-                History history = new History {
-					SOVA_UserUsername = userName,
-					CreationDate = DateTime.Now,
-					SearchText = sinput
-				};
-				db.Histories.Add(history);
-				db.SaveChanges();
+                History history = new History
+                {
+                    SOVA_UserUsername = userName,
+                    CreationDate = DateTime.Now,
+                    SearchText = sinput
+                };
+                db.Histories.Add(history);
+                db.SaveChanges();
 
-				return resultListSorted
+                return resultListSorted
                     .Skip(page * pageSize)
                     .Take(pageSize)
                     .ToList();
 
             }
-		}
-		public List<Question> TraverseSearchResults(string sinput, string userName, int page, int pageSize) {
-			using (var db = new SovaContext()) {
-				var resultList = db.Questions.Where(x => x.Body.Contains(sinput) | x.Title.Contains(sinput));
+        }
+        public List<Question> TraverseSearchResults(string sinput, string userName, int page, int pageSize)
+        {
+            using (var db = new SovaContext())
+            {
+                var resultList = db.Questions.Where(x => x.Body.Contains(sinput) | x.Title.Contains(sinput));
                 var resultListSorted = resultList.OrderByDescending(x => x.Score).ToList();
 
                 return resultListSorted
-					.Skip(page * pageSize)
-					.Take(pageSize)
-					.ToList();
-			}
-		}
+                    .Skip(page * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+            }
+        }
 
-	}
+    }
 }

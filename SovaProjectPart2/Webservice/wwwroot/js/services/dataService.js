@@ -1,24 +1,31 @@
-﻿define(['jquery','postman', 'knockout'], function ($, postman, ko) {
-    var username = ko.observable();
-    
-    postman.subscribe("user", function (data) {
-        username(data.Username);
-        console.log("SWOOP")
+﻿define(['jquery'], function ($) {
+    var getPosts = function (callback, api) {
+        $.getJSON(api, function (data) {
+            callback(data);
         });
-
-	var getPosts = function (callback, api) {
-		$.getJSON(api + "/" + username(), function (data) {
-			callback(data);
-		});
-	};
+    };
     var getWords = function (callback, inputWord) {
         $.getJSON('api/posts/relevantWords/' + inputWord, function (data) {
             callback(data);
         });
     };
 
-    var getForceGraph = function (word) {
-        $.getJSON('api/posts/termNetwork/' + word)
+    var getForceGraph = function (word, callback) {
+        var url = 'api/posts/termNetwork/' + word;
+        console.log(url);
+        $.ajax({
+            contentType: "text/plain",
+            url: url,
+            success: function (data) {
+                callback(JSON.parse(data));
+            },
+            error: function (x) {
+                console.log(x);
+            }
+        });
+        //$.getJSON(url, function(data) {
+        //	callback(data);
+        //});
     };
 
     var getUser = function (callback, user) {
@@ -27,8 +34,7 @@
         });
     };
 
-    var createUser = function (user)
-    {
+    var createUser = function (user) {
         $.ajax({
             url: 'api/user',
             dataType: 'json',
@@ -37,12 +43,12 @@
             data: JSON.stringify(user),
         });
     }
-  	
-	return {
+
+    return {
         getPosts,
         getWords,
-        getUser,    
+        getUser,
         createUser,
         getForceGraph
-	};
+    };
 });
