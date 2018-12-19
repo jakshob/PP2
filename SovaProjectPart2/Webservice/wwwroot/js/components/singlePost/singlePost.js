@@ -41,6 +41,11 @@
             postman.publish("showComments", urlComments);
         };
 
+        var likeButtonPressed = function () {
+            debugger;
+            ds.createFavorite(params.postId);
+        } 
+
             //var answers = ko.observableArray([]);
 
             /* Postman unødvendig her, grundet at data kommer gennem Params i toppen
@@ -71,7 +76,8 @@
                 showAnswers,
                 showComments,
                 answerVisible,
-                commentVisible
+                commentVisible,
+                likeButtonPressed
 
             };
         };

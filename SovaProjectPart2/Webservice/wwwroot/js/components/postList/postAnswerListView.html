@@ -1,43 +1,4 @@
-﻿<style>
-    a.noLinkatt {
-        text-decoration: none;
-        color: black;
-    }
-
-    .mybutton {
-        padding: 10px;
-        font-weight: normal;
-        color: white;
-        border: none;
-        margin-top: 5px;
-    }
-
-        .mybutton:hover {
-            font-weight: bold;
-            border: solid;
-            border-color: black;
-            padding: 7px;
-            cursor: pointer;
-        }
-
-    .myNext {
-        background-color: green;
-    }
-
-        .myNext::after {
-            content: " >";
-        }
-
-    .myPrev {
-        background-color: red;
-    }
-
-        .myPrev::before {
-            content: "< ";
-        }
-</style>
-
-<div class="container-fluid">
+﻿<div class="container-fluid">
     <div class="row">
         <div class="col">
             <div data-bind="foreach: posts">

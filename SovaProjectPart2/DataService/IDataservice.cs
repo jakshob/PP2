@@ -33,6 +33,7 @@ namespace DomainModel
 
         //Favorites
         List<Question> GetFavorites(string username, int page, int pageSize);
+       
         Favorite CreateFavoriteQuestion(int questionId, string username);
         Favorite CreateFavoriteQuestion(int questionId, string username, string note);
 

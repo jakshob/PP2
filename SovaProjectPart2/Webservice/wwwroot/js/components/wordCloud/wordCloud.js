@@ -30,15 +30,7 @@
             }, api);
         };
 
-        ds.getWords(function (api) {
-            ds.getPosts(function (data) {
-                text(data.text);
-                weight(data.weight);
-                $('#cloud').jQCloud(data);
-                console.log(JSON.stringify(data));
-            }, api);
-        });
-
+      
         return {
             words,
             wordCloud,

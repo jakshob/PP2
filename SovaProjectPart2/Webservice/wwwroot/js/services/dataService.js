@@ -19,6 +19,11 @@
             callback(data);
         });
     };
+    var getFavorites = function (callback, user) {
+        $.getJSON('api/favorites/' + user, function (data) {
+            callback(data);
+        });
+    };
 
     var createUser = function (user)
     {
@@ -30,12 +35,21 @@
             data: JSON.stringify(user),
         });
     }
+    var createFavorite = function (id) {
+        debugger;
+        $.ajax({
+            url: 'api/favorites?id=' + id,
+            type: 'POST',
+        });
+    }
   	
 	return {
         getPosts,
         getWords,
         getUser,    
         createUser,
-        getForceGraph
+        getForceGraph,
+        createFavorite,
+        getFavorites
 	};
 });

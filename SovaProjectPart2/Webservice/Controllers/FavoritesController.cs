@@ -35,12 +35,16 @@ namespace WebService.Controllers
             return Ok(result);
         }
         [HttpPost]
-        public IActionResult CreateFavoriteQuestion(int id, string username, string note)
+        //public IActionResult CreateFavoriteQuestion(int id, string username, string note)
+        //id ændret fra int til string 
+        public IActionResult CreateFavoriteQuestion(int id)
         {
-            var usernameExist = _dataService.CheckIfUsernameExist(username);
+            
+            //Hardcoded for Mogens
+            var usernameExist = _dataService.CheckIfUsernameExist("Mogens");
             if (usernameExist)
             {
-                var newFavorite = _dataService.CreateFavoriteQuestion(id, username, note);
+                var newFavorite = _dataService.CreateFavoriteQuestion(id, "Mogens");
                 return Ok(newFavorite);
             }
             else
@@ -54,6 +58,7 @@ namespace WebService.Controllers
         {
             var model = Mapper.Map<QuestionListModel>(favorite);
             model.Url = Url.Link(nameof(GetFavorites), new { id = favorite.Id });
+            model.PostId = favorite.Id.ToString();
             return model;
         }
 

@@ -1,5 +1,19 @@
 ﻿<searchbar></searchbar>
+<div class="container-fluid">
+    <hr />
+    <div class="row">
+        <div class="col-4">
+            <word-cloud></word-cloud>
+        </div>
+        <div class="col-4">
+            <term-network></term-network>
+        </div>
+        <div class="col-4">
 
-<div> <!---data-bind="visible: shouldShowCloud"-->
-   <word-cloud></word-cloud>
+            <div class="recentSearches">
+                <p class="titelSearches">Your Recent Searches:</p><br />
+                <history-list-view></history-list-view>
+            </div>
+        </div>
+    </div>
 </div>

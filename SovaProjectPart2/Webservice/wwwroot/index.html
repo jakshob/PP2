@@ -1,8 +1,36 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
+    <style>
+        @media only screen and (min-width: 1200px) {
+            body {
+                padding: 0px 10%;
+            }
+        }
+
+        .ourLogo {
+            font-family: 'Staatliches', cursive;
+            font-size: 35pt;
+
+        }
+
+        .myMenuItem {
+            font-size: 1.2em;
+            padding: 10px 25px;
+            border-left: solid 0.5px;
+            text-transform: uppercase;
+            font-family: 'Thasadith', sans-serif;
+            font-weight: bold;
+
+        }
+
+    </style>
     <title>SovaApp</title>
-   
+    <link href="https://fonts.googleapis.com/css?family=Staatliches" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Thasadith" rel="stylesheet">
+    
+    <link rel="stylesheet" href="ourStyles.css" type="text/css"/>
     <script src="js/lib/jQuery/dist/jquery.js"></script>
     <script src="js/lib/jqcloud2/dist/jqcloud.js"></script>
     <link href="js/lib/bootstrap/dist/css/bootstrap.css" type="text/css" rel="stylesheet" />
@@ -12,10 +40,11 @@
 
 </head>
 <body>
+
     <!--  <img style="float: right;" src="http://vridstedby.dk/wp-content/uploads/2016/12/gl%C3%A6delig-jul-1.jpg" width="600" height="320"> -->
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#"><span data-bind="text: title"></span></a>
+        <a class="navbar-brand" href="#"><span class="ourLogo" data-bind="text: title"></span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -24,7 +53,7 @@
             <ul class="navbar-nav mr-auto" data-bind="foreach: menuItems">
                 <!-- <li class="nav-item" data-bind="css: $parent.isActive($data)">-->
                 <a href="#" class="nav-link" data-bind="click: $parent.changeMenu">
-                    <span data-bind="text: name"></span>
+                    <span class="myMenuItem" data-bind="text: name"></span>
                 </a>
                 <!--</li>-->
             </ul>

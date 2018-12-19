@@ -1,15 +1,15 @@
 ﻿define(['knockout', 'postman'], function (ko, postman) {
 
 
-    var title = "SOVA-APP";
+    var title = "SOVA one";
     var user = ko.observable();
     var username = ko.observable("");
 
     var menuItems = [
-        { name: 'Home', component: 'home-view' },
-        { name: 'MyPage', component: 'my-page-view' },
-        { name: 'SingleResult', component: 'single-post' },
-        { name: 'Log In', component: 'login-view' }
+        { name: 'Home 🏡', component: 'home-view' },
+        { name: 'MyPage 🦄', component: 'my-page-view' },
+        { name: 'Post 📜', component: 'single-post' },
+        { name: 'Log In 🔐', component: 'login-view' }
 
     ];
 
@@ -21,12 +21,11 @@
         selectedMenu(menu);
         selectedComponent(menu.component);
     };
-
     postman.subscribe("postToShow", function (data) {
         selectedParams(data);
         changeMenu(menuItems[2]);
     });
-
+    
     postman.subscribe("changeMenu", function (menuName) {
         var menu = menuItems.find(function (m) {
             return m.name === menuName

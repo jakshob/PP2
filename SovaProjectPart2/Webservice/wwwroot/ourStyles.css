@@ -1,0 +1,266 @@
+﻿/*--------------- Answer Post ---------------*/
+.answerBody {
+    display: block;
+    padding: 10px;
+    border-top: solid;
+    border-width: 15px;
+    border-color: #55bcc9;
+    padding-right: 20%;
+}
+
+.metaInfo {
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+
+/*------------ Comment Post ------------*/
+.commentsBody {
+    display: block;
+    padding: 10px;
+    border-left: solid 5px;
+    border-bottom: solid 1px;
+    border-color: black;
+    font-size: 0.8em;
+}
+
+.commentScore {
+    display: flex;
+    background-color: lightcyan;
+    color: black;
+    margin: 0px;
+    padding: 2px 0px 2px 15px;
+    font-size: 0.8em;
+}
+
+/*---------- Search Post-----------*/
+.excerptBody {
+    display: block;
+    max-height: 6em;
+    overflow: hidden;
+    padding: 10px;
+    border-left: solid;
+    border-width: 5px;
+    padding-right: 20%;
+    font-size: 0.8em;
+}
+
+
+.myPostTitle {
+    background-color: #55bcc9;
+    color: white;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    font-weight: normal;
+    padding: 10px;
+    font-size: 1em;
+    margin-bottom: 0px;
+}
+
+    .myPostTitle:hover {
+        color: black;
+        cursor: pointer;
+    }
+
+.postScore-DetailView.postScore-DetailView {
+    display: flex;
+    width: 100%;
+    background-color: lightcyan;
+    color: black;
+    padding: 4px 20px 4px 20px;
+    margin: 0px;
+    font-size: 10pt;
+}
+
+    .postScore-DetailView::before {
+        content: 'Score: ';
+        font-weight: normal;
+    }
+
+.sePostKnap {
+    display: flex;
+    width: 100%;
+    color: white;
+    padding: 4px 20px 4px 20px;
+    border: none;
+    font-size: 10pt;
+    margin-top: 0px;
+    background-color: #818181;
+}
+
+    .sePostKnap:hover {
+        background-color: #55bcc9;
+        cursor: pointer;
+    }
+
+
+/*----------- Comment-List ------------*/
+.commentButton {
+    padding: 0px 10px 0px 10px;
+    font-weight: normal;
+    color: white;
+    border: none;
+    margin-top: 2px;
+}
+
+.mybutton:hover {
+    cursor: pointer;
+}
+
+.myNext {
+    background-color: #3feea5;
+}
+
+    .myNext::after {
+        content: " >";
+    }
+
+.myPrev {
+    background-color: #fc4445;
+}
+
+    .myPrev:::before {
+        content: "< ";
+    }
+
+
+
+/*---------- Post-List ------------*/
+a.noLinkatt {
+    text-decoration: none;
+    color: black;
+}
+
+.mybutton {
+    padding: 10px;
+    font-weight: normal;
+    border-radius: 10px;
+    color: white;
+    border: none;
+    margin-top: 5px;
+}
+
+    .mybutton:hover {
+        font-weight: bold;
+        border: solid;
+        border-color: black;
+        padding: 7px;
+        cursor: pointer;
+    }
+
+/*------------ Single Post --------------*/
+.postContainer {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.bodyContainer {
+    background-color: #CAFAFE;
+    padding: 10px 20px 20px 20px;
+    color: black;
+}
+
+.postTitle {
+    background-color: #55bcc9;
+    padding: 5px 20px 5px 20px;
+    margin-top: 20px;
+    color: white;
+}
+
+.createDate {
+    color: black;
+    background-color: white;
+}
+
+.userId {
+    float: right;
+    margin-right: 40px;
+}
+
+    .userId:before {
+        content: 'User ID: ';
+    }
+
+
+.postScore {
+    display: inline-block;
+    background-color: #55bcc9;
+    padding: 10px 20px 10px 20px;
+    margin: 0px;
+    color: white;
+    font-weight: bold;
+    font-size: 12pt;
+    border: none;
+    border-color: black;
+}
+
+    .postScore::before {
+        content: 'Score: ';
+        font-weight: normal;
+    }
+
+.jensButton {
+    background-color: #818181;
+    margin-top: 5px;
+    padding: 10px;
+    font-weight: normal;
+    font-size: 12pt;
+    color: white;
+    border: none;
+}
+
+    .jensButton:hover {
+        background-color: #55bcc9;
+        cursor: pointer;
+    }
+
+
+/*----------------- History-Visning på Forsiden -------------------*/
+
+.recentSearches {
+    border-left: solid 1px grey;
+    padding: 5px 0px 0px 15px;
+    height: 400px;
+    overflow: hidden;
+    border: solid 10px #3FEEE6;
+    border-radius: 45px;
+    padding: 25px;
+}
+
+.titelSearches {
+    font-family: 'Thasadith';
+    font-size: 1.4em;
+    font-weight: bold;
+    padding-bottom: 5px;
+    border-bottom: solid;
+    border-bottom-color: lightgrey;
+    border-bottom-width: 2px;
+    max-width: 75%;
+}
+.historyText {
+    padding-bottom: 10px;
+    font-weight: bold;
+}
+
+/*----------- Andet Styling -------------*/
+
+/* OBS: BRUG ALDRIG !important..... selv om vi gør det her... ups..*/
+.btn-outline-success:hover {
+    color: white !important;
+    background-color: #3feea5 !important;
+    border-color: #3feea5 !important;
+}
+
+.btn-outline-success {
+    color: #3feea5 !important;
+    border-color: #3feea5 !important;
+}
+.likeKnap {
+    background: none;
+    border: none;
+    position: absolute;
+    margin-top: -2px;
+}
+    .likeKnap:hover {
+    cursor: pointer;
+    }

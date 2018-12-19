@@ -4,7 +4,6 @@
         var creationDate = params.history.creationDate;
         var searchText = params.history.searchText;
 
-
         return {
             username,
             creationDate,

@@ -1,5 +1,10 @@
-﻿<div>
-    <span data-bind="text: username"></span>
-    <span data-bind="text: creationDate"></span>
-    <span data-bind="text: searchText"></span>
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="col-3">
+            <span class="historyText" data-bind="text: searchText"></span>
+        </div>
+        <div class="col-9">
+            <span class="historyDate" data-bind="text: creationDate"></span>
+        </div>
+    </div>
 </div>

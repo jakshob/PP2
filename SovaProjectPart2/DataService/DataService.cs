@@ -300,7 +300,6 @@ namespace DomainModel
             }
             
         }
-
         public Favorite CreateFavoriteQuestion(int questionId, string username)
         {
             using (var db = new SovaContext())

@@ -1,39 +1,4 @@
-﻿<style>
-    a.noLinkatt {
-        text-decoration: none;
-        color: black;
-    }
-    .mybutton {
-            padding: 10px;
-            font-weight: normal;
-            color: white;
-            border: none;
-            margin-top: 5px;
-            }
-
-        .mybutton:hover {
-            font-weight: bold;
-            border: solid;
-            border-color: black;
-            padding: 7px;
-            cursor: pointer;
-        }
-    .myNext {
-        background-color: green;
-    }
-        .myNext::after {
-            content: " >";
-        }
-    .myPrev {
-        background-color: red;
-    }
-        .myPrev:::before {
-            content: "< ";
-        }
-         
-</style>
-
-<div class="container-fluid">
+﻿<div class="container-fluid">
     <div class="row">
         <div class="col-8">
             <h4 style="margin-top:10px; margin-bottom: 20px;">Search results: </h4>
@@ -54,7 +19,7 @@
          -->
     </div>
         <div class="row">
-            <div class="col">
+            <div class="col ml-3">
                 <button class="mybutton myPrev" data-bind="click: prevPage">Previous Page</button>
                 <button class="mybutton myNext" data-bind="click: nextPage">Next Page</button>
             </div>

@@ -40,10 +40,20 @@ require(['knockout'], function (ko) {
         template: { require: 'text!components/postList/postCommentListView.html' }
     });
 
+    ko.components.register("favorites-list", {
+        viewModel: { require: 'components/historyList/historyList' },
+        template: { require: 'text!components/historyList/favoritesListView.html' }
+    });
+
 	ko.components.register("post", {
 		viewModel: { require: 'components/post/post' },
 		template: { require: 'text!components/post/postView.html' }
-	});
+    });
+
+    ko.components.register("favorite", {
+        viewModel: { require: 'components/favorite/favorite' },
+        template: { require: 'text!components/favorite/favoriteView.html' }
+    });
     
     ko.components.register("comment", {
         viewModel: { require: 'components/comment/comment' },
