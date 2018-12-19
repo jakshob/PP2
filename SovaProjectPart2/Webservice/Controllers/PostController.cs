@@ -90,13 +90,14 @@ namespace WebService.Controllers
             return Ok(answerPosts);
         }
 
-		[HttpGet("termNetwork/{wordInput}", Name = nameof(GetForceGraph))]
-		public IActionResult GetForceGraph(string word) {
-			var result = _dataService.GetForceGraph(word);
-			return Ok(result);
-		}
+        [HttpGet("termNetwork/{wordInput}", Name = nameof(GetForceGraph))]
+        public IActionResult GetForceGraph(string wordInput)
+        {
+            var result = _dataService.GetForceGraph(wordInput);
+            return Ok(result);
+        }
 
-		[HttpGet("searchQuestionsSortByScore/{searchInput}", Name = nameof(GetSearchQuestionsSortByScore))]
+        [HttpGet("searchQuestionsSortByScore/{searchInput}", Name = nameof(GetSearchQuestionsSortByScore))]
         public IActionResult GetSearchQuestionsSortByScore(string searchInput, int page = 0, int pageSize = 5)
         {
             var questionPosts = _dataService.GetSearchQuestionsSortedByScore(searchInput, page, pageSize)
@@ -113,9 +114,9 @@ namespace WebService.Controllers
             };
             return Ok(result);
         }
-        
 
-        [HttpGet("TraverseSearchResults/{searchInput}", Name =nameof(TraverseSearchResults))]
+
+        [HttpGet("TraverseSearchResults/{searchInput}", Name = nameof(TraverseSearchResults))]
         public IActionResult TraverseSearchResults(string searchInput, int page = 0, int pageSize = 5)
         {
             var answerPosts = _dataService.TraverseSearchResults(searchInput, "Mogens", page, pageSize)
@@ -163,7 +164,7 @@ namespace WebService.Controllers
             return model;
         }
 
-        private static AnswerListModel CreateAnswerListModel (Answer answer)
+        private static AnswerListModel CreateAnswerListModel(Answer answer)
         {
             var model = Mapper.Map<AnswerListModel>(answer);
             model.PostId = answer.Id;

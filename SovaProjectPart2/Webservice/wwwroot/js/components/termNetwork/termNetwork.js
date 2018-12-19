@@ -1,9 +1,15 @@
 ﻿define(['jquery', 'knockout', 'dataService', 'postman', 'jqcloud'], function ($, ko, ds, postman, jqcloud) {
     return function (params) {
 
-        var networkString = ko.observable();
+        var networkString = ko.observable("java");
         var shouldShowNetwork = ko.observable(false);
         var apiString = ko.observable("api/posts/termNetwork/");
+
+        var update = function (api) {
+            ds.getForceGraph(networkString(), function (data) {
+
+            });
+        };
 
         var termNetwork = function () {
             shouldShowNetwork(true);
@@ -19,9 +25,7 @@
             { text: "placeholder", weight: 1 }
         ]);
 
-        var update = function (api) {
-            ds.getForceGraph(networkString);
-        };
+
 
         return {
             words,

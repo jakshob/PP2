@@ -17,11 +17,10 @@ namespace WebService.Controllers
             _dataService = dataService;
         }
 
-// Virker ikke ordentligt pt.
         [HttpGet("{username}", Name = nameof(GetFavorites))]
         public IActionResult GetFavorites(string username, int page = 0, int pageSize = 5)
         {
-            var favoritesByUsername = _dataService.GetFavorites(username,page,pageSize).Select(CreateFavoriteListModel);
+            var favoritesByUsername = _dataService.GetFavorites(username, page, pageSize).Select(CreateFavoriteListModel);
             var numberOfPages = HelperController.ComputeNumberOfPages(page, pageSize);
 
             var result = new

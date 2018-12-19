@@ -15,6 +15,7 @@ namespace DomainModel
 
         public DbQuery<SearchResult> SearchResults { get; set; }
         public DbQuery<RelevantWord> RelevantWords { get; set; }
+        public DbQuery<RelevantWord2> RelevantWords2 { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -29,7 +30,7 @@ namespace DomainModel
         {
             base.OnModelCreating(modelBuilder);
 
-            
+
             //Comment
             modelBuilder.Entity<Comment>().ToTable("comment");
             modelBuilder.Entity<Comment>().Property(x => x.Id).HasColumnName("id");
@@ -61,7 +62,7 @@ namespace DomainModel
             modelBuilder.Entity<QA_User>().Property(x => x.Location).HasColumnName("location");
             modelBuilder.Entity<QA_User>().Property(x => x.Age).HasColumnName("age");
 
-            
+
             //Sova_User
             modelBuilder.Entity<SOVA_User>().ToTable("users");
             modelBuilder.Entity<SOVA_User>().Property(x => x.Username).HasColumnName("username");
@@ -75,18 +76,18 @@ namespace DomainModel
             modelBuilder.Entity<Post>().Property(x => x.Posttype).HasColumnName("posttype");
             modelBuilder.Entity<Post>().Property(x => x.Body).HasColumnName("body");
             modelBuilder.Entity<Post>().Property(x => x.Score).HasColumnName("score");
-			modelBuilder.Entity<Post>().Property(x => x.CreationDate).HasColumnName("creationdate");
-			modelBuilder.Entity<Post>().Property(x => x.QA_UserId).HasColumnName("ownerid");
-			modelBuilder.Entity<Post>().HasDiscriminator(x => x.Posttype)
+            modelBuilder.Entity<Post>().Property(x => x.CreationDate).HasColumnName("creationdate");
+            modelBuilder.Entity<Post>().Property(x => x.QA_UserId).HasColumnName("ownerid");
+            modelBuilder.Entity<Post>().HasDiscriminator(x => x.Posttype)
                 .HasValue<Question>(1)
                 .HasValue<Answer>(2);
 
             modelBuilder.Entity<Question>().Property(x => x.Title).HasColumnName("title");
-			
+
             modelBuilder.Entity<Answer>().Property(x => x.ParentId).HasColumnName("parentid");
 
-            
-			
+
+
         }
-	}
+    }
 }
