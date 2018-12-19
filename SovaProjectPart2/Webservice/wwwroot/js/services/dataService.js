@@ -1,6 +1,13 @@
-﻿define(['jquery'], function ($) {
+﻿define(['jquery','postman', 'knockout'], function ($, postman, ko) {
+    var username = ko.observable();
+    
+    postman.subscribe("user", function (data) {
+        username(data.Username);
+        console.log("SWOOP")
+        });
+
 	var getPosts = function (callback, api) {
-		$.getJSON(api, function (data) {
+		$.getJSON(api + "/" + username(), function (data) {
 			callback(data);
 		});
 	};

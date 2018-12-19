@@ -96,10 +96,10 @@ namespace WebService.Controllers
 			return Ok(result);
 		}
 
-		[HttpGet("searchQuestionsSortByScore/{searchInput}", Name = nameof(GetSearchQuestionsSortByScore))]
-        public IActionResult GetSearchQuestionsSortByScore(string searchInput, int page = 0, int pageSize = 5)
+		[HttpGet("searchQuestionsSortByScore/{searchInput}/{username}", Name = nameof(GetSearchQuestionsSortByScore))]
+        public IActionResult GetSearchQuestionsSortByScore(string username, string searchInput, int page = 0, int pageSize = 5)
         {
-            var questionPosts = _dataService.GetSearchQuestionsSortedByScore(searchInput, page, pageSize)
+            var questionPosts = _dataService.GetSearchQuestionsSortedByScore(username, searchInput, page, pageSize)
                 .Select(CreateSearchListModel);
             var numberOfPages = HelperController.ComputeNumberOfPages(page, pageSize);
 

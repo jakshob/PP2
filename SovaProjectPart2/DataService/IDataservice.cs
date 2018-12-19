@@ -15,7 +15,7 @@ namespace DomainModel
         Question GetQuestion(int id);
         List<Question> GetQuestions(int page, int pageSize);
 
-        List<SearchResult> GetSearchQuestionsSortedByScore(string searchText, int page, int pageSize);
+        List<SearchResult> GetSearchQuestionsSortedByScore(string username, string searchText, int page, int pageSize);
         List<Question> SearchSova(string sinput, string userName, int page, int pageSize);
         List<Question> TraverseSearchResults(string sinput, string userName, int page, int pageSize);
 

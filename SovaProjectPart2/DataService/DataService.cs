@@ -182,8 +182,7 @@ namespace DomainModel
                 List<RelevantWord> tempList = new List<RelevantWord>();
 
 
-                foreach (var result in db.RelevantWords.FromSql("select * from \"wordToWords\"({0},{1})", word,
-                    "Mogens"))
+                foreach (var result in db.RelevantWords.FromSql("select * from \"wordToWords\"({0},{1})", word,"Mogens"))
                 {
                     if (result.Text != word)
                     {
@@ -212,15 +211,14 @@ namespace DomainModel
 			return result;
 		}
 
-        public List<SearchResult> GetSearchQuestionsSortedByScore(string searchText, int page, int pageSize) {
+        public List<SearchResult> GetSearchQuestionsSortedByScore(string username, string searchText, int page, int pageSize) {
 
             using (var db = new SovaContext())
             {
                 
                 List<SearchResult> tempList = new List<SearchResult>();
 
-                foreach (var result in db.SearchResults.FromSql("select * from \"bestMatchSova\"({0},{1})", searchText,
-                    "Mogens"))
+                foreach (var result in db.SearchResults.FromSql("select * from \"bestMatchSova\"({0},{1})", searchText, username))
                 {
                     if (result.posttype == 1)
                     {
