@@ -10,8 +10,22 @@
         });
     };
 
-    var getForceGraph = function (word) {
-        $.getJSON('api/posts/termNetwork/' + word)
+	var getForceGraph = function (word, callback) {
+		var url = 'api/posts/termNetwork/' + word;
+		console.log(url);
+		$.ajax({
+			contentType: "text/plain",
+			url: url,
+			success: function(data) {
+				callback(JSON.parse(data));
+			},
+			error: function(x) {
+				console.log(x);
+			}
+		});
+		//$.getJSON(url, function(data) {
+		//	callback(data);
+		//});
     };
 
     var getUser = function (callback, user) {
