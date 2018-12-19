@@ -10,7 +10,7 @@
         { name: 'MyPage', component: 'my-page-view' },
         { name: 'SingleResult', component: 'single-post' },
         { name: 'Log In', component: 'login-view' }
-	
+
     ];
 
     var selectedMenu = ko.observable(menuItems[0]);

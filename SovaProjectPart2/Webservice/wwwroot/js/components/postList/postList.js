@@ -27,7 +27,7 @@
             }, api);
         };
 
-        //update(apiString());
+        update(apiString());
 
         var sendSinglePost = function (data) {
             postman.publish("postToShow", data);

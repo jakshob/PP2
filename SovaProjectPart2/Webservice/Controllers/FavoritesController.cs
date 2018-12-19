@@ -17,6 +17,7 @@ namespace WebService.Controllers
             _dataService = dataService;
         }
 
+// Virker ikke ordentligt pt.
         [HttpGet("{username}", Name = nameof(GetFavorites))]
         public IActionResult GetFavorites(string username, int page = 0, int pageSize = 5)
         {
