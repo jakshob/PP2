@@ -50,9 +50,9 @@ namespace WebService.Controllers
         }
 
         //Helper
-        private FavoriteListModel CreateFavoriteListModel(Question favorite)
+        private QuestionListModel CreateFavoriteListModel(Question favorite)
         {
-            var model = Mapper.Map<FavoriteListModel>(favorite);
+            var model = Mapper.Map<QuestionListModel>(favorite);
             model.Url = Url.Link(nameof(GetFavorites), new { id = favorite.Id });
             return model;
         }
